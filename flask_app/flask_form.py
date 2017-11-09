@@ -7,7 +7,7 @@
 import os
 #sys.path.append('.')
 from flask import Flask,Blueprint, render_template, redirect, request, flash, url_for, send_file
-from rcat.rcat_main import View
+from rcat.rcat_main import rcat
 
 app = Flask(__name__)
 
@@ -51,7 +51,7 @@ def upload():
 
     #print(os.path.basename(os.getcwd()))
     os.chdir("../rcat/")
-    View().main_PDF(text_file=destination, character_file="rcat/doc/character_lists/Goethe_Werther_74_characters.txt",
+    rcat().main_PDF(text_file=destination, character_file="rcat/doc/character_lists/Goethe_Werther_74_characters.txt",
                   dist_parameter=[8, 5, 5],
                   remove_stopwords_in_context="n",
                   segments=5, lang=1, number_of_wc=3,
