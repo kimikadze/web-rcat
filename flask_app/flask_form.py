@@ -7,7 +7,7 @@
 import os
 #sys.path.append('.')
 from flask import Flask,Blueprint, render_template, redirect, request, flash, url_for, send_file
-from macos.rcat.rcat_main import View
+from rcat.rcat_main import View
 
 app = Flask(__name__)
 

@@ -1,12 +1,12 @@
 import os
-from macos.rcat.text_reader_module import text_reader
-from macos.rcat.characters_reader_module import characters_reader
-from macos.rcat.relations_module import relations
-from macos.rcat.network_generator_module import network_generator
-from macos.rcat.pdf_latex_module import pdf_latex
-from macos.rcat.network_parameters_module import network_parameters
-from macos.rcat.word_field_module import WordField
-from macos.rcat.weblicht_text_character_ner_reader_module import weblicht_text_character_ner_reader
+from rcat.text_reader_module import text_reader
+from rcat.characters_reader_module import characters_reader
+from rcat.relations_module import relations
+from rcat.network_generator_module import network_generator
+from rcat.pdf_latex_module import pdf_latex
+from rcat.network_parameters_module import network_parameters
+from rcat.word_field_module import WordField
+from rcat.weblicht_text_character_ner_reader_module import weblicht_text_character_ner_reader
 from tkinter import *
 from tkinter import filedialog, messagebox
 
