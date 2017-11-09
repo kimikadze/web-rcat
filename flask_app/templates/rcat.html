@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+<html>
+    <head>
+        <title>rCat</title>
+       <link rel="stylesheet" media="screen" href ="static/bootstrap.min.css">
+       <link rel="stylesheet" href="static/bootstrap-theme.min.css">
+       <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+ 
+    </head>
+    <body>
+ 
+<h1>rcat</h1>
+<form id="upload", action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="send">
+
+</form>
+
+
+</body>
+</html>
