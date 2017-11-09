@@ -57,7 +57,7 @@ class rcat(object):
 
             single_character_context = relations().count_context_words_for_single_characters(character_positions,
                                                                                              characters,
-                                                                                             txt_tokenized,
+                                                                                             txt_tokenized, delete_stopwords_in_context=del_stopwords_in_context,
                                                                                              word_field=word_field,
                                                                                              stop_words="rcat/stopwords/stopwords_de_except_ich.txt")
 
@@ -175,7 +175,7 @@ if __name__ == "__main__":
 
     rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/rcat/rcat/doc/texts/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/rcat/rcat/doc/character_lists/Goethe_Werther_74_characters.txt",
                   dist_parameter=[8, 5, 5],
-                  remove_stopwords_in_context="y",
+                  remove_stopwords_in_context="n",
                   segments=5, lang=1, number_of_wc=3,
                   write_gephi_csv="n",
                   word_field = "N",
