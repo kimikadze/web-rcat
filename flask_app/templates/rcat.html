@@ -13,11 +13,25 @@
 <h1>rcat</h1>
 <form id="upload", action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
 
-    <p>Select text file</p>
-    <input type="file" name="file">
 
-    <p>Select character file</p>
-    <input type="file" name="file">
+    <p>Select text file:</p>
+    <input type="file" name="file"/>
+
+    <p>Select character file:</p>
+    <input type="file" name="file"/>
+
+
+
+    <p>Specify relation distance</p>
+    <input type="text" name="distance"/>
+
+    <p>Specify words before</p>
+    <input type="text" name="before"/>
+
+    <p>Specify words after</p>
+    <input type="text" name="after"/>
+
+
 
     <input type="submit" value="send">
 

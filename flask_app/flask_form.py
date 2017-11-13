@@ -23,13 +23,7 @@ def index():
 
 
 
-@app.route("/return-file/")
-def return_file():
-    #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
-    #print(os.path.basename(os.getcwd()))
-    #print(os.getcwd())
-    pdf_path = "/".join(([os.getcwd(), "relations.pdf"]))
-    return send_file(pdf_path)
+
 
 
 @app.route("/upload", methods=["POST"])
@@ -41,7 +35,12 @@ def upload():
         os.mkdir(target)
 
 
-    #process text file (first file)
+    #print(request.files.getlist("file"))
+    #print(request.form["distance"])
+    print(int(request.form["distance"]))
+    print(int(request.form["before"]))
+
+    #PROCESS FIRST FILE (TEXT)
 
     first_file = request.files.getlist("file")[0]
 
@@ -51,7 +50,7 @@ def upload():
 
     first_file.save(destination_first_file)
 
-    #process text file (first file)
+    #PROCESS SECOND FILE (CHARACTERS)
 
     second_file = request.files.getlist("file")[1]
 
@@ -61,13 +60,20 @@ def upload():
 
     second_file.save(destination_second_file)
 
+    #GET DISTANCE PARAMETERS
+
+    distance = int(request.form["distance"])
+    words_before = int(request.form["before"])
+    words_after = int(request.form["after"])
 
 
+
+    # RUN RCAT
 
     #print(os.path.basename(os.getcwd()))
     os.chdir("../rcat/")
     rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
-                  dist_parameter=[8, 5, 5],
+                  dist_parameter=[distance, words_before, words_after],
                   remove_stopwords_in_context="n",
                   segments=5, lang=1, number_of_wc=3,
                   write_gephi_csv="n",
@@ -79,9 +85,15 @@ def upload():
     return render_template('rcat_done.html')
 
 
-
+@app.route("/return-file/")
+def return_file():
+    #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
+    #print(os.path.basename(os.getcwd()))
+    #print(os.getcwd())
+    pdf_path = "/".join(([os.getcwd(), "relations.pdf"]))
+    return send_file(pdf_path)
     
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=50002)
+    app.run(host='0.0.0.0',port=50001)
 
