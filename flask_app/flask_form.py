@@ -34,36 +34,39 @@ def return_file():
 
 @app.route("/upload", methods=["POST"])
 def upload():
-    target = os.path.join(APP_ROOT, "files/")
+    target = os.path.join(APP_ROOT, "files_upload/")
     #print(target)
 
     if not os.path.isdir(target):
         os.mkdir(target)
 
-    #print(len(request.files.getlist("file")))
 
-    for file in request.files.getlist("file"):
-    #for file in urllib.request.files.getlist("file"):
-        #print(file)
-        counter = 1
-        #print(counter)
+    #process text file (first file)
 
-        #print(file)
+    first_file = request.files.getlist("file")[0]
 
-        filename = file.filename
-        filename = str(str(counter)+filename)
-        destination = "".join(([target, filename]))
-        #print(destination)
+    filename = first_file.filename
+    filename = str("1__"+filename)
+    destination_first_file = "".join(([target, filename]))
 
-        #print(destination)
-        counter += 1
-        file.save(destination)
+    first_file.save(destination_first_file)
 
-    #print(destination)
+    #process text file (first file)
+
+    second_file = request.files.getlist("file")[1]
+
+    filename = second_file.filename
+    filename = str("2__"+filename)
+    destination_second_file = "".join(([target, filename]))
+
+    second_file.save(destination_second_file)
+
+
+
 
     #print(os.path.basename(os.getcwd()))
     os.chdir("../rcat/")
-    rcat().main_PDF(text_file=destination, character_file="rcat/doc/character_lists/Goethe_Werther_74_characters.txt",
+    rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
                   dist_parameter=[8, 5, 5],
                   remove_stopwords_in_context="n",
                   segments=5, lang=1, number_of_wc=3,
