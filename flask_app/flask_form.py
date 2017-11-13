@@ -40,14 +40,26 @@ def upload():
     if not os.path.isdir(target):
         os.mkdir(target)
 
+    #print(len(request.files.getlist("file")))
+
     for file in request.files.getlist("file"):
     #for file in urllib.request.files.getlist("file"):
+        #print(file)
+        counter = 1
+        #print(counter)
 
         #print(file)
+
         filename = file.filename
-        destination = "/".join(([target, filename]))
+        filename = str(str(counter)+filename)
+        destination = "".join(([target, filename]))
         #print(destination)
+
+        #print(destination)
+        counter += 1
         file.save(destination)
+
+    #print(destination)
 
     #print(os.path.basename(os.getcwd()))
     os.chdir("../rcat/")

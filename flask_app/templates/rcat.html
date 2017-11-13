@@ -12,7 +12,13 @@
  
 <h1>rcat</h1>
 <form id="upload", action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+
+    <p>Select text file</p>
     <input type="file" name="file">
+
+    <p>Select character file</p>
+    <input type="file" name="file">
+
     <input type="submit" value="send">
 
 </form>
