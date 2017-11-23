@@ -14,25 +14,66 @@
 <form id="upload", action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
 
 
-    <p>Select text file:</p>
+    <p><b>Select text file:</b></p>
     <input type="file" name="file"/>
 
-    <p>Select character file:</p>
+    <p><b>Select character file:</b></p>
     <input type="file" name="file"/>
 
 
 
-    <p>Specify relation distance</p>
+    <p><b>Specify relation distance</b></p>
     <input type="text" name="distance"/>
 
-    <p>Specify words before</p>
+    <p><b>Specify words before</b></p>
     <input type="text" name="before"/>
 
-    <p>Specify words after</p>
+    <p><b>Specify words after</b></p>
     <input type="text" name="after"/>
 
 
+    <br>
+    <br>
+    <font color="red">***parameters below are not working yet*** !!!</font>
 
+    <p><b>Remove stop words?</b></p>
+    <input type="radio" name="stopwords" value="y">yes<br>
+    <input type="radio" name="stopwords" value="n">no<br>
+
+    <p><b>Download a csv file for Gephi?</b></p>
+    <input type="radio" name="gephi_csv" value="y">yes<br>
+    <input type="radio" name="gephi_csv" value="n">no<br>
+
+    <p><b>Lemmatisation?(n/treetagger/weblicht)</b></p>
+
+    <p><b>Word clouds to show</b></p>
+    <input type="text" name="word_clouds">
+
+    <p><b>Segments</b></p>
+
+    <p><b>Analyze with word fields</b></p>
+
+    <input type="radio" name="word_fields" value="single_category">Single Category<br>
+    <p>Select single word field file:</p>
+    <input type="file" name="file"/>
+
+    <br>
+    <br>
+
+    <input type="radio" name="word_fields" value="multi_category">Multi category<br>
+    <p>Select word field folder:</p>
+    <input type="file" name="file"/>
+
+
+    <p><b>Text Language</b></p>
+    <input type="radio" name="language" value="English">English<br>
+    <input type="radio" name="language" value="German">German<br>
+    <input type="radio" name="language" value="Middle High German">Middle High German<br>
+
+
+
+    <br>
+    <br>
     <input type="submit" value="send">
 
 </form>
