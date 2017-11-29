@@ -71,7 +71,9 @@ def upload():
 
     stopwords_parameter = request.form["stopwords"]
     lemmatisation_parameter = request.form["lemmatisation"]
-    wordcloud_parameter = request.form["word_clouds"]
+    #print(lemmatisation_parameter)
+    wordcloud_parameter = int(request.form["word_clouds"])
+    #print(wordcloud_parameter)
     language_parameter = request.form["language"]
 
 
