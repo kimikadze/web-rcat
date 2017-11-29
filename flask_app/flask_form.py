@@ -37,8 +37,9 @@ def upload():
 
     #print(request.files.getlist("file"))
     #print(request.form["distance"])
-    print(int(request.form["distance"]))
-    print(int(request.form["before"]))
+    #print(int(request.form["distance"]))
+    #print(int(request.form["before"]))
+
 
     #PROCESS FIRST FILE (TEXT)
 
@@ -66,6 +67,12 @@ def upload():
     words_before = int(request.form["before"])
     words_after = int(request.form["after"])
 
+    #GET OTHER PARAMETERS
+
+    stopwords_parameter = request.form["stopwords"]
+    lemmatisation_parameter = request.form["lemmatisation"]
+    wordcloud_parameter = request.form["word_clouds"]
+    language_parameter = request.form["language"]
 
 
     # RUN RCAT
@@ -74,12 +81,12 @@ def upload():
     os.chdir("../rcat/")
     rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
                   dist_parameter=[distance, words_before, words_after],
-                  remove_stopwords_in_context="n",
-                  segments=5, lang=1, number_of_wc=3,
+                  remove_stopwords_in_context=stopwords_parameter,
+                  segments=5, lang=1, number_of_wc=wordcloud_parameter,
                   write_gephi_csv="n",
                   word_field = "N",
                   wf_cat="None",
-                  lemmatisation="treetagger")
+                  lemmatisation=lemmatisation_parameter)
 
 
     return render_template('rcat_done.html')

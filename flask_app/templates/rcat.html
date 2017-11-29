@@ -31,23 +31,35 @@
     <p><b>Specify words after</b></p>
     <input type="text" name="after" value="8"/>
 
+    <p><b>Remove stop words?</b></p>
+    <input type="radio" name="stopwords" value="y" checked="checked">yes<br>
+    <input type="radio" name="stopwords" value="n">no<br>
+
+    <p><b>Lemmatisation</b></p>
+    <input type="radio" name="lemmatisation" value="treetagger" checked="checked">yes (treetagger)<br>
+    <input type="radio" name="lemmatisation" value="n">no<br>
+
+    <p><b>Word clouds to show</b></p>
+    <input type="text" name="word_clouds" value="5">
+
+
 
     <br>
     <br>
     <font color="red">***parameters below are not working yet*** !!!</font>
 
-    <p><b>Remove stop words?</b></p>
-    <input type="radio" name="stopwords" value="y">yes<br>
-    <input type="radio" name="stopwords" value="n">no<br>
+
+
+    <p><b>Text Language</b></p>
+    <input type="radio" name="language" value="German" checked="checked">German<br>
+    <input type="radio" name="language" value="English">English<br>
+    <input type="radio" name="language" value="Middle High German">Middle High German<br>
+
 
     <p><b>Download a csv file for Gephi?</b></p>
     <input type="radio" name="gephi_csv" value="y">yes<br>
     <input type="radio" name="gephi_csv" value="n">no<br>
 
-    <p><b>Lemmatisation?(n/treetagger/weblicht)</b></p>
-
-    <p><b>Word clouds to show</b></p>
-    <input type="text" name="word_clouds">
 
     <p><b>Segments</b></p>
 
@@ -65,10 +77,7 @@
     <input type="file" name="file"/>
 
 
-    <p><b>Text Language</b></p>
-    <input type="radio" name="language" value="English">English<br>
-    <input type="radio" name="language" value="German">German<br>
-    <input type="radio" name="language" value="Middle High German">Middle High German<br>
+
 
 
 
