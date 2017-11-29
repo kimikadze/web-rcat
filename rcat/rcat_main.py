@@ -6,7 +6,6 @@ from rcat.network_generator_module import network_generator
 from rcat.pdf_latex_module import pdf_latex
 from rcat.network_parameters_module import network_parameters
 from rcat.word_field_module import WordField
-from rcat.weblicht_text_character_ner_reader_module import weblicht_text_character_ner_reader
 from tkinter import *
 from tkinter import filedialog, messagebox
 
