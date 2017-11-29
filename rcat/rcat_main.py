@@ -61,35 +61,6 @@ class rcat(object):
                                                                                              word_field=word_field,
                                                                                              stop_words="rcat/stopwords/stopwords_de_except_ich.txt")
 
-        # if lemmatisation == "weblicht":
-        #     # ****** temporary stub until weblicht is fixed *******
-        #     #messagebox.showinfo("Error", "Lemmatisation with Weblicht failed. Falling back to no-lemmatization method")
-        #     txt = text_reader().read_text_file(txt_file=text__file)
-        #     txt_tokenized = text_reader().tokenize_lemmatize_text(txt)
-        #     call = self.tok(txt_tokenized,
-        #                      character__file,
-        #                      distance_parameter,
-        #                      del_stopwords_in_context,
-        #                      word_field,lang)
-
-            # ****** end of stub *************
-
-            # filename_without_path = re.findall(".*/(.*)/(.*.txt)",text__file)
-            #
-            # #print(filename_without_path)
-            # #print(filename_without_path)
-            # #print(text__file)
-            #
-            # weblicht_text_character_ner_reader.weblicht_tcf(filepath=text__file)
-            #
-            # #print(os.getcwd())
-            # tcf_data = weblicht_text_character_ner_reader.tcf_reader("rcat/test_folder/%s.tcf" %filename_without_path[0][1])
-            # txt_tokenized = weblicht_text_character_ner_reader.build_lemmatized_text(tcf_data)
-
-            # print(txt_tokenized)
-            # ***** the commendted code don't work yet 
-
-        # print("calculate network parameters...")
 
             holder = {"character_relations": character_relations,
                       "character_relations_context": character_relations_context,
