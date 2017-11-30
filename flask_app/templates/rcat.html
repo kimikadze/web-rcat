@@ -49,13 +49,37 @@
     <!-- <input type="radio" name="language" value="Middle High German">Middle High German<br> -->
 
 
-    <!--<p><b>Segments</b></p>
-    <input type="text" name=segments" value="10">-->
+   <p><b>Segments</b></p>
+    <input type="text" name="segments" value="10">
 
 
-    <br>
+    <p><b>Analyze with word fields</b></p>
+
+    <input type="radio" name="word_fields" value="N" checked="checked">No<br>
+    <input type="radio" name="word_fields" value="single">Single Category<br>
+    <div style="text-indent:30px;">
+        <i>Select single file:</i>
+        <input type="file" name="file"/>
+    </div>
+
+
+
+
     <br>
     <font color="red">***parameters below are not working yet*** !!!</font>
+
+
+
+
+
+    <br>
+    <input type="radio" name="word_fields" value="multi_category">Multi category<br>
+    <div style="text-indent:30px;">
+        <i>Select folder:</i>
+        <input type="file" name="file"/>
+    </div>
+
+
 
 
     <p><b>Download a csv file for Gephi?</b></p>
@@ -69,19 +93,10 @@
 
 
 
-
-    <p><b>Analyze with word fields</b></p>
-
-    <input type="radio" name="word_fields" value="single_category">Single Category<br>
-    <p>Select single word field file:</p>
-    <input type="file" name="file"/>
-
     <br>
     <br>
 
-    <input type="radio" name="word_fields" value="multi_category">Multi category<br>
-    <p>Select word field folder:</p>
-    <input type="file" name="file"/>
+
 
 
 

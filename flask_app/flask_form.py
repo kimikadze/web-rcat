@@ -70,7 +70,23 @@ def upload():
     wordcloud_parameter = int(request.form["word_clouds"])
     #print(wordcloud_parameter)
     language_parameter = request.form["language"]
-    #segments_parameter = int(request.form["segments"])
+    segments_parameter = int(request.form["segments"])
+
+
+    #GET WORD FIELD PARAMETER
+    wordfield_parameter = request.form["word_fields"]
+
+    if wordfield_parameter=="N":
+        wf_cat_parameter= "None"
+    if wordfield_parameter=="single":
+        third_file = request.files.getlist("file")[2]
+        filename = third_file.filename
+        filename = str("3__"+filename)
+        destination_third_file = "".join(([target, filename]))
+        third_file.save(destination_third_file)
+        print(destination_third_file)
+
+        wf_cat_parameter = destination_third_file
 
 
     # RUN RCAT
@@ -80,10 +96,10 @@ def upload():
     rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
                   dist_parameter=[distance, words_before, words_after],
                   remove_stopwords_in_context=stopwords_parameter,
-                  segments=5, txt_language=language_parameter, number_of_wc=wordcloud_parameter,
+                  segments=segments_parameter, txt_language=language_parameter, number_of_wc=wordcloud_parameter,
                   write_gephi_csv="n",
-                  word_field = "N",
-                  wf_cat="None",
+                  word_field = wordfield_parameter,
+                  wf_cat=wf_cat_parameter,
                   lemmatisation=lemmatisation_parameter)
 
 
