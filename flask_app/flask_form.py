@@ -35,11 +35,6 @@ def upload():
         os.mkdir(target)
 
 
-    #print(request.files.getlist("file"))
-    #print(request.form["distance"])
-    #print(int(request.form["distance"]))
-    #print(int(request.form["before"]))
-
 
     #PROCESS FIRST FILE (TEXT)
 
@@ -75,6 +70,7 @@ def upload():
     wordcloud_parameter = int(request.form["word_clouds"])
     #print(wordcloud_parameter)
     language_parameter = request.form["language"]
+    #segments_parameter = int(request.form["segments"])
 
 
     # RUN RCAT
@@ -84,7 +80,7 @@ def upload():
     rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
                   dist_parameter=[distance, words_before, words_after],
                   remove_stopwords_in_context=stopwords_parameter,
-                  segments=5, lang=1, number_of_wc=wordcloud_parameter,
+                  segments=5, txt_language=language_parameter, number_of_wc=wordcloud_parameter,
                   write_gephi_csv="n",
                   word_field = "N",
                   wf_cat="None",

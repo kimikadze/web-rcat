@@ -19,11 +19,11 @@ class rcat(object):
     def data_holder(self, text__file, character__file, temporary_path=str(),
                     distance_parameter=[5, 3, 3], del_stopwords_in_context="n", segments=int(10),
                     number_of_wc=str(), write_gephi_csv = str(), word_field=str(), wf_cat=str(), lemmatisation="n",
-                    lang=str(),choose_method=str()):
+                    language="German",choose__method=str()):
 
-        holder = dict(character_relations=0, character_relations_context=0, text_file=0, character_file=0,
-                      tokenized_text=0, characters=0, parameter=0, network_parameters=0,
-                      single_character_context=0, segments=0, lemmatisation=0, lang=0, number_of_wc=0, word_field=0, wf_cat=0)
+        # holder = dict(character_relations=0, character_relations_context=0, text_file=0, character_file=0,
+        #               tokenized_text=0, characters=0, parameter=0, network_parameters=0,
+        #               single_character_context=0, segments=0, lemmatisation=0, lang=0, number_of_wc=0, word_field=0, wf_cat=0)
 
         if word_field != "N":
 
@@ -36,7 +36,7 @@ class rcat(object):
 
         if lemmatisation != "weblicht":
             txt = text_reader().read_text_file(txt_file=text__file)
-            txt_tokenized = text_reader().tokenize_lemmatize_text(txt, lemmatisation)
+            txt_tokenized = text_reader().tokenize_lemmatize_text(txt, lemmatize=lemmatisation, text_language=language)
 
             characters = characters_reader().read_characters(char_file=character__file)
             characters_tokenized = characters_reader().tokenize_characters(characters)
@@ -96,7 +96,7 @@ class rcat(object):
                  word_field=str(),
                  wf_cat=str(),
                  lemmatisation="n",
-                 lang=str(),
+                 txt_language="German",
                  choose_method="graphvis_col"):
 
         dirpath = os.getcwd()
@@ -113,8 +113,8 @@ class rcat(object):
                                     word_field,
                                     wf_cat,
                                     lemmatisation,
-                                    lang,
-                                    choose_method)
+                                    language=txt_language,
+                                    choose__method=choose_method)
 
         # print("writing PDF...")
         pdf = pdf_latex().initialize()
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/rcat/rcat/doc/texts/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/rcat/rcat/doc/character_lists/Goethe_Werther_74_characters.txt",
                   dist_parameter=[8, 5, 5],
                   remove_stopwords_in_context="n",
-                  segments=5, lang=1, number_of_wc=3,
+                  segments=5, txt_language="German", number_of_wc=3,
                   write_gephi_csv="n",
                   word_field = "N",
                   wf_cat="None",
