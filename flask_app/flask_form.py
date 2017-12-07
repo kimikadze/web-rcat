@@ -95,7 +95,14 @@ def upload():
     # RUN RCAT
 
     #print(os.path.basename(os.getcwd()))
-    os.chdir("rcat/")
+    #print("1")
+    #print(os.getcwd())
+    if os.getcwd().endswith("/flask_app") == True:
+        os.chdir("rcat/")
+    if os.getcwd().endswith("/rcat") == True:
+        pass
+    else:
+        print("multiple session path error")
     rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
                   dist_parameter=[distance, words_before, words_after],
                   remove_stopwords_in_context=stopwords_parameter,
@@ -115,16 +122,16 @@ def return_file():
     #print(os.path.basename(os.getcwd()))
     #print(os.getcwd())
     pdf_path = "/".join(([os.getcwd(), "relations.pdf"]))
-    #print("1")
+    #print("2")
     #print(os.getcwd())
 
-    os.chdir("../")
+    #os.chdir("../")
 
-    #print("2")
+    #print("3")
     #print(os.getcwd())
     return send_file(pdf_path)
     
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=50007)
+    app.run(host='0.0.0.0',port=50011)
 
