@@ -5,15 +5,21 @@
 # import sys
 # import time
 import os
+import uuid
+
 
 # sys.path.append('.')
 from flask import Flask, Blueprint, render_template, redirect, request, flash, url_for, send_file
 
 from rcat.rcat_main import rcat
 
-app = Flask(__name__)
 
+
+app = Flask(__name__)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+session_id = uuid.uuid1()
+
 
 @app.route("/")
 
@@ -30,6 +36,8 @@ def index():
 
 @app.route("/upload", methods=["POST"])
 def upload():
+
+    print(session_id)
     target = os.path.join(APP_ROOT, "files_upload/")
     #print(target)
 
@@ -97,12 +105,17 @@ def upload():
     #print(os.path.basename(os.getcwd()))
     #print("1")
     #print(os.getcwd())
-    if os.getcwd().endswith("/flask_app") == True:
-        os.chdir("rcat/")
-    if os.getcwd().endswith("/rcat") == True:
-        pass
-    else:
-        print("multiple session path error")
+
+    ############
+    # if os.getcwd().endswith("/flask_app") == True:
+    #     os.chdir("rcat/")
+    # if os.getcwd().endswith("/rcat") == True:
+    #     pass
+    # else:
+    #     print("multiple session path error")
+    ##############
+
+
     rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
                   dist_parameter=[distance, words_before, words_after],
                   remove_stopwords_in_context=stopwords_parameter,
@@ -110,7 +123,7 @@ def upload():
                   write_gephi_csv="n",
                   word_field = wordfield_parameter,
                   wf_cat=wf_cat_parameter,
-                  lemmatisation=lemmatisation_parameter)
+                  lemmatisation=lemmatisation_parameter, sess_id=session_id)
 
 
     return render_template('rcat_done.html')
@@ -121,7 +134,7 @@ def return_file():
     #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
     #print(os.path.basename(os.getcwd()))
     #print(os.getcwd())
-    pdf_path = "/".join(([os.getcwd(), "relations.pdf"]))
+    pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id]))
     #print("2")
     #print(os.getcwd())
 
@@ -133,5 +146,5 @@ def return_file():
     
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=50011)
+    app.run(host='0.0.0.0',port=50017)
 

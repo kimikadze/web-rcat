@@ -329,8 +329,11 @@ class pdf_latex:
 
         return doc
 
-    def finalize(self, doc):
-        doc.generate_pdf("relations", clean_tex=True)
+    def finalize(self, doc, s_id):
+        if s_id==False:
+            doc.generate_pdf("rcat/relations", clean_tex=True)
+        else:
+            doc.generate_pdf("data_user/%s_relations" %s_id, clean_tex=True)
 
     ## OLD FUNCTIONS
 

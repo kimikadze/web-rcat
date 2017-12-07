@@ -27,6 +27,7 @@ class rcat(object):
         #               tokenized_text=0, characters=0, parameter=0, network_parameters=0,
         #               single_character_context=0, segments=0, lemmatisation=0, lang=0, number_of_wc=0, word_field=0, wf_cat=0)
 
+
         if word_field != "N":
 
             start_wf = WordField(word_field=word_field, wf_cat=wf_cat, segments=segments)
@@ -100,7 +101,7 @@ class rcat(object):
                  wf_cat=str(),
                  lemmatisation="n",
                  txt_language="German",
-                 choose_method="graphvis_col"):
+                 choose_method="graphvis_col", sess_id=False):
 
         dirpath = os.getcwd()
         dirpath = os.path.join(dirpath, "data/temp_folder")
@@ -130,7 +131,7 @@ class rcat(object):
         pdf_latex().write_wordfield_curve(pdf, d_holder, wf_cat)
         pdf_latex().word_field_curve(pdf, wf_cat)
         pdf_latex().write_prgramm_statments(pdf)
-        pdf_latex().finalize(pdf)
+        pdf_latex().finalize(pdf, s_id=sess_id)
         # print("PDF complete")
 
         #messagebox.showinfo("Status", "Analysis is complete. PDF report is generated.")
