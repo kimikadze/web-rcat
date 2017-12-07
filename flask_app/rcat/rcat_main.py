@@ -78,7 +78,7 @@ class rcat(object):
 
             # print("build network...")
 
-            network_generator.build_and_plot_graph_vis_col(holder["character_relations"], netw_parameters,number_of_wc,temporary_path)
+            network_generator.build_and_plot_graph_vis_col(holder["character_relations"], netw_parameters,number_of_wc,temppath=temporary_path)
 
             holder["network_parameters"] = netw_parameters
 
@@ -103,7 +103,7 @@ class rcat(object):
                  choose_method="graphvis_col"):
 
         dirpath = os.getcwd()
-        dirpath = os.path.join(dirpath, "rcat/test_folder")
+        dirpath = os.path.join(dirpath, "rcat/temp_folder")
 
         d_holder = self.data_holder(text_file,
                                     character_file,
