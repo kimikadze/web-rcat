@@ -115,9 +115,16 @@ def return_file():
     #print(os.path.basename(os.getcwd()))
     #print(os.getcwd())
     pdf_path = "/".join(([os.getcwd(), "relations.pdf"]))
+    #print("1")
+    #print(os.getcwd())
+
+    os.chdir("../")
+
+    #print("2")
+    #print(os.getcwd())
     return send_file(pdf_path)
     
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=50001)
+    app.run(host='0.0.0.0',port=50005)
 
