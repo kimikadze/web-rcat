@@ -188,7 +188,7 @@ class relations:
                         words_before_between_after_pair += [tokenized_text[index_number]]
 
             if delete_stopwords_in_context == "y":
-                print(os.getcwd())
+                #print(os.getcwd())
                 with open(stop_words, "r", encoding="utf-8") as dt:
                     stop_dt = dt.readlines()
                     stop_dt = [i.strip() for i in stop_dt]

@@ -7,6 +7,8 @@ from pylatex import Document, Section, Itemize, Subsection, Command, PageStyle, 
     MediumText, LineBreak, simple_page_number, Figure, NoEscape, Tabular, MultiColumn, MultiRow, Package
 from pylatex.utils import bold
 
+import os
+
 from rcat.wordcloud_module import word_cloud
 
 
@@ -55,11 +57,13 @@ class pdf_latex:
                 network_pic.add_caption('Network')
 
     def word_field_curve(self,doc,wf_cat=str()):
+        #print(wf_cat)
         if wf_cat == "None":
             pass
         else:
             with doc.create(Figure(position='H')) as emoarc:
-                emoarc.add_image("rcat/word_field.pdf")
+                #print(os.getcwd())
+                emoarc.add_image("rcat/temp_folder/word_field.pdf")
                 emoarc.add_caption("Word field development in the current text")
 
     def write_wordfield_curve(self,doc,dta_holder,wf_cat=str()):
