@@ -100,7 +100,7 @@ class relations:
 
     def count_context_words_for_single_characters(self, character_positions, character_list, tokenized_text,
                                                   words_before=8, words_after=8,
-                                                  delete_stopwords_in_context="n", word_field=str(), stop_words=str()):
+                                                  delete_stopwords_in_context="n", word_field=str(), wf_cat=str(), stop_words=str()):
 
         context = list()
 
@@ -134,13 +134,13 @@ class relations:
 
             if not word_field == "N":
                 try:
-                    with open(word_field, encoding="utf-8") as wf:
+                    with open(wf_cat, encoding="utf-8") as wf:
                         wordf = wf.readlines()
                         wordf = [i.strip() for i in wordf]
                         words_before_after_pair = [word for word in words_before_after_pair if word in wordf]
                 except IsADirectoryError:
                     wordf = []
-                    for root, dirs, files in os.walk(word_field):
+                    for root, dirs, files in os.walk(wf_cat):
                         for filename in files:
                             for line in open(os.path.join(root, filename), encoding="utf-8"):
                                 line = line.strip()
@@ -163,7 +163,7 @@ class relations:
     ###########################################################################################################
 
     def count_context_words(self, relations, tokenized_text, words_before=8, words_after=8,
-                            delete_stopwords_in_context="n", word_field=str(), stop_words=str()):
+                            delete_stopwords_in_context="n", word_field=str(), wf_cat=str(), stop_words=str()):
         context = list()
         for j in range(len(relations)):
             words_before_between_after_pair_indices = list()
@@ -201,14 +201,14 @@ class relations:
 
             if not word_field == "N":
                 try:
-                    with open(word_field, encoding="utf-8") as wf:
+                    with open(wf_cat, encoding="utf-8") as wf:
                         wordf = wf.readlines()
                         wordf = [i.strip() for i in wordf]
                         words_before_between_after_pair = [word for word in words_before_between_after_pair if
                                                            word in wordf]
                 except IsADirectoryError:
                     wordf = []
-                    for root, dirs, files in os.walk(word_field):
+                    for root, dirs, files in os.walk(wf_cat):
                         for filename in files:
                             for line in open(os.path.join(root, filename), encoding="utf-8"):
                                 line = line.strip()

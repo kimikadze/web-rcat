@@ -77,9 +77,10 @@ def upload():
 
     #GET WORD FIELD PARAMETER
     wordfield_parameter = request.form["word_fields"]
-
+    wf_cat_parameter = 0
     if wordfield_parameter=="N":
         wf_cat_parameter= "None"
+        # pass
     if wordfield_parameter=="single":
         third_file = request.files.getlist("file")[2]
         filename = third_file.filename
