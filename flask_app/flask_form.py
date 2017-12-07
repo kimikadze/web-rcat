@@ -9,7 +9,7 @@ import uuid
 
 
 # sys.path.append('.')
-from flask import Flask, Blueprint, render_template, redirect, request, flash, url_for, send_file
+from flask import Flask, Blueprint, render_template, redirect, request, flash, url_for, send_file, session
 
 from rcat.rcat_main import rcat
 
@@ -18,13 +18,13 @@ from rcat.rcat_main import rcat
 app = Flask(__name__)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-session_id = uuid.uuid1()
 
 
 @app.route("/")
 
 def index():
     #return "hello"
+    #session_id = uuid.uuid1()
 
     return render_template('rcat.html')
 
@@ -37,7 +37,9 @@ def index():
 @app.route("/upload", methods=["POST"])
 def upload():
 
+    session_id = uuid.uuid1()
     print(session_id)
+    session['session_id'] = session_id
     target = os.path.join(APP_ROOT, "files_upload/")
     #print(target)
 
@@ -95,7 +97,7 @@ def upload():
         filename = str("3__"+filename)
         destination_third_file = "".join(([target, filename]))
         third_file.save(destination_third_file)
-        print(destination_third_file)
+        #print(destination_third_file)
 
         wf_cat_parameter = destination_third_file
 
@@ -104,7 +106,7 @@ def upload():
 
     #print(os.path.basename(os.getcwd()))
     #print("1")
-    #print(os.getcwd())
+    print(os.getcwd())
 
     ############
     # if os.getcwd().endswith("/flask_app") == True:
@@ -134,6 +136,12 @@ def return_file():
     #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
     #print(os.path.basename(os.getcwd()))
     #print(os.getcwd())
+
+    session_id = session['session_id']
+    print("2")
+    print(session_id)
+
+    #pdf_path = "/".join(([os.getcwd(), "data_user/relations.pdf"]))
     pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id]))
     #print("2")
     #print(os.getcwd())
@@ -146,5 +154,6 @@ def return_file():
     
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=50017)
+    app.secret_key = 'super secret key'
+    app.run(host='0.0.0.0',port=50020)
 

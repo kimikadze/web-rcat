@@ -51,6 +51,7 @@ class rcat(object):
                                                               distance_for_relation=distance_parameter[0])
 
             # print("find context for characters...")
+            print(os.getcwd())
             character_relations_context = relations().count_context_words(character_relations, txt_tokenized,
                                                                           words_before=distance_parameter[1],
                                                                           words_after=distance_parameter[2],
