@@ -1,13 +1,15 @@
 import os
-from rcat.text_reader_module import text_reader
-from rcat.characters_reader_module import characters_reader
-from rcat.relations_module import relations
-from rcat.network_generator_module import network_generator
-from rcat.pdf_latex_module import pdf_latex
-from rcat.network_parameters_module import network_parameters
-from rcat.word_field_module import WordField
 from tkinter import *
 from tkinter import filedialog, messagebox
+
+from rcat.characters_reader_module import characters_reader
+from rcat.network_generator_module import network_generator
+from rcat.network_parameters_module import network_parameters
+from rcat.relations_module import relations
+from rcat.text_reader_module import text_reader
+from rcat.word_field_module import WordField
+
+from rcat.pdf_latex_module import pdf_latex
 
 
 class rcat(object):
@@ -52,13 +54,13 @@ class rcat(object):
                                                                           words_before=distance_parameter[1],
                                                                           words_after=distance_parameter[2],
                                                                           delete_stopwords_in_context=del_stopwords_in_context,
-                                                                          word_field=word_field, stop_words="rcat/stopwords/stopwords_de_except_ich.txt")
+                                                                          word_field=word_field, stop_words="./rcat/stopwords/stopwords_de_except_ich.txt")
 
             single_character_context = relations().count_context_words_for_single_characters(character_positions,
                                                                                              characters,
                                                                                              txt_tokenized, delete_stopwords_in_context=del_stopwords_in_context,
                                                                                              word_field=word_field,
-                                                                                             stop_words="rcat/stopwords/stopwords_de_except_ich.txt")
+                                                                                             stop_words="./rcat/stopwords/stopwords_de_except_ich.txt")
 
 
             holder = {"character_relations": character_relations,
@@ -66,7 +68,7 @@ class rcat(object):
                       "text_file": text__file, "character_file": character__file, "tokenized_text": txt_tokenized,
                       "characters": characters, "parameter": distance_parameter,
                       "network_parameters": 0, "single_character_context": single_character_context,
-                      "segments": segments, "lang": "rcat/stopwords/stopwords_de_except_ich.txt", "number_of_wc": number_of_wc, "word_field": word_field,
+                      "segments": segments, "lang": "./rcat/stopwords/stopwords_de_except_ich.txt", "number_of_wc": number_of_wc, "word_field": word_field,
                       "wf_cat": wf_cat}
 
 

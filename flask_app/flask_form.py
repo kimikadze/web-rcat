@@ -2,11 +2,13 @@
 # encoding: utf-8
 
 # pythonspot.com
-#import sys
-#import time
+# import sys
+# import time
 import os
-#sys.path.append('.')
-from flask import Flask,Blueprint, render_template, redirect, request, flash, url_for, send_file
+
+# sys.path.append('.')
+from flask import Flask, Blueprint, render_template, redirect, request, flash, url_for, send_file
+
 from rcat.rcat_main import rcat
 
 app = Flask(__name__)
@@ -92,7 +94,7 @@ def upload():
     # RUN RCAT
 
     #print(os.path.basename(os.getcwd()))
-    os.chdir("../rcat/")
+    os.chdir("rcat/")
     rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
                   dist_parameter=[distance, words_before, words_after],
                   remove_stopwords_in_context=stopwords_parameter,

@@ -1,13 +1,13 @@
+import operator
+import os
+import re
+import shutil
+
 from pylatex import Document, Section, Itemize, Subsection, Command, PageStyle, Head, MiniPage, Foot, LargeText, \
     MediumText, LineBreak, simple_page_number, Figure, NoEscape, Tabular, MultiColumn, MultiRow, Package
 from pylatex.utils import bold
+
 from rcat.wordcloud_module import word_cloud
-
-import os
-import operator
-import shutil
-
-import re
 
 
 class pdf_latex:
