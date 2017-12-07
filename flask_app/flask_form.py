@@ -24,7 +24,6 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 def index():
     #return "hello"
-    #session_id = uuid.uuid1()
 
     return render_template('rcat.html')
 
@@ -38,6 +37,7 @@ def index():
 def upload():
 
     session_id = uuid.uuid1()
+    #session_id = False
     print(session_id)
     session['session_id'] = session_id
     target = os.path.join(APP_ROOT, "files_upload/")
@@ -141,8 +141,10 @@ def return_file():
     print("2")
     print(session_id)
 
-    #pdf_path = "/".join(([os.getcwd(), "data_user/relations.pdf"]))
-    pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id]))
+    if session_id==False:
+        pdf_path = "/".join(([os.getcwd(), "data_user/relations.pdf"]))
+    else:
+        pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id]))
     #print("2")
     #print(os.getcwd())
 
@@ -155,5 +157,5 @@ def return_file():
 
 if __name__ == "__main__":
     app.secret_key = 'super secret key'
-    app.run(host='0.0.0.0',port=50020)
+    app.run(host='0.0.0.0',port=50021)
 

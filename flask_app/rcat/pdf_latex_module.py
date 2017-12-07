@@ -62,8 +62,8 @@ class pdf_latex:
             pass
         else:
             with doc.create(Figure(position='H')) as emoarc:
-                #print(os.getcwd())
-                emoarc.add_image("data/temp_folder/word_field.pdf")
+                print(os.getcwd())
+                emoarc.add_image("/".join(([os.getcwd(), "data/temp_folder/word_field.pdf"])))
                 emoarc.add_caption("Word field development in the current text")
 
     def write_wordfield_curve(self,doc,dta_holder,wf_cat=str()):
@@ -331,7 +331,7 @@ class pdf_latex:
 
     def finalize(self, doc, s_id):
         if s_id==False:
-            doc.generate_pdf("rcat/relations", clean_tex=True)
+            doc.generate_pdf("data_user/relations", clean_tex=True)
         else:
             doc.generate_pdf("data_user/%s_relations" %s_id, clean_tex=True)
 
