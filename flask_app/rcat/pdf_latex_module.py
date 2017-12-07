@@ -63,7 +63,7 @@ class pdf_latex:
         else:
             with doc.create(Figure(position='H')) as emoarc:
                 #print(os.getcwd())
-                emoarc.add_image("rcat/temp_folder/word_field.pdf")
+                emoarc.add_image("data/temp_folder/word_field.pdf")
                 emoarc.add_caption("Word field development in the current text")
 
     def write_wordfield_curve(self,doc,dta_holder,wf_cat=str()):

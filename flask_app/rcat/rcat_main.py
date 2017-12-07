@@ -54,14 +54,14 @@ class rcat(object):
                                                                           words_before=distance_parameter[1],
                                                                           words_after=distance_parameter[2],
                                                                           delete_stopwords_in_context=del_stopwords_in_context,
-                                                                          word_field=word_field, wf_cat=wf_cat,stop_words="./rcat/stopwords/stopwords_de_except_ich.txt")
+                                                                          word_field=word_field, wf_cat=wf_cat,stop_words="./data/stopwords/stopwords_de_except_ich.txt")
 
             single_character_context = relations().count_context_words_for_single_characters(character_positions,
                                                                                              characters,
                                                                                              txt_tokenized, delete_stopwords_in_context=del_stopwords_in_context,
                                                                                              word_field=word_field,
                                                                                              wf_cat=wf_cat,
-                                                                                             stop_words="./rcat/stopwords/stopwords_de_except_ich.txt")
+                                                                                             stop_words="./data/stopwords/stopwords_de_except_ich.txt")
 
 
             holder = {"character_relations": character_relations,
@@ -69,7 +69,7 @@ class rcat(object):
                       "text_file": text__file, "character_file": character__file, "tokenized_text": txt_tokenized,
                       "characters": characters, "parameter": distance_parameter,
                       "network_parameters": 0, "single_character_context": single_character_context,
-                      "segments": segments, "lang": "./rcat/stopwords/stopwords_de_except_ich.txt", "number_of_wc": number_of_wc, "word_field": word_field,
+                      "segments": segments, "lang": "./data/stopwords/stopwords_de_except_ich.txt", "number_of_wc": number_of_wc, "word_field": word_field,
                       "wf_cat": wf_cat}
 
 
@@ -103,7 +103,7 @@ class rcat(object):
                  choose_method="graphvis_col"):
 
         dirpath = os.getcwd()
-        dirpath = os.path.join(dirpath, "rcat/temp_folder")
+        dirpath = os.path.join(dirpath, "data/temp_folder")
 
         d_holder = self.data_holder(text_file,
                                     character_file,
@@ -146,7 +146,7 @@ class rcat(object):
 # if __name__ == "__main__":
 #
 #
-#     rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/rcat/rcat/doc/texts/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/rcat/rcat/doc/character_lists/Goethe_Werther_74_characters.txt",
+#     data().main_PDF(text_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/data/data/doc/texts/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/data/data/doc/character_lists/Goethe_Werther_74_characters.txt",
 #                   dist_parameter=[8, 5, 5],
 #                   remove_stopwords_in_context="n",
 #                   segments=5, txt_language="German", number_of_wc=3,

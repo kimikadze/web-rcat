@@ -108,5 +108,5 @@ class WordField:
             plt.xticks([])
 
         # plt.show()
-        with PdfPages('rcat/temp_folder/word_field.pdf') as pdf:
+        with PdfPages('data/temp_folder/word_field.pdf') as pdf:
             pdf.savefig(fig)
