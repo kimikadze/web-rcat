@@ -81,7 +81,7 @@ def upload():
     segments_parameter = int(request.form["segments"])
 
 
-    #GET WORD FIELD PARAMETER
+    #GET WORD FIELD PARAMETER (SINGLE)
     wordfield_parameter = request.form["word_fields"]
     wf_cat_parameter = 0
     if wordfield_parameter=="N":
@@ -98,11 +98,27 @@ def upload():
         wf_cat_parameter = destination_third_file
 
 
+    #GET WORD FIELD PARAMETER (MULTI)
+    if wordfield_parameter=="multi":
+        multi_wordfield_list = request.files.getlist("file")[2:]
+        print(request.files.getlist("file"))
+        print(multi_wordfield_list[1:])
+        for index, word_field in enumerate(multi_wordfield_list[1:]):
+            filename = word_field.filename
+            #index_updated = index+4
+            #print(index_updated)
+            #index_updated_string = str(index_updated)
+            filename = str("%s__" %str(index+4) + filename)
+            destination_n_file = "".join(([target, filename]))
+            word_field.save(destination_n_file)
+
+
+
     # RUN RCAT
 
     #print(os.path.basename(os.getcwd()))
     #print("1")
-    print(os.getcwd())
+    #print(os.getcwd())
 
     ############
     # if os.getcwd().endswith("/flask_app") == True:

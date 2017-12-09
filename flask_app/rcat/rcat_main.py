@@ -106,14 +106,10 @@ class rcat(object):
 
         dirpath = os.getcwd()
         if sess_id==False:
-            print("1__")
             dirpath = os.path.join(dirpath, "data/temp_folder")
         else:
-            print("2__")
             dirpath = os.path.join(dirpath, "data_user/%s_temp_folder" %sess_id)
-            #print(dirpath_x)
             if not os.path.exists(dirpath):
-                #print("yes")
                 os.makedirs(dirpath)
                 #dirpath = os.path.join(dirpath, "data_user/%s_temp_folder" %sess_id)
 
