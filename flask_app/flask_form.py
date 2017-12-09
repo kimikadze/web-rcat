@@ -29,10 +29,6 @@ def index():
 
 
 
-
-
-
-
 @app.route("/upload", methods=["POST"])
 def upload():
 
@@ -40,7 +36,7 @@ def upload():
     #session_id = False
     print(session_id)
     session['session_id'] = session_id
-    target = os.path.join(APP_ROOT, "files_upload/")
+    target = os.path.join(APP_ROOT, "data_user/%s_files_upload/" %session_id)
     #print(target)
 
     if not os.path.isdir(target):
