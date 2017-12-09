@@ -51,7 +51,7 @@ class rcat(object):
                                                               distance_for_relation=distance_parameter[0])
 
             # print("find context for characters...")
-            print(os.getcwd())
+            #print(os.getcwd())
             character_relations_context = relations().count_context_words(character_relations, txt_tokenized,
                                                                           words_before=distance_parameter[1],
                                                                           words_after=distance_parameter[2],
@@ -105,7 +105,17 @@ class rcat(object):
                  choose_method="graphvis_col", sess_id=False):
 
         dirpath = os.getcwd()
-        dirpath = os.path.join(dirpath, "data/temp_folder")
+        if sess_id==False:
+            print("1__")
+            dirpath = os.path.join(dirpath, "data/temp_folder")
+        else:
+            print("2__")
+            dirpath = os.path.join(dirpath, "data_user/%s_temp_folder" %sess_id)
+            #print(dirpath_x)
+            if not os.path.exists(dirpath):
+                #print("yes")
+                os.makedirs(dirpath)
+                #dirpath = os.path.join(dirpath, "data_user/%s_temp_folder" %sess_id)
 
         d_holder = self.data_holder(text_file,
                                     character_file,
