@@ -138,13 +138,14 @@ class relations:
                         wordf = wf.readlines()
                         wordf = [i.strip() for i in wordf]
                         words_before_after_pair = [word for word in words_before_after_pair if word in wordf]
-                except IsADirectoryError:
+                #except IsADirectoryError:
+                except TypeError:
                     wordf = []
-                    for root, dirs, files in os.walk(wf_cat):
-                        for filename in files:
-                            for line in open(os.path.join(root, filename), encoding="utf-8"):
-                                line = line.strip()
-                                wordf.append(line)
+                    #for root, dirs, files in os.walk(wf_cat):
+                    for filename in wf_cat:
+                        for line in open(filename, encoding="utf-8"):
+                            line = line.strip()
+                            wordf.append(line)
                     words_before_after_pair = [word for word in words_before_after_pair if word in wordf]
 
             word_counts_for_pair = dict()
@@ -207,13 +208,14 @@ class relations:
                         wordf = [i.strip() for i in wordf]
                         words_before_between_after_pair = [word for word in words_before_between_after_pair if
                                                            word in wordf]
-                except IsADirectoryError:
+                #except IsADirectoryError:
+                except TypeError:
                     wordf = []
-                    for root, dirs, files in os.walk(wf_cat):
-                        for filename in files:
-                            for line in open(os.path.join(root, filename), encoding="utf-8"):
-                                line = line.strip()
-                                wordf.append(line)
+                    #for root, dirs, files in os.walk(wf_cat):
+                    for filename in wf_cat:
+                        for line in open(filename, encoding="utf-8"):
+                            line = line.strip()
+                            wordf.append(line)
                     words_before_between_after_pair = [word for word in words_before_between_after_pair if
                                                        word in wordf]
 

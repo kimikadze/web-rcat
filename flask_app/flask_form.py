@@ -101,8 +101,9 @@ def upload():
     #GET WORD FIELD PARAMETER (MULTI)
     if wordfield_parameter=="multi":
         multi_wordfield_list = request.files.getlist("file")[2:]
-        print(request.files.getlist("file"))
-        print(multi_wordfield_list[1:])
+        #print(request.files.getlist("file"))
+        #print(multi_wordfield_list[1:])
+        multi_file_list = []
         for index, word_field in enumerate(multi_wordfield_list[1:]):
             filename = word_field.filename
             #index_updated = index+4
@@ -111,9 +112,10 @@ def upload():
             filename = str("%s__" %str(index+4) + filename)
             destination_n_file = "".join(([target, filename]))
             word_field.save(destination_n_file)
+            multi_file_list.append(destination_n_file)
 
-
-
+        #print(multi_file_list)
+        wf_cat_parameter = multi_file_list
     # RUN RCAT
 
     #print(os.path.basename(os.getcwd()))
@@ -150,8 +152,8 @@ def return_file():
     #print(os.getcwd())
 
     session_id = session['session_id']
-    print("2")
-    print(session_id)
+    #print("2")
+    #print(session_id)
 
     if session_id==False:
         pdf_path = "/".join(([os.getcwd(), "data_user/relations.pdf"]))
@@ -169,5 +171,5 @@ def return_file():
 
 if __name__ == "__main__":
     app.secret_key = 'super secret key'
-    app.run(host='0.0.0.0',port=50023)
+    app.run(host='0.0.0.0',port=50029)
 

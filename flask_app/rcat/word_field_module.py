@@ -3,14 +3,15 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import os
+import re
 
 
 class WordField:
 
     def __init__(self, word_field, wf_cat, segments):
         # self.dictionary = pickle.load(open(dictionary,'rb'))
-        self.word_field = word_field
-        self.wf_cat = wf_cat # multi or single
+        self.word_field = word_field # multi or single
+        self.wf_cat = wf_cat
         self.split_value = segments
 
 
@@ -48,21 +49,31 @@ class WordField:
                 for score in Field_seq.values():
                     Sequence["Word field"].append(score)
 
-        elif self.wf_cat == "multi":
+        elif self.word_field == "multi":
             FieldDict = {}
             normalization = 10000
-            for root, dirs, files in os.walk(self.word_field):
-                for filename in files:
-                    filename = filename.split('.')[0]
-                    FieldDict[filename] = []
-            for root, dirs, files in os.walk(self.word_field):
-                for filename in files:
-                    for line in open(os.path.join(root, filename),encoding="utf-8"):
-                        line = line.strip()
-                        filename = filename.split('.')[0]
-                        if filename in FieldDict:
-                            FieldDict[filename].append(line)
+            for filename in self.wf_cat:
+                filename = filename.split('/')[-1]
+                #print(("xxx 111"))
+                #print(filename)
+                filename = re.match("[0-9]__(.*?)\.", filename).group(1)
 
+                #filename = filename.split('.')[-2]
+                FieldDict[filename] = []
+            #for root, dirs, files in os.walk(self.word_field):
+            for filename in self.wf_cat:
+                for line in open(filename,encoding="utf-8"):
+                    line = line.strip()
+                    #print("aaa")
+                    #print(filename)
+                    filename_x = filename.split('/')[-1]
+                    filename_y = re.match("[0-9]__(.*?)\.", filename_x).group(1)
+                    #print(("xxx 222"))
+                    #print(filename)
+
+                    #filename = filename.split('.')[-2]
+                    if filename_y in FieldDict:
+                        FieldDict[filename_y].append(line)
 
             for key in FieldDict.keys():
                 Sequence[key] = []
