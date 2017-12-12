@@ -56,7 +56,9 @@ class rcat(object):
                                                                           words_before=distance_parameter[1],
                                                                           words_after=distance_parameter[2],
                                                                           delete_stopwords_in_context=del_stopwords_in_context,
-                                                                          word_field=word_field, wf_cat=wf_cat,stop_words="./data/stopwords/stopwords_de_except_ich.txt")
+                                                                          word_field=word_field, wf_cat=wf_cat,
+                                                                          stop_words="./data/stopwords/stopwords_de_except_ich.txt")
+                                                                          #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
             single_character_context = relations().count_context_words_for_single_characters(character_positions,
                                                                                              characters,
@@ -64,6 +66,9 @@ class rcat(object):
                                                                                              word_field=word_field,
                                                                                              wf_cat=wf_cat,
                                                                                              stop_words="./data/stopwords/stopwords_de_except_ich.txt")
+                                                                                            #stop_words = "./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
+
+
 
 
             holder = {"character_relations": character_relations,

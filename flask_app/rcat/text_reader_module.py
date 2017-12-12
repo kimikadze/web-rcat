@@ -28,6 +28,7 @@ class text_reader:
             text_tokenized_stripped = list()
             #remove all punctation from false tokenized words
             for word in text_tokenized:
+                #print(word)
                 if (word != "." and word != "!" and word != "?" and word != "," and word != ":" and word != "–" and word != "'" and word != "»" and word != "«" and word != "’"):
                     text_tokenized_stripped += [word.strip(".")]
 
