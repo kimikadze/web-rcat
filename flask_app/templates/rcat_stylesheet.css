@@ -1,0 +1,13 @@
+<!--img#corner_pic {
+position: absolute;
+right: 0;
+top: 0;
+display: block;
+width: 100px; /* entspricht der Grafikbreite */
+height: 50px; /* entspricht der Grafikhöhe */
+background: url(../graphics/Logo_creta.eps);
+}
+
+img#corner_pic span {
+display: none;
+}-->
