@@ -3,13 +3,26 @@ from tkinter import *
 from tkinter import filedialog, messagebox
 
 from rcat.characters_reader_module import characters_reader
+#from characters_reader_module import characters_reader
+
 from rcat.network_generator_module import network_generator
+#from network_generator_module import network_generator
+
 from rcat.network_parameters_module import network_parameters
+#from network_parameters_module import network_parameters
+
 from rcat.relations_module import relations
+#from relations_module import relations
+
 from rcat.text_reader_module import text_reader
+#from text_reader_module import text_reader
+
 from rcat.word_field_module import WordField
+#from word_field_module import WordField
 
 from rcat.pdf_latex_module import pdf_latex
+#from pdf_latex_module import pdf_latex
+
 
 
 class rcat(object):
@@ -157,15 +170,15 @@ class rcat(object):
 
 
 
-#
-# if __name__ == "__main__":
-#
-#
-#     data().main_PDF(text_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/data/data/doc/texts/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/rcat_github/macos/data/data/doc/character_lists/Goethe_Werther_74_characters.txt",
-#                   dist_parameter=[8, 5, 5],
-#                   remove_stopwords_in_context="n",
-#                   segments=5, txt_language="German", number_of_wc=3,
-#                   write_gephi_csv="n",
-#                   word_field = "N",
-#                   wf_cat="None",
-#                   lemmatisation="n")
+
+if __name__ == "__main__":
+
+
+    rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Werther/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Werther/Goethe_Werther_74_characters.txt",
+                  dist_parameter=[8, 5, 5],
+                  remove_stopwords_in_context="n",
+                  segments=5, txt_language="German", number_of_wc=3,
+                  write_gephi_csv="n",
+                  word_field = "N",
+                  wf_cat="None",
+                  lemmatisation="n")

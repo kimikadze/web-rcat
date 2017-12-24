@@ -10,6 +10,7 @@ from pylatex.utils import bold
 import os
 
 from rcat.wordcloud_module import word_cloud
+#from wordcloud_module import word_cloud
 
 
 class pdf_latex:
@@ -108,7 +109,7 @@ class pdf_latex:
                 with doc.create(Subsection("%s" % weigthed_degree_tuple[0], numbering=False)):
                     doc.append(weigthed_degree_tuple[1])
 
-    def write_word_cloud(self, doc, dta_holder, tpath, number_of_wc, head_of_file_name = "wordcloud"):
+    def write_word_cloud(self, doc, dta_holder, tpath, number_of_wc, head_of_file_name = "wordcloud", wc_context_selection="MFW"):
 
         # import float package for -> Figure(position="H")
         doc.packages.append(Package('float'))
@@ -122,59 +123,63 @@ class pdf_latex:
         ### here we iterate over all context_terms in "character_relations_context"
         ### it is done with the index since a numbering for the word cloud file is necessary
         # for relation in dta_holder["character_relations_context"]:
-        for edge_pair_list in edge_weights_sorted[0:number_of_wc]:
-
-            for index in range(len(dta_holder["character_relations_context"])):
-                if dta_holder["character_relations_context"][index]["character_names"][0] == edge_pair_list[0] and dta_holder["character_relations_context"][index]["character_names"][1] == edge_pair_list[1]:
 
 
-                        #print(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12])
+        if wc_context_selection=="MFW":
 
-                        if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]) == 0:
-                            text_string = "<<empty_word_cloud>>"
-                        if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]) > 0:
-                            text_string = str()
-                            # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
-                            for word_freq_tuple in dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]:
+            for edge_pair_list in edge_weights_sorted[0:number_of_wc]:
 
-                                #for i in range(word_freq_tuple[1]):
-                                #     text_string += "%s " % word_freq_tuple[0]
-
-                                #print(word_freq_tuple)
-
-                                if word_freq_tuple[1] < 7:
-                                    for i in range(word_freq_tuple[1]):
-                                        text_string += "%s " % word_freq_tuple[0]
-
-                                if word_freq_tuple[1] >= 7:
-                                    for i in range(6):
-                                        # print(i)
-                                        text_string += "%s " % word_freq_tuple[0]
-
-                        #print(text_string)
+                for index in range(len(dta_holder["character_relations_context"])):
+                    if dta_holder["character_relations_context"][index]["character_names"][0] == edge_pair_list[0] and dta_holder["character_relations_context"][index]["character_names"][1] == edge_pair_list[1]:
 
 
-                        word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath, file_name_head = head_of_file_name)
-                        # wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
+                            #print(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12])
 
-                        #######
+                            if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]) == 0:
+                                text_string = "<<empty_word_cloud>>"
+                            if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]) > 0:
+                                text_string = str()
+                                # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
+                                for word_freq_tuple in dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]:
 
-                        wordcloud_pic = Figure(position="H")
-                        wordcloud_pic.add_image(os.path.join(tpath, "wordcloud%s.png" % index),
-                                                width='240px')  # , placement="center")
-                        # wordcloud_pic.add_image(wc, width='240px')#, placement="center")
+                                    #for i in range(word_freq_tuple[1]):
+                                    #     text_string += "%s " % word_freq_tuple[0]
 
-                        # wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (relation["character_names"][0], relation["character_names"][1]))
-                        wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (
-                        dta_holder["character_relations_context"][index]["character_names"][0],
-                        dta_holder["character_relations_context"][index]["character_names"][1]))
+                                    #print(word_freq_tuple)
 
-                        # subs.append(wordcloud_pic)
-                        # section.append(subs)
+                                    if word_freq_tuple[1] < 7:
+                                        for i in range(word_freq_tuple[1]):
+                                            text_string += "%s " % word_freq_tuple[0]
 
-                        section.append(wordcloud_pic)
+                                    if word_freq_tuple[1] >= 7:
+                                        for i in range(6):
+                                            # print(i)
+                                            text_string += "%s " % word_freq_tuple[0]
 
-        doc.append(section)
+                            #print(text_string)
+
+
+                            word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath, file_name_head = head_of_file_name)
+                            # wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
+
+                            #######
+
+                            wordcloud_pic = Figure(position="H")
+                            wordcloud_pic.add_image(os.path.join(tpath, "wordcloud%s.png" % index),
+                                                    width='240px')  # , placement="center")
+                            # wordcloud_pic.add_image(wc, width='240px')#, placement="center")
+
+                            # wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (relation["character_names"][0], relation["character_names"][1]))
+                            wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (
+                            dta_holder["character_relations_context"][index]["character_names"][0],
+                            dta_holder["character_relations_context"][index]["character_names"][1]))
+
+                            # subs.append(wordcloud_pic)
+                            # section.append(subs)
+
+                            section.append(wordcloud_pic)
+
+            doc.append(section)
 
 
 
