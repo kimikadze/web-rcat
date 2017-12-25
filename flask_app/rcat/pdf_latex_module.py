@@ -139,13 +139,13 @@ class pdf_latex:
                     if character_context_dic["character_names"][0] == edge_pair_list[0] and character_context_dic["character_names"][1] == edge_pair_list[1]:
                         #print(index, character_context_dic["character_names"], character_context_dic["PMI"])
 
-                        if len(character_context_dic["PMI"][0:12]) == 0:
+                        if len(character_context_dic["PMI"][0:words_in_word_cloud]) == 0:
                             text_string = "<<empty_word_cloud>>"
-                        if len(character_context_dic["PMI"][0:12]) > 0:
+                        if len(character_context_dic["PMI"][0:words_in_word_cloud]) > 0:
                             text_string = str()
                             # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
                             #print(index,character_context_dic["character_names"],character_context_dic["PMI"][0:12])
-                            for word_freq_list in character_context_dic["PMI"][0:12]:
+                            for word_freq_list in character_context_dic["PMI"][0:words_in_word_cloud]:
 
 
                                 if round(word_freq_list[1]) < 7:
@@ -201,12 +201,12 @@ class pdf_latex:
 
                             #print(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12])
 
-                            if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]) == 0:
+                            if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:words_in_word_cloud]) == 0:
                                 text_string = "<<empty_word_cloud>>"
-                            if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]) > 0:
+                            if len(dta_holder["character_relations_context"][index]["tf_sorted_list"][0:words_in_word_cloud]) > 0:
                                 text_string = str()
                                 # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
-                                for word_freq_tuple in dta_holder["character_relations_context"][index]["tf_sorted_list"][0:12]:
+                                for word_freq_tuple in dta_holder["character_relations_context"][index]["tf_sorted_list"][0:words_in_word_cloud]:
 
                                     #for i in range(word_freq_tuple[1]):
                                     #     text_string += "%s " % word_freq_tuple[0]

@@ -11,7 +11,7 @@
     </head>
     <body>
 
-<img src="../graphics/Logo_creta.png" alt="CRETA" width=260pt" height="100pt">
+<!--<img src="../graphics/Logo_creta.png" alt="CRETA" width=260pt" height="100pt">-->
 <h1>rCat – A Reporting Tool for Relational Visualization and Analysis of Character Mentions in Literature</h1>
 <form id="upload", action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
 
@@ -71,6 +71,20 @@
     </div>
 
 
+    <p><b>filter word clouds by: (WORKS ONLY FOR PAIR CLOUDS SO FAR!)</b></p>
+    <input type="radio" name="wc_context_selection" value="MFW" checked="checked">Most frequent context words<br>
+    <input type="radio" name="wc_context_selection" value="PMI">Pointwise Mutual Information<br>
+    <!--<input type="radio" name="wc_context_selection" value="Zeta" checked="checked">Zeta<br>-->
+
+
+    <p><b>Choose the amount of words in the wordclouds (This is the maximum number of words, if the context is sparse, less terms will be depicted) (WORKS ONLY FOR PAIR CLOUDS SO FAR!)</b></p>
+    <input type="text" name="words_in_word_cloud" value="12">
+
+
+
+
+    <br>
+    <br>
     <br>
     <font color="red">***parameters below are not working yet*** !!!</font>
 
@@ -84,14 +98,7 @@
     <input type="radio" name="gephi_csv" value="n">no<br>
 
 
-    <p><b>filter word clouds by:</b></p>
-    <input type="radio" name="wc_context_selection" value="MFW" checked="checked">Most frequent context words<br>
-    <input type="radio" name="wc_context_selection" value="PMI">Pointwise Mutual Information<br>
-    <!--<input type="radio" name="wc_context_selection" value="Zeta" checked="checked">Zeta<br>-->
 
-
-    <p><b>Choose the number of words in the wordclouds (This is the maximum number of words, if there is a sparse context, less terms will be depicted)</b></p>
-    <input type="text" name="words_in_word_cloud" value="12">
 
 
 

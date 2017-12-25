@@ -124,7 +124,7 @@ def upload():
 
 
     #WORDS IN WORD CLOUD
-    words_in_word_cloud_parameter = request.form["words_in_word_cloud"]
+    words_in_word_cloud_parameter = int(request.form["words_in_word_cloud"])
 
 
 
