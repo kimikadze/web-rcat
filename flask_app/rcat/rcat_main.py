@@ -122,7 +122,10 @@ class rcat(object):
                  wf_cat=str(),
                  lemmatisation="n",
                  txt_language="German",
-                 choose_method="graphvis_col", sess_id=False):
+                 choose_method="graphvis_col",
+                 sess_id=False,
+                 word_cloud_context_selection = "MFW",
+                 words_in_wc = 12):
 
         dirpath = os.getcwd()
         if sess_id==False:
@@ -147,6 +150,7 @@ class rcat(object):
                                     language=txt_language,
                                     choose__method=choose_method)
 
+
         # print("writing PDF...")
         pdf = pdf_latex().initialize()
         pdf_latex().write_header(pdf)
@@ -154,7 +158,7 @@ class rcat(object):
         pdf_latex().write_data_input(pdf, d_holder)
         pdf_latex().write_netork_parameters(pdf, d_holder)
         pdf_latex().write_word_cloud_single_character(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath)
-        pdf_latex().write_word_cloud(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath)
+        pdf_latex().write_word_cloud(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath, wc_context_selection=word_cloud_context_selection, words_in_word_cloud = words_in_wc)
         pdf_latex().write_wordfield_curve(pdf, d_holder, wf_cat)
         pdf_latex().word_field_curve(pdf, wf_cat)
         pdf_latex().write_prgramm_statments(pdf)
@@ -171,14 +175,14 @@ class rcat(object):
 
 
 
-if __name__ == "__main__":
-
-
-    rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Werther/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Werther/Goethe_Werther_74_characters.txt",
-                  dist_parameter=[8, 5, 5],
-                  remove_stopwords_in_context="n",
-                  segments=5, txt_language="German", number_of_wc=3,
-                  write_gephi_csv="n",
-                  word_field = "N",
-                  wf_cat="None",
-                  lemmatisation="n")
+# if __name__ == "__main__":
+#
+#
+#     rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Werther/Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Werther/Goethe_Werther_74_characters.txt",
+#                   dist_parameter=[8, 5, 5],
+#                   remove_stopwords_in_context="n",
+#                   segments=5, txt_language="German", number_of_wc=3,
+#                   write_gephi_csv="n",
+#                   word_field = "N",
+#                   wf_cat="None",
+#                   lemmatisation="n")

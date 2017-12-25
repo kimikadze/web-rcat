@@ -10,6 +10,7 @@ from pylatex.utils import bold
 import os
 
 from rcat.wordcloud_module import word_cloud
+from rcat.feature_module import features
 #from wordcloud_module import word_cloud
 
 
@@ -109,7 +110,7 @@ class pdf_latex:
                 with doc.create(Subsection("%s" % weigthed_degree_tuple[0], numbering=False)):
                     doc.append(weigthed_degree_tuple[1])
 
-    def write_word_cloud(self, doc, dta_holder, tpath, number_of_wc, head_of_file_name = "wordcloud", wc_context_selection="MFW"):
+    def write_word_cloud(self, doc, dta_holder, tpath, number_of_wc, head_of_file_name = "wordcloud", wc_context_selection="MFW", words_in_word_cloud = 12):
 
         # import float package for -> Figure(position="H")
         doc.packages.append(Package('float'))
@@ -125,7 +126,72 @@ class pdf_latex:
         # for relation in dta_holder["character_relations_context"]:
 
 
+        if wc_context_selection == "PMI":
+
+            PMI_all_pairs = features().PMI(context_words=dta_holder["character_relations_context"])
+            #print(PMI_all_pairs[0:3])
+            # for i in PMI_all_pairs[0:3]:
+            #     print(i)
+
+            for edge_pair_list in edge_weights_sorted[0:number_of_wc]:
+                for index, character_context_dic in enumerate(PMI_all_pairs):
+                    #print(index)
+                    if character_context_dic["character_names"][0] == edge_pair_list[0] and character_context_dic["character_names"][1] == edge_pair_list[1]:
+                        #print(index, character_context_dic["character_names"], character_context_dic["PMI"])
+
+                        if len(character_context_dic["PMI"][0:12]) == 0:
+                            text_string = "<<empty_word_cloud>>"
+                        if len(character_context_dic["PMI"][0:12]) > 0:
+                            text_string = str()
+                            # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
+                            #print(index,character_context_dic["character_names"],character_context_dic["PMI"][0:12])
+                            for word_freq_list in character_context_dic["PMI"][0:12]:
+
+
+                                if round(word_freq_list[1]) < 7:
+                                    if round(word_freq_list[1]) > 0:
+                                        for i in range(round(word_freq_list[1])):
+                                            text_string += "%s " %word_freq_list[0]
+                                    if round(word_freq_list[1]) <= 0:
+                                        text_string += "%s " % word_freq_list[0]
+
+                                if round(word_freq_list[1]) >= 7:
+                                    for i in range(6):
+                                        text_string += "%s " % word_freq_list[0]
+
+                            #print(text_string)
+
+                        word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath, file_name_head = head_of_file_name)
+                        # wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
+
+                        #######
+
+                        wordcloud_pic = Figure(position="H")
+                        wordcloud_pic.add_image(os.path.join(tpath, "wordcloud%s.png" % index),
+                                                width='240px')  # , placement="center")
+                        # wordcloud_pic.add_image(wc, width='240px')#, placement="center")
+
+                        # wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (relation["character_names"][0], relation["character_names"][1]))
+                        wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (
+                        dta_holder["character_relations_context"][index]["character_names"][0],
+                        dta_holder["character_relations_context"][index]["character_names"][1]))
+
+                        # subs.append(wordcloud_pic)
+                        # section.append(subs)
+
+                        section.append(wordcloud_pic)
+
+            doc.append(section)
+
         if wc_context_selection=="MFW":
+
+            #BETTER WITH ENUMERATE (CHANGE, IF HAVE SOME TIME)
+            # for edge_pair_list in edge_weights_sorted[0:number_of_wc]:
+            #     for index, character_context_dic in enumerate(dta_holder["character_relations_context"]):
+            #         #print(index)
+            #         if character_context_dic["character_names"][0] == edge_pair_list[0] and character_context_dic["character_names"][1] == edge_pair_list[1]:
+            #             print(index, character_context_dic["character_names"], character_context_dic["tf_sorted_list"])
+			#
 
             for edge_pair_list in edge_weights_sorted[0:number_of_wc]:
 

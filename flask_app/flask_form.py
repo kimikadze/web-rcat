@@ -120,6 +120,12 @@ def upload():
 
 
     #FEATURES (SELECTION FOR WORD CLOUD FILTER)
+    wc_context_parameter = request.form["wc_context_selection"]
+
+
+    #WORDS IN WORD CLOUD
+    words_in_word_cloud_parameter = request.form["words_in_word_cloud"]
+
 
 
 
@@ -146,7 +152,7 @@ def upload():
                   write_gephi_csv="n",
                   word_field = wordfield_parameter,
                   wf_cat=wf_cat_parameter,
-                  lemmatisation=lemmatisation_parameter, sess_id=session_id)
+                  lemmatisation=lemmatisation_parameter, sess_id=session_id, word_cloud_context_selection = wc_context_parameter, words_in_wc =words_in_word_cloud_parameter)
 
 
     return render_template('rcat_done.html')
