@@ -9,6 +9,6 @@ rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/web-rcat/flask
 				write_gephi_csv="n",
 				word_field = "N",
 				wf_cat="None",
-				lemmatisation="n",
+				lemmatisation="treetagger",
 				word_cloud_context_selection = "PMI",
 				words_in_wc=30)

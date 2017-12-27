@@ -115,7 +115,12 @@ class pdf_latex:
         # import float package for -> Figure(position="H")
         doc.packages.append(Package('float'))
 
-        section = Section("Word Cloud for character pairs", numbering=True)
+        #section = Section("Word Cloud for character pairs", numbering=True)
+
+        if wc_context_selection=="PMI":
+            section = Section("Word Cloud for character pairs (method: pointwise mutual information", numbering=True)
+        if wc_context_selection=="MFW":
+            section = Section("Word Cloud for character pairs (method: most frequent contexts words", numbering=True)
 
         network_parameters = dta_holder["network_parameters"]
         edge_weights = network_parameters[6]
@@ -249,40 +254,34 @@ class pdf_latex:
 
 
 
-    def write_word_cloud_single_character(self, doc, dta_holder, tpath, number_of_wc,head_of_file_name = "wordcloud_for_single_character"):
+    def write_word_cloud_single_character(self, doc, dta_holder, tpath, number_of_wc,head_of_file_name = "wordcloud_for_single_character", wc_context_selection="MFW", words_in_word_cloud = 12):
 
 
         doc.packages.append(Package('float'))
-        section = Section("Word Cloud for single characters", numbering=True)
+        if wc_context_selection=="PMI":
+            section = Section("Word Cloud for single characters (method: pointwise mutual information", numbering=True)
+        if wc_context_selection=="MFW":
+            section = Section("Word Cloud for single characters (method: most frequent contexts words", numbering=True)
 
         network_parameters = dta_holder["network_parameters"]
         weighted_degrees = network_parameters[5]
         weighted_degrees_sorted = sorted(weighted_degrees, key=operator.itemgetter(1), reverse=True)
 
+        if wc_context_selection == "PMI":
 
-        character_names_with_highest_degree = list()
-        for weighted_degree in weighted_degrees_sorted[0:number_of_wc]:
-            character_names_with_highest_degree += [weighted_degree[0]]
-
-        for index in range(0, len(dta_holder["single_character_context"])):
+            character_names_with_highest_degree = list()
+            for weighted_degree in weighted_degrees_sorted[0:number_of_wc]:
+                character_names_with_highest_degree += [weighted_degree[0]]
 
 
-            if dta_holder["single_character_context"][index]["character_names"] in character_names_with_highest_degree:
-
-                if len(dta_holder["single_character_context"][index]["tf_sorted_list"][0:12]) == 0:
+            for index, context_dic in enumerate(dta_holder["single_character_context"]):
+                if len(context_dic["tf_sorted_list"][0:words_in_word_cloud]) == 0:
                     text_string = "<<empty_word_cloud>>"
-                if len(dta_holder["single_character_context"][index]["tf_sorted_list"][0:12]) > 0:
-                #print(dta_holder["single_character_context"][index]["tf_sorted_list"][0:12])
-
+                if len(context_dic["tf_sorted_list"][0:words_in_word_cloud]) > 0:
+                    #print(context_dic)
                     text_string = str()
                     # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
-                    for word_freq_tuple in dta_holder["single_character_context"][index]["tf_sorted_list"][0:12]:
-
-
-                        #print(word_freq_tuple)
-
-                        # for i in range(word_freq_tuple[1]):
-                        #     text_string += "%s " % word_freq_tuple[0]
+                    for word_freq_tuple in context_dic["tf_sorted_list"][0:words_in_word_cloud]:
 
                         if word_freq_tuple[1] < 7:
                             for i in range(word_freq_tuple[1]):
@@ -290,29 +289,79 @@ class pdf_latex:
 
                         if word_freq_tuple[1] >= 7:
                             for i in range(6):
-                                #print(i)
+                                # print(i)
                                 text_string += "%s " % word_freq_tuple[0]
+                                # print(text_string)
 
-                #print(text_string)
-
-                word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath, file_name_head = head_of_file_name)
-                # wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
-
-                #######
+                word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath,
+                                                     file_name_head=head_of_file_name)
+                #wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
 
                 wordcloud_pic = Figure(position="H")
                 wordcloud_pic.add_image(os.path.join(tpath, "wordcloud_for_single_character%s.png" % index),
                                         width='240px')  # , placement="center")
 
-                wordcloud_pic.add_caption('word cloud of "%s"' % (
-                    dta_holder["single_character_context"][index]["character_names"]))
-
-                # subs.append(wordcloud_pic)
-                # section.append(subs)
+                wordcloud_pic.add_caption('word cloud of "%s"' % (dta_holder["single_character_context"][index]["character_names"]))
 
                 section.append(wordcloud_pic)
 
-        doc.append(section)
+            doc.append(section)
+
+        if wc_context_selection == "MFW":
+
+            character_names_with_highest_degree = list()
+            for weighted_degree in weighted_degrees_sorted[0:number_of_wc]:
+                character_names_with_highest_degree += [weighted_degree[0]]
+
+            for index in range(0, len(dta_holder["single_character_context"])):
+
+
+                if dta_holder["single_character_context"][index]["character_names"] in character_names_with_highest_degree:
+
+                    if len(dta_holder["single_character_context"][index]["tf_sorted_list"][0:words_in_word_cloud]) == 0:
+                        text_string = "<<empty_word_cloud>>"
+                    if len(dta_holder["single_character_context"][index]["tf_sorted_list"][0:words_in_word_cloud]) > 0:
+                    #print(dta_holder["single_character_context"][index]["tf_sorted_list"][0:12])
+
+                        text_string = str()
+                        # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
+                        for word_freq_tuple in dta_holder["single_character_context"][index]["tf_sorted_list"][0:words_in_word_cloud]:
+
+
+                            #print(word_freq_tuple)
+
+                            # for i in range(word_freq_tuple[1]):
+                            #     text_string += "%s " % word_freq_tuple[0]
+
+                            if word_freq_tuple[1] < 7:
+                                for i in range(word_freq_tuple[1]):
+                                    text_string += "%s " % word_freq_tuple[0]
+
+                            if word_freq_tuple[1] >= 7:
+                                for i in range(6):
+                                    #print(i)
+                                    text_string += "%s " % word_freq_tuple[0]
+
+                    #print(text_string)
+
+                    word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath, file_name_head = head_of_file_name)
+                    # wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
+
+                    #######
+
+                    wordcloud_pic = Figure(position="H")
+                    wordcloud_pic.add_image(os.path.join(tpath, "wordcloud_for_single_character%s.png" % index),
+                                            width='240px')  # , placement="center")
+
+                    wordcloud_pic.add_caption('word cloud of "%s"' % (
+                        dta_holder["single_character_context"][index]["character_names"]))
+
+                    # subs.append(wordcloud_pic)
+                    # section.append(subs)
+
+                    section.append(wordcloud_pic)
+
+            doc.append(section)
 
 
 

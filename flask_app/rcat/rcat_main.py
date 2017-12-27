@@ -157,7 +157,7 @@ class rcat(object):
         pdf_latex().network_figure(pdf, dirpath, method=choose_method)
         pdf_latex().write_data_input(pdf, d_holder)
         pdf_latex().write_netork_parameters(pdf, d_holder)
-        pdf_latex().write_word_cloud_single_character(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath)
+        pdf_latex().write_word_cloud_single_character(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath, wc_context_selection=word_cloud_context_selection, words_in_word_cloud = words_in_wc)
         pdf_latex().write_word_cloud(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath, wc_context_selection=word_cloud_context_selection, words_in_word_cloud = words_in_wc)
         pdf_latex().write_wordfield_curve(pdf, d_holder, wf_cat)
         pdf_latex().word_field_curve(pdf, wf_cat)
