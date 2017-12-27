@@ -14,7 +14,7 @@ class word_cloud:
 
         #text = 'all your base are belong to us all of your base base base'
         wordcloud = WordCloud(background_color="white",
-                              relative_scaling=1.0,
+                              relative_scaling=1.0, collocations=False
                               #stopwords={'to', 'of'}  # set or space-separated string
                               ).generate(text)
         #plt.imshow(wordcloud)
