@@ -153,15 +153,15 @@ class pdf_latex:
                             for word_freq_list in character_context_dic["PMI"][0:words_in_word_cloud]:
 
 
-                                if round(word_freq_list[1]) < 7:
+                                if round(word_freq_list[1]) < 10:
                                     if round(word_freq_list[1]) > 0:
                                         for i in range(round(word_freq_list[1])):
                                             text_string += "%s " %word_freq_list[0]
                                     if round(word_freq_list[1]) <= 0:
                                         text_string += "%s " % word_freq_list[0]
 
-                                if round(word_freq_list[1]) >= 7:
-                                    for i in range(6):
+                                if round(word_freq_list[1]) >= 10:
+                                    for i in range(9):
                                         text_string += "%s " % word_freq_list[0]
 
                             #print(text_string)
@@ -213,22 +213,18 @@ class pdf_latex:
                                 # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
                                 for word_freq_tuple in dta_holder["character_relations_context"][index]["tf_sorted_list"][0:words_in_word_cloud]:
 
-                                    #for i in range(word_freq_tuple[1]):
-                                    #     text_string += "%s " % word_freq_tuple[0]
 
-                                    #print(word_freq_tuple)
 
-                                    if word_freq_tuple[1] < 7:
+                                    if word_freq_tuple[1] < 10:
                                         for i in range(word_freq_tuple[1]):
                                             text_string += "%s " % word_freq_tuple[0]
 
-                                    if word_freq_tuple[1] >= 7:
-                                        for i in range(6):
+                                    if word_freq_tuple[1] >= 10:
+                                        for i in range(9):
                                             # print(i)
                                             text_string += "%s " % word_freq_tuple[0]
 
                             #print(text_string)
-
 
                             word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath, file_name_head = head_of_file_name)
                             # wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
@@ -283,12 +279,12 @@ class pdf_latex:
                     # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
                     for word_freq_tuple in context_dic["tf_sorted_list"][0:words_in_word_cloud]:
 
-                        if word_freq_tuple[1] < 7:
+                        if word_freq_tuple[1] < 10:
                             for i in range(word_freq_tuple[1]):
                                 text_string += "%s " % word_freq_tuple[0]
 
-                        if word_freq_tuple[1] >= 7:
-                            for i in range(6):
+                        if word_freq_tuple[1] >= 10:
+                            for i in range(9):
                                 # print(i)
                                 text_string += "%s " % word_freq_tuple[0]
                                 # print(text_string)
@@ -333,12 +329,12 @@ class pdf_latex:
                             # for i in range(word_freq_tuple[1]):
                             #     text_string += "%s " % word_freq_tuple[0]
 
-                            if word_freq_tuple[1] < 7:
+                            if word_freq_tuple[1] < 10:
                                 for i in range(word_freq_tuple[1]):
                                     text_string += "%s " % word_freq_tuple[0]
 
-                            if word_freq_tuple[1] >= 7:
-                                for i in range(6):
+                            if word_freq_tuple[1] >= 10:
+                                for i in range(9):
                                     #print(i)
                                     text_string += "%s " % word_freq_tuple[0]
 
