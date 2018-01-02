@@ -11,12 +11,37 @@ class features:
 
 
 
-	def zeta(self, dta_holder, mode="single_character_context"):#context_single_characters, context_pairs):
+	def zeta(self, dta_holder, number_of_word_clouds, mode="single_character_context"):#context_single_characters, context_pairs):
+
+
 
 		if mode=="single_character_context":
 			weighted_degrees = dta_holder["network_parameters"][5]
-			print(weighted_degrees)
+			weighted_degrees_sorted = sorted(weighted_degrees, key=operator.itemgetter(1), reverse=True)
 
+			for weighted_degree in weighted_degrees_sorted[0:number_of_word_clouds]:
+
+				character_name_of_degree = weighted_degree[0]
+
+				dic_with_current_character_name = [dic["words_before_after_pair"] for dic in dta_holder["single_character_context"] if dic["character_names"] == character_name_of_degree]
+
+
+				#if weighted_degree ==
+
+				print(weighted_degree)
+				print(dic_with_current_character_name)
+				#print(len(dic_with_current_character_name))
+
+				#print(list(map(operator.itemgetter("character_names"), dta_holder["single_character_context"])))
+
+				#map_obj = map(operator.itemgetter("character_names"), dta_holder["single_character_context"])
+
+				#for i in map_obj:
+				#	print(i)
+				#print(dta_holder["single_character_context"]["character_names"])
+
+				#if weighted_degree[0] == dta_holder["single_character_context"]["character_names"]:
+					#print(dta_holder["single_character_context"]["character_names"])
 
 
 	#def PMI(self, context_words, tokenized_text_no_stopword_removal, divide_by="sum_of_context_words"):

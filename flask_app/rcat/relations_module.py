@@ -104,16 +104,18 @@ class relations:
 
         context = list()
 
+        words_before_after_pair_ALL = list()
+
         for j in range(len(character_positions)):
+        #words_before_after_character_positions_for_character = list()
+        #for index, character_occurance_list in enumerate(character_positions):
             words_before_after_character_positions_for_character = list()
 
             for character_occurance_list in character_positions[j]:
-                words_before_after_character_positions_for_character += [i for i in range(
-                    character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(
-                    character_occurance_list[-1] + 1, character_occurance_list[-1] + 1 + words_after)]
+                words_before_after_character_positions_for_character += [i for i in range(character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(character_occurance_list[-1] + 1, character_occurance_list[-1] + 1 + words_after)]
+            #words_before_after_character_positions_for_character += [i for i in range(character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(character_occurance_list[-1] + 1,character_occurance_list[-1] + 1 + words_after)]
 
-            words_before_after_character_positions_for_character_sorted = sorted(
-                list(set(words_before_after_character_positions_for_character)))
+            words_before_after_character_positions_for_character_sorted = sorted(list(set(words_before_after_character_positions_for_character)))
 
             if delete_stopwords_in_context == "n":
                 words_before_after_pair = list()
@@ -148,6 +150,7 @@ class relations:
                             wordf.append(line)
                     words_before_after_pair = [word for word in words_before_after_pair if word in wordf]
 
+            #words_before_after_pair_ALL.append(words_before_after_pair)
             word_counts_for_pair = dict()
             for word in words_before_after_pair:
                 if word not in word_counts_for_pair:
@@ -157,7 +160,9 @@ class relations:
                                                  reverse=True)
 
             context += [{"character_names": character_list[j][0],
-                         "tf_dic": word_counts_for_pair, "tf_sorted_list": word_counts_for_pair_ranked}]
+                         "tf_dic": word_counts_for_pair,
+                         "tf_sorted_list": word_counts_for_pair_ranked,
+                         "words_before_after_pair": words_before_after_pair}]
 
         return context
 

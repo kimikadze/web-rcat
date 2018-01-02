@@ -157,7 +157,7 @@ class rcat(object):
 
         #COLLECT FEATURES
 
-        print(features().zeta(d_holder, mode="single_character_context"))
+        print(features().zeta(d_holder, mode="single_character_context", number_of_word_clouds=number_of_wc))
 
 
 
