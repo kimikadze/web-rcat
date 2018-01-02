@@ -12,7 +12,7 @@ background: url(../graphics/Logo_creta.eps);
 display: none;
 }-->*/
 
-body            { font-family: sans-serif; background: #FFFDFD; }
+body            { font-family: sans-serif; background: ##FFFFFF; }
 h1, h2	        { color: #2C2D38;}
 h1, h2          { font-family: serif; margin: 1px; }
 h2              { font-size: 1.2em; }
@@ -27,7 +27,7 @@ div {
   float: left;
   margin: 10px;
   padding-left: 50px;
-  background-color: #FFFDFD;
+  background-color: ##FFFFFF;
 }
 
 #LogoCreta { float: right; padding: 5px; }
