@@ -7,6 +7,18 @@ class features:
 	def __init__(self):
 		pass
 
+
+
+
+
+	def zeta(self, dta_holder, mode="single_character_context"):#context_single_characters, context_pairs):
+
+		if mode=="single_character_context":
+			weighted_degrees = dta_holder["network_parameters"][5]
+			print(weighted_degrees)
+
+
+
 	#def PMI(self, context_words, tokenized_text_no_stopword_removal, divide_by="sum_of_context_words"):
 	def PMI(self, context_words):
 
@@ -62,7 +74,6 @@ class features:
 
 
 	#
-
 
 
 	# OLD STRUCTURE (LIST)
