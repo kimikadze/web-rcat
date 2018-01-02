@@ -23,6 +23,7 @@ from rcat.word_field_module import WordField
 from rcat.pdf_latex_module import pdf_latex
 #from pdf_latex_module import pdf_latex
 
+from rcat.feature_module import features
 
 
 class rcat(object):
@@ -102,8 +103,8 @@ class rcat(object):
 
             network_generator.build_and_plot_graph_vis_col(holder["character_relations"], netw_parameters,number_of_wc,temppath=temporary_path)
 
-            holder["network_parameters"] = netw_parameters
 
+            holder["network_parameters"] = netw_parameters
 
 
         return holder
@@ -127,6 +128,8 @@ class rcat(object):
                  word_cloud_context_selection = "MFW",
                  words_in_wc = 12):
 
+        #SET DIR PATH
+
         dirpath = os.getcwd()
         if sess_id==False:
             dirpath = os.path.join(dirpath, "data/temp_folder")
@@ -136,6 +139,8 @@ class rcat(object):
                 os.makedirs(dirpath)
                 #dirpath = os.path.join(dirpath, "data_user/%s_temp_folder" %sess_id)
 
+
+        #INITIALIZE DATA HOLDER
         d_holder = self.data_holder(text_file,
                                     character_file,
                                     dirpath,
@@ -150,6 +155,13 @@ class rcat(object):
                                     language=txt_language,
                                     choose__method=choose_method)
 
+        #COLLECT FEATURES
+
+        print(features().zeta(d_holder, mode="single_character_context"))
+
+
+
+        #WRITE PDF
 
         # print("writing PDF...")
         pdf = pdf_latex().initialize()
