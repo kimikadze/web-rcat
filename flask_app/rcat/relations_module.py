@@ -106,16 +106,20 @@ class relations:
 
         words_before_after_pair_ALL = list()
 
+        words_before_after_character_positions_for_character = list()
         for j in range(len(character_positions)):
-        #words_before_after_character_positions_for_character = list()
         #for index, character_occurance_list in enumerate(character_positions):
+            #print(character_occurance_list)
             words_before_after_character_positions_for_character = list()
 
             for character_occurance_list in character_positions[j]:
+                #print(j)
                 words_before_after_character_positions_for_character += [i for i in range(character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(character_occurance_list[-1] + 1, character_occurance_list[-1] + 1 + words_after)]
+
             #words_before_after_character_positions_for_character += [i for i in range(character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(character_occurance_list[-1] + 1,character_occurance_list[-1] + 1 + words_after)]
 
             words_before_after_character_positions_for_character_sorted = sorted(list(set(words_before_after_character_positions_for_character)))
+            #words_before_after_character_positions_for_character = list()
 
             if delete_stopwords_in_context == "n":
                 words_before_after_pair = list()
