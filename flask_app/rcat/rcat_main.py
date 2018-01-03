@@ -37,9 +37,9 @@ class rcat(object):
                     number_of_wc=str(), write_gephi_csv = str(), word_field=str(), wf_cat=str(), lemmatisation="n",
                     language="German",choose__method=str()):
 
-        # holder = dict(character_relations=0, character_relations_context=0, text_file=0, character_file=0,
-        #               tokenized_text=0, characters=0, parameter=0, network_parameters=0,
-        #               single_character_context=0, segments=0, lemmatisation=0, lang=0, number_of_wc=0, word_field=0, wf_cat=0)
+        holder = dict(character_relations=0, character_relations_context=0, text_file=0, character_file=0,
+                      tokenized_text=0, characters=0, parameter=0, network_parameters=0,
+                      single_character_context=0, segments=0, lemmatisation=0, lang=0, number_of_wc=0, word_field=0, wf_cat=0)
 
 
         if word_field != "N":
@@ -89,6 +89,9 @@ class rcat(object):
                 with open("./data/stopwords/stopwords_de_except_ich.txt", "r", encoding="utf-8") as dt:
                     stop_dt = dt.readlines()
                     stop_dt = [i.strip() for i in stop_dt]
+
+            if del_stopwords_in_context=="n":
+                stop_dt= False
 
 
             holder = {"character_relations": character_relations,
