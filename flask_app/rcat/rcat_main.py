@@ -41,11 +41,11 @@ class rcat(object):
 
         if del_stopwords_in_context=="y":
             with open("./data/stopwords/stopwords_de_except_ich.txt", "r", encoding="utf-8") as dt:
-                stop_dt = dt.readlines()
-                stop_dt = [i.strip() for i in stop_dt]
+                stopwords = dt.readlines()
+                stopwords = [i.strip() for i in stopwords]
 
         if del_stopwords_in_context=="n":
-            stop_dt= False
+            stopwords= False
 
         #INITIALIZE WORD FIELDS
 
@@ -80,7 +80,7 @@ class rcat(object):
                                                                       words_after=distance_parameter[2],
                                                                       delete_stopwords_in_context=del_stopwords_in_context,
                                                                       word_field=word_field, wf_cat=wf_cat,
-                                                                      stop_words="./data/stopwords/stopwords_de_except_ich.txt")
+                                                                      stop_words=stopwords)
                                                                         #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
                                                                       #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
@@ -89,7 +89,7 @@ class rcat(object):
                                                                                          txt_tokenized, delete_stopwords_in_context=del_stopwords_in_context,
                                                                                          word_field=word_field,
                                                                                          wf_cat=wf_cat,
-                                                                                         stop_words="./data/stopwords/stopwords_de_except_ich.txt")
+                                                                                         stop_words=stopwords)
                                                                                          #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
                                                                                         #stop_words = "./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
@@ -99,7 +99,7 @@ class rcat(object):
                   "text_file": text__file, "character_file": character__file, "tokenized_text": txt_tokenized,
                   "characters": characters, "parameter": distance_parameter,
                   "network_parameters": 0, "single_character_context": single_character_context,
-                  "segments": segments, "lang": "./data/stopwords/stopwords_de_except_ich.txt", "stopwords":stop_dt, "number_of_wc": number_of_wc, "word_field": word_field,
+                  "segments": segments, "lang": "./data/stopwords/stopwords_de_except_ich.txt", "stopwords":stopwords, "number_of_wc": number_of_wc, "word_field": word_field,
                   "wf_cat": wf_cat}
 
         netw_parameters = network_parameters().calculate_network_parameters(holder["character_relations"],
@@ -161,9 +161,12 @@ class rcat(object):
                                     choose__method=choose_method)
 
         #COLLECT FEATURES
+        #(PMI calculation could be moved from inside from inside word cloud calculation to here)
 
-        print(features().zeta(dta_holder=d_holder, number_of_word_clouds=number_of_wc, remove_stopwords_in_context=remove_stopwords_in_context))
+        zeta_results = features().zeta(dta_holder=d_holder, number_of_word_clouds=number_of_wc, remove_stopwords_in_context=remove_stopwords_in_context)
 
+        for index, pair in enumerate(zeta_results):
+            features().visualize_zeta(zeta_results[index], name_for_figure="zeta_pair_%s" %index)
 
 
         #WRITE PDF

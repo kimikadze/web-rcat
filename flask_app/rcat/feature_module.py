@@ -1,5 +1,9 @@
 import operator
 import math
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import numpy as np
+import matplotlib.pyplot as plt
+from operator import itemgetter
 
 
 class features:
@@ -86,16 +90,21 @@ class features:
 			zeta_scores_comparison[token_key] = values_for_zeta_comparison["partition_value"][token_key] - values_for_zeta_target["partition_value"][token_key]
 
 		zeta_scores_target_sorted = sorted(zeta_scores_target.items(), key=operator.itemgetter(1), reverse=True)
-		print(zeta_scores_target_sorted)
+		#print(zeta_scores_target_sorted)
 		zeta_scores_comparison_sorted = sorted(zeta_scores_comparison.items(), key=operator.itemgetter(1), reverse=True)
-		print(zeta_scores_comparison_sorted)
+		#print(zeta_scores_comparison_sorted)
+
+
+		results = {"zeta_scores_target_sorted": zeta_scores_target_sorted, "zeta_scores_comparison_sorted":zeta_scores_comparison_sorted}
+
+		return results
 
 ####################
 		# 	zeta_scores[token_key] = target_partition - comparison_partition
 		#
 		# zeta_scores_sorted = sorted(zeta_scores.items(), key=operator.itemgetter(1), reverse=True)
 		#
-		# print(zeta_scores_sorted)
+		#print(zeta_scores_sorted)
 
 
 
@@ -106,22 +115,67 @@ class features:
 		edge_weights = network_parameters[6]
 		edge_weights_sorted = sorted(edge_weights, key=operator.itemgetter(2), reverse=True)
 
+		edge_pair_results = list()
+
 		for edge_pair_list in edge_weights_sorted[0:number_of_word_clouds]:
-			print(edge_pair_list)
-			name_a = edge_pair_list[0]
+			#print(edge_pair_list)
+			name_target = edge_pair_list[0]
 			#print(name_a)
-			name_b = edge_pair_list[1]
-			values_a = features().get_values_for_zeta(character_name=name_a,dta_holder=dta_holder)
-			values_b = features().get_values_for_zeta(character_name=name_b,dta_holder=dta_holder)
+			name_comparison = edge_pair_list[1]
+			values_target = features().get_values_for_zeta(character_name=name_target,dta_holder=dta_holder)
+			values_comparison = features().get_values_for_zeta(character_name=name_comparison,dta_holder=dta_holder)
 			#print("a", values_a)
 			#print("b", values_b)
 
-			features().calculate_zeta(values_for_zeta_target=values_a, values_for_zeta_comparison=values_b, dta_holder=dta_holder)
+			#print(features().calculate_zeta(values_for_zeta_target=values_target, values_for_zeta_comparison=values_comparison, dta_holder=dta_holder))
 
+			edge_pair_result = features().calculate_zeta(values_for_zeta_target=values_target, values_for_zeta_comparison=values_comparison, dta_holder=dta_holder)
+			edge_pair_result["name_target"] = name_target
+			edge_pair_result["name_comparison"] = name_comparison
+			#edge_pair_results.append(features().calculate_zeta(values_for_zeta_target=values_target, values_for_zeta_comparison=values_comparison, dta_holder=dta_holder))
+
+			edge_pair_results.append(edge_pair_result)
+
+		return edge_pair_results
 
 
 
 			#print(edge_pair_list)
+
+	def visualize_zeta(self, edge_pair_result, name_for_figure, top_n_results = 10):
+	#def visualize_zeta(self, edge_pair_result, top_n_results=10):
+
+
+		# the following index [::-1] inverts the list for the figure
+		objects = [el[0] for el in edge_pair_result["zeta_scores_target_sorted"][0:top_n_results]][::-1]
+		y_pos = np.arange(len(objects))
+		performance = [el[1] for el in edge_pair_result["zeta_scores_target_sorted"][0:top_n_results]][::-1]
+
+		plt.barh(y_pos, performance, align='center', alpha=0.5)
+		plt.yticks(y_pos, objects)
+		plt.xlabel('Zeta Score')
+		plt.title('%s' %edge_pair_result["name_target"])
+		#plt.show()
+		#plt.savefig("zeta.pdf", bbox_inches='tight')
+		plt.savefig("%s_a_target_%s.pdf" %(name_for_figure,edge_pair_result["name_target"]), bbox_inches='tight')
+
+	##################
+
+		objects = [el[0] for el in edge_pair_result["zeta_scores_comparison_sorted"][0:top_n_results]][::-1]
+		y_pos = np.arange(len(objects))
+		performance = [el[1] for el in edge_pair_result["zeta_scores_comparison_sorted"][0:top_n_results]][::-1]
+
+		plt.barh(y_pos, performance, align='center', alpha=0.5)
+		plt.yticks(y_pos, objects)
+		plt.xlabel('Zeta Score')
+		plt.title('%s' % edge_pair_result["name_comparison"])
+		# plt.show()
+		# plt.savefig("zeta.pdf", bbox_inches='tight')
+		plt.savefig("%s_b_comparison_%s.pdf" % (name_for_figure, edge_pair_result["name_comparison"]), bbox_inches='tight')
+
+
+
+
 
 
 

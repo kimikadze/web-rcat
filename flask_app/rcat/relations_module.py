@@ -130,14 +130,14 @@ class relations:
                         words_before_after_pair += [tokenized_text[index_number]]
 
             if delete_stopwords_in_context == "y":
-                with open(stop_words, "r", encoding="utf-8") as dt:
-                    stop_dt = dt.readlines()
-                    stop_dt = [i.strip() for i in stop_dt]
+                # with open(stop_words, "r", encoding="utf-8") as dt:
+                #     stop_dt = dt.readlines()
+                #     stop_dt = [i.strip() for i in stop_dt]
 
                 words_before_after_pair = list()
                 for index_number in words_before_after_character_positions_for_character_sorted:
                     if index_number in range(0, len(tokenized_text)):
-                        if tokenized_text[index_number].lower() not in stop_dt:
+                        if tokenized_text[index_number].lower() not in stop_words:
                             words_before_after_pair += [tokenized_text[index_number]]
 
             if not word_field == "N":
@@ -175,7 +175,7 @@ class relations:
     ###########################################################################################################
 
     def count_context_words(self, relations, tokenized_text, words_before=8, words_after=8,
-                            delete_stopwords_in_context="n", word_field=str(), wf_cat=str(), stop_words=str()):
+                            delete_stopwords_in_context="n",  word_field=str(), wf_cat=str(), stop_words=str()):
         context = list()
         for j in range(len(relations)):
             words_before_between_after_pair_indices = list()
@@ -201,14 +201,14 @@ class relations:
 
             if delete_stopwords_in_context == "y":
                 #print(os.getcwd())
-                with open(stop_words, "r", encoding="utf-8") as dt:
-                    stop_dt = dt.readlines()
-                    stop_dt = [i.strip() for i in stop_dt]
+                # with open(stop_words, "r", encoding="utf-8") as dt:
+                #     stop_dt = dt.readlines()
+                #     stop_dt = [i.strip() for i in stop_dt]
 
                 words_before_between_after_pair = list()
                 for index_number in words_before_between_after_pair_indices_sort:
                     if index_number in range(0, len(tokenized_text)):
-                        if tokenized_text[index_number].lower() not in stop_dt:
+                        if tokenized_text[index_number].lower() not in stop_words:
                             words_before_between_after_pair += [tokenized_text[index_number]]
                 #print(words_before_between_after_pair)
 
