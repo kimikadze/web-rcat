@@ -37,10 +37,17 @@ class rcat(object):
                     number_of_wc=str(), write_gephi_csv = str(), word_field=str(), wf_cat=str(), lemmatisation="n",
                     language="German",choose__method=str()):
 
-        holder = dict(character_relations=0, character_relations_context=0, text_file=0, character_file=0,
-                      tokenized_text=0, characters=0, parameter=0, network_parameters=0,
-                      single_character_context=0, segments=0, lemmatisation=0, lang=0, number_of_wc=0, word_field=0, wf_cat=0)
+        # READ STOPWORDS (TO BE REMOVED FROM CONTEXT TERMS
 
+        if del_stopwords_in_context=="y":
+            with open("./data/stopwords/stopwords_de_except_ich.txt", "r", encoding="utf-8") as dt:
+                stop_dt = dt.readlines()
+                stop_dt = [i.strip() for i in stop_dt]
+
+        if del_stopwords_in_context=="n":
+            stop_dt= False
+
+        #INITIALIZE WORD FIELDS
 
         if word_field != "N":
 
@@ -51,67 +58,58 @@ class rcat(object):
         else:
             pass
 
-        if lemmatisation != "weblicht":
-            txt = text_reader().read_text_file(txt_file=text__file)
-            txt_tokenized = text_reader().tokenize_lemmatize_text(txt, lemmatize=lemmatisation, text_language=language)
 
-            characters = characters_reader().read_characters(char_file=character__file)
-            characters_tokenized = characters_reader().tokenize_characters(characters)
+        #RUN TEXT ANALYSIS FUNCTIONS
 
-            # print("compute character relations...")
-            character_positions = relations().find_character_positions(txt_tokenized, characters_tokenized)
-            character_pairs = relations().build_character_pairs(characters, characters_tokenized)
-            character_relations = relations().build_relations(character_positions, character_pairs,
-                                                              distance_for_relation=distance_parameter[0])
+        txt = text_reader().read_text_file(txt_file=text__file)
+        txt_tokenized = text_reader().tokenize_lemmatize_text(txt, lemmatize=lemmatisation, text_language=language)
 
-            # print("find context for characters...")
-            #print(os.getcwd())
-            character_relations_context = relations().count_context_words(character_relations, txt_tokenized,
-                                                                          words_before=distance_parameter[1],
-                                                                          words_after=distance_parameter[2],
-                                                                          delete_stopwords_in_context=del_stopwords_in_context,
-                                                                          word_field=word_field, wf_cat=wf_cat,
-                                                                          stop_words="./data/stopwords/stopwords_de_except_ich.txt")
-                                                                            #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
-                                                                          #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
+        characters = characters_reader().read_characters(char_file=character__file)
+        characters_tokenized = characters_reader().tokenize_characters(characters)
 
-            single_character_context = relations().count_context_words_for_single_characters(character_positions,
-                                                                                             characters,
-                                                                                             txt_tokenized, delete_stopwords_in_context=del_stopwords_in_context,
-                                                                                             word_field=word_field,
-                                                                                             wf_cat=wf_cat,
-                                                                                             stop_words="./data/stopwords/stopwords_de_except_ich.txt")
-                                                                                             #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
-                                                                                            #stop_words = "./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
+        # print("compute character relations...")
+        character_positions = relations().find_character_positions(txt_tokenized, characters_tokenized)
+        character_pairs = relations().build_character_pairs(characters, characters_tokenized)
+        character_relations = relations().build_relations(character_positions, character_pairs,
+                                                          distance_for_relation=distance_parameter[0])
 
+        # print("find context for characters...")
+        #print(os.getcwd())
+        character_relations_context = relations().count_context_words(character_relations, txt_tokenized,
+                                                                      words_before=distance_parameter[1],
+                                                                      words_after=distance_parameter[2],
+                                                                      delete_stopwords_in_context=del_stopwords_in_context,
+                                                                      word_field=word_field, wf_cat=wf_cat,
+                                                                      stop_words="./data/stopwords/stopwords_de_except_ich.txt")
+                                                                        #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
+                                                                      #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
-            if del_stopwords_in_context=="y":
-                with open("./data/stopwords/stopwords_de_except_ich.txt", "r", encoding="utf-8") as dt:
-                    stop_dt = dt.readlines()
-                    stop_dt = [i.strip() for i in stop_dt]
+        single_character_context = relations().count_context_words_for_single_characters(character_positions,
+                                                                                         characters,
+                                                                                         txt_tokenized, delete_stopwords_in_context=del_stopwords_in_context,
+                                                                                         word_field=word_field,
+                                                                                         wf_cat=wf_cat,
+                                                                                         stop_words="./data/stopwords/stopwords_de_except_ich.txt")
+                                                                                         #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
+                                                                                        #stop_words = "./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
-            if del_stopwords_in_context=="n":
-                stop_dt= False
+        # FILL DATA HOLDER
+        holder = {"character_relations": character_relations,
+                  "character_relations_context": character_relations_context,
+                  "text_file": text__file, "character_file": character__file, "tokenized_text": txt_tokenized,
+                  "characters": characters, "parameter": distance_parameter,
+                  "network_parameters": 0, "single_character_context": single_character_context,
+                  "segments": segments, "lang": "./data/stopwords/stopwords_de_except_ich.txt", "stopwords":stop_dt, "number_of_wc": number_of_wc, "word_field": word_field,
+                  "wf_cat": wf_cat}
 
-
-            holder = {"character_relations": character_relations,
-                      "character_relations_context": character_relations_context,
-                      "text_file": text__file, "character_file": character__file, "tokenized_text": txt_tokenized,
-                      "characters": characters, "parameter": distance_parameter,
-                      "network_parameters": 0, "single_character_context": single_character_context,
-                      "segments": segments, "lang": "./data/stopwords/stopwords_de_except_ich.txt", "stopwords":stop_dt, "number_of_wc": number_of_wc, "word_field": word_field,
-                      "wf_cat": wf_cat}
+        netw_parameters = network_parameters().calculate_network_parameters(holder["character_relations"],
+                                                                            holder["characters"])
+        holder["network_parameters"] = netw_parameters
 
 
-            netw_parameters = network_parameters().calculate_network_parameters(holder["character_relations"],
-                                                                                holder["characters"])
-
-            # print("build network...")
-
-            network_generator.build_and_plot_graph_vis_col(holder["character_relations"], netw_parameters,number_of_wc,temppath=temporary_path)
-
-
-            holder["network_parameters"] = netw_parameters
+        # WRITE NETWORK GRAPHIC TO TEMPORARY FILE
+        network_generator.build_and_plot_graph_vis_col(holder["character_relations"], netw_parameters,number_of_wc,temppath=temporary_path)
+        # print("build network...")
 
 
         return holder
@@ -190,6 +188,39 @@ class rcat(object):
             csv_line_data = network_generator.build_csv_lines_for_gephi(d_holder["character_relations"], weight="log")
             network_generator.write_gephi_data_to_csv(csv_line_data)
             #messagebox.showinfo("Information", "Gephi input is genereated")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
