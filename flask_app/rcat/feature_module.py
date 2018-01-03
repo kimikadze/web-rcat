@@ -9,39 +9,177 @@ class features:
 
 
 
+	def get_values_for_zeta(self, character_name, dta_holder, method="non_overlapping"):
+		# idea: every slice of context arround a character is considered as "document"
+
+		#DOKUMENT FREQUENCIES (count_term_in_each_context_slice)
+		dokument_freqs = {}
+		dic_for_current_character_name = [dic for dic in dta_holder["single_character_context"] if dic["character_names"] == character_name]
+
+		if method=="overlapping":
+			# overlapping counts each occurence of a context term in a slice of context – even if
+			# context slices are so close to each other, that a term is counted twice (or more)
+			for unique_context_token in dic_for_current_character_name[0]["tf_sorted_list"]:
+				df_unique_context_token = 0
+				for context_slice in dic_for_current_character_name[0]["indices_before_after_pair_for_each_context_slice"]:
+					# print(unique_context_token[0])
+					# print([dta_holder["tokenized_text"][index] for index in context_slice])
+					if unique_context_token[0] in [dta_holder["tokenized_text"][index] for index in context_slice]:
+						# print("yes")
+						df_unique_context_token += 1
+					# else:
+					#	print("no")
+				dokument_freqs[unique_context_token[0]] = df_unique_context_token
 
 
-	def zeta(self, dta_holder, number_of_word_clouds, mode="single_character_context"):#context_single_characters, context_pairs):
+		if method=="non_overlapping":
+			#print(dic_for_current_character_name)
+			dokument_freqs = dic_for_current_character_name[0]["tf_dic"]
+
+		#AMOUNT OF SLICES (N; amount of docs)
+		amount_of_slices = len(dic_for_current_character_name[0]["indices_before_after_pair_for_each_context_slice"])
+
+		values_for_zeta = {"dokument_freqs":dokument_freqs, "amount_of_slices":amount_of_slices}
+
+		return values_for_zeta
+
+	def calculate_zeta(self, values_for_zeta_target, values_for_zeta_comparison):
+
+		keys_target = list(values_for_zeta_target["dokument_freqs"].keys())
+		keys_comparison = list(values_for_zeta_comparison["dokument_freqs"].keys())
+		token_keys_from_both = keys_target + keys_comparison
+
+		values_for_zeta_target["partition_value"] = {}
+		values_for_zeta_comparison["partition_value"] = {}
+
+		#print(token_keys_from_both)
+		#token_keys_from_both = list(set([values_for_zeta_target["dokument_freqs"].keys()] + [values_for_zeta_comparison["dokument_freqs"].keys()]))
+
+		for token_key in token_keys_from_both:
+			#print(token_key)
+
+			try:
+				target_partition = values_for_zeta_target["dokument_freqs"][token_key] / values_for_zeta_target["amount_of_slices"]
+			except KeyError:
+				target_partition = 0
+
+			values_for_zeta_target["partition_value"][token_key] = target_partition
+
+		for token_key in token_keys_from_both:
+			try:
+				comparison_partition = values_for_zeta_comparison["dokument_freqs"][token_key] / values_for_zeta_comparison["amount_of_slices"]
+			except KeyError:
+				comparison_partition = 0
+
+			values_for_zeta_comparison["partition_value"][token_key] = comparison_partition
+
+		zeta_scores_target = {}
+		zeta_scores_comparison = {}
+		# zeta_scores_target = list()
+		# zeta_scores_comparison = list()
+		for token_key in token_keys_from_both:
+			zeta_scores_target[token_key] = values_for_zeta_target["partition_value"][token_key] - values_for_zeta_comparison["partition_value"][token_key]
+			zeta_scores_comparison[token_key] = values_for_zeta_comparison["partition_value"][token_key] - values_for_zeta_target["partition_value"][token_key]
+
+		zeta_scores_target_sorted = sorted(zeta_scores_target.items(), key=operator.itemgetter(1), reverse=True)
+		print(zeta_scores_target_sorted)
+		zeta_scores_comparison_sorted = sorted(zeta_scores_comparison.items(), key=operator.itemgetter(1), reverse=True)
+		print(zeta_scores_comparison_sorted)
+
+####################
+		# 	zeta_scores[token_key] = target_partition - comparison_partition
+		#
+		# zeta_scores_sorted = sorted(zeta_scores.items(), key=operator.itemgetter(1), reverse=True)
+		#
+		# print(zeta_scores_sorted)
 
 
 
-		if mode=="single_character_context":
-			weighted_degrees = dta_holder["network_parameters"][5]
-			weighted_degrees_sorted = sorted(weighted_degrees, key=operator.itemgetter(1), reverse=True)
 
-			for weighted_degree in weighted_degrees_sorted[0:number_of_word_clouds]:
+	def zeta(self, dta_holder, number_of_word_clouds):#, mode="single_character_context"):#context_single_characters, context_pairs):
 
-				character_name_of_degree = weighted_degree[0]
+		network_parameters = dta_holder["network_parameters"]
+		edge_weights = network_parameters[6]
+		edge_weights_sorted = sorted(edge_weights, key=operator.itemgetter(2), reverse=True)
 
-				dic_with_current_character_name = [dic["words_before_after_pair"] for dic in dta_holder["single_character_context"] if dic["character_names"] == character_name_of_degree]
+		for edge_pair_list in edge_weights_sorted[0:number_of_word_clouds]:
+			#print(edge_pair_list)
+			name_a = edge_pair_list[0]
+			#print(name_a)
+			name_b = edge_pair_list[1]
+			values_a = features().get_values_for_zeta(character_name=name_a,dta_holder=dta_holder)
+			values_b = features().get_values_for_zeta(character_name=name_b,dta_holder=dta_holder)
+			#print("a", values_a)
+			#print("b", values_b)
+
+			features().calculate_zeta(values_for_zeta_target=values_a, values_for_zeta_comparison=values_b)
 
 
-				#if weighted_degree ==
 
-				print(weighted_degree)
-				print(dic_with_current_character_name)
-				#print(len(dic_with_current_character_name))
 
-				#print(list(map(operator.itemgetter("character_names"), dta_holder["single_character_context"])))
+			#print(edge_pair_list)
 
-				#map_obj = map(operator.itemgetter("character_names"), dta_holder["single_character_context"])
 
-				#for i in map_obj:
-				#	print(i)
+
+############
+		# if mode=="single_character_context":
+		#
+		# 	weighted_degrees = dta_holder["network_parameters"][5]
+		# 	weighted_degrees_sorted = sorted(weighted_degrees, key=operator.itemgetter(1), reverse=True)
+		#
+		# 	#for weighted_degree in weighted_degrees_sorted[0:number_of_word_clouds]:
+		# 	for weighted_degree in weighted_degrees_sorted[0:2]:
+		#
+		#
+		# 		zeta_parameter_dic_for_partition = {}
+		#
+		# 		character_name_of_degree = weighted_degree[0]
+		#
+		# 		dic_for_current_character_name = [dic for dic in dta_holder["single_character_context"] if dic["character_names"] == character_name_of_degree]
+		#
+		# 		for unique_context_token in dic_for_current_character_name[0]["tf_sorted_list"]:
+		# 			df_unique_context_token = 0
+		# 			for context_slice in dic_for_current_character_name[0]["indices_before_after_pair_for_each_context_slice"]:
+		# 				#print(unique_context_token[0])
+		# 				#print([dta_holder["tokenized_text"][index] for index in context_slice])
+		# 				if unique_context_token[0] in [dta_holder["tokenized_text"][index] for index in context_slice]:
+		# 					#print("yes")
+		# 					df_unique_context_token += 1
+		# 				#else:
+		# 				#	print("no")
+		# 			zeta_parameter_dic_for_partition[unique_context_token[0]] = df_unique_context_token
+		#
+		# 		print(zeta_parameter_dic_for_partition)
+
+
+#######################
+
+					#print([dta_holder["tokenized_text"][index] for index in context_slice])
+
+					#if unique_context_token in
+				#if unique_context_token in context_slice
+				#[indice for indice in dic_for_current_character_name[0]["indices_before_after_pair_for_each_context_slice"]]:
+
+			#print(weighted_degree)
+
+
+
+			#if weighted_degree ==
+
+			#print(weighted_degree)
+			#print(dic_with_indices_for_current_character_name)["indices_before_after_pair_for_each_context_slice"]
+			#print(len(dic_with_current_character_name))
+
+			#print(list(map(operator.itemgetter("character_names"), dta_holder["single_character_context"])))
+
+			#map_obj = map(operator.itemgetter("character_names"), dta_holder["single_character_context"])
+
+			#for i in map_obj:
+			#	print(i)
+			#print(dta_holder["single_character_context"]["character_names"])
+
+			#if weighted_degree[0] == dta_holder["single_character_context"]["character_names"]:
 				#print(dta_holder["single_character_context"]["character_names"])
-
-				#if weighted_degree[0] == dta_holder["single_character_context"]["character_names"]:
-					#print(dta_holder["single_character_context"]["character_names"])
 
 
 	#def PMI(self, context_words, tokenized_text_no_stopword_removal, divide_by="sum_of_context_words"):

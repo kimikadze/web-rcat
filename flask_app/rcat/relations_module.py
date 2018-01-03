@@ -1,5 +1,6 @@
 import operator
 import os
+from itertools import chain
 
 
 class relations:
@@ -104,21 +105,22 @@ class relations:
 
         context = list()
 
-        words_before_after_pair_ALL = list()
+        #print(character_positions)
+        #print(tokenized_text[7960])
 
-        words_before_after_character_positions_for_character = list()
         for j in range(len(character_positions)):
-        #for index, character_occurance_list in enumerate(character_positions):
-            #print(character_occurance_list)
             words_before_after_character_positions_for_character = list()
 
+            # zb: Vorkommensliste (mehrere Token potentiell) in WERTHER:
             for character_occurance_list in character_positions[j]:
-                #print(j)
-                words_before_after_character_positions_for_character += [i for i in range(character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(character_occurance_list[-1] + 1, character_occurance_list[-1] + 1 + words_after)]
+                words_before_after_character_positions_for_character += [[i for i in range(character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(character_occurance_list[-1] + 1, character_occurance_list[-1] + 1 + words_after)]]
 
-            #words_before_after_character_positions_for_character += [i for i in range(character_occurance_list[0] - words_before, character_occurance_list[0])] + [i for i in range(character_occurance_list[-1] + 1,character_occurance_list[-1] + 1 + words_after)]
+            #print(words_before_after_character_positions_for_character)
 
-            words_before_after_character_positions_for_character_sorted = sorted(list(set(words_before_after_character_positions_for_character)))
+            words_before_after_character_positions_for_character_chained = list(chain.from_iterable(words_before_after_character_positions_for_character))
+            #print(words_before_after_character_positions_for_character_chained)
+
+            words_before_after_character_positions_for_character_sorted = sorted(list(set(words_before_after_character_positions_for_character_chained)))
             #words_before_after_character_positions_for_character = list()
 
             if delete_stopwords_in_context == "n":
@@ -166,7 +168,7 @@ class relations:
             context += [{"character_names": character_list[j][0],
                          "tf_dic": word_counts_for_pair,
                          "tf_sorted_list": word_counts_for_pair_ranked,
-                         "words_before_after_pair": words_before_after_pair}]
+                         "indices_before_after_pair_for_each_context_slice": words_before_after_character_positions_for_character}]
 
         return context
 
