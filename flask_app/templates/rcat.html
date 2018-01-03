@@ -8,129 +8,135 @@
        <link rel="stylesheet" type="text/css" href="../static/style.css">
        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
        <link rel="icon" href="../graphics/Logo_creta.png">
-
- 
     </head>
+
+    <nav>
+        <ul>
+           <li><a href="/">Home</li>
+           <li><a href="../static/about.html">About</a></li>
+           <li><a href="../static/contact.html">Contact</a></li>
+           <li><a href="../static/impressum.html">Impressum</a></li>
+        </ul>
+    </nav>
+
     <body>
+    
+        <header>
+            <img id="LogoCreta" src="../static/Logo_creta.png" alt="CRETA" width=170pt" height="70pt">
+            <img id="LogoUni" src="../static/unistuttgart_logo_deutsch.jpg" width="300pt">
+            <img src="../static/cat1.png" width="350pt" height="300pt">
+            <h2 align="center">A Reporting Tool for Relational Visualization and Analysis of Character Mentions in Literature</h2>
+        </header>
 
-<img id="LogoCreta" src="../static/Logo_creta.png" alt="CRETA" width=170pt" height="70pt">
-<img id="LogoUni" src="../static/unistuttgart_logo_deutsch.jpg" width="300pt">
-
-<img src="../static/cat1.png" width="350pt" height="300pt">
-<!-- <h1 align="center">rCAT</h1>
- --><h2 align="center">A Reporting Tool for Relational Visualization and Analysis of Character Mentions in Literature</h2>
-<form id="upload", action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
-
-    <div id="part1">
-
-        <p><b>Select text file:</b></p>
-        <input type="file" name="file"/>
-        <button type="button" onclick="alert('Select the text file you want to analyze. The file should be a plain text file. ')">?</button>
-
-        <p><b>Select character file:</b></p>
-        <input type="file" name="file"/>
-        <button type="button" onclick="alert('Select a text file with the names of characters that appear in the text you uploaded in previous step. The file with character names should be formatted as follows: each line starts with a canonical name for a single character. Separated by tab are aliases of this character. Each character and list of his/her aliases should be entered on new lines.')">?</button>
-
-        <p><b>Specify relation distance</b></p>
-        <input type="text" name="distance" value="10"/>
-        <button type="button" onclick="alert('Here you select how many words (tokens) between mentions of two characters should be considered as proximity measure. Default is 10')">?</button>
-
-
-        <p><b>Specify words before</b></p>
-        <input type="text" name="before" value="8"/>
-        <button type="button" onclick="alert('How many words (tokens) BEFORE the mention of the first character to include in the contextual analysis. Default is 8')">?</button>
-
-        <p><b>Specify words after</b></p>
-        <input type="text" name="after" value="8"/>
-        <button type="button" onclick="alert('How many words (tokens) AFTER the mention of the first character to include in the contextual analysis. Default is 8')">?</button>
+    <section id="mainForm">
         
+    
+    <form id="upload", action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
 
+        <div id="part1">
 
-        <p><b>Remove stop words?</b></p>
-        <input type="radio" name="stopwords" value="y" checked="checked">yes<br>
-        <input type="radio" name="stopwords" value="n">no<br>
-        <button type="button" onclick="alert('Whether to remove stopwords or not')">?</button>
-
-        <p><b>Lemmatisation</b></p>
-        <input type="radio" name="lemmatisation" value="treetagger" checked="checked">yes<br>
-        <input type="radio" name="lemmatisation" value="n">no<br>
-        <button type="button" onclick="alert('If yes, the text will be lemmatized')">?</button>
-
-    </div>
-
-
-    <div id="part2">
-
-        <p><b>Word clouds to show</b></p>
-        <input type="text" name="word_clouds" value="5">
-        <button type="button" onclick="alert('Show only n-top word clouds for each character and character pair. For the latter case, word clouds are sorted by edge weight. For the former case, by degree of a character. Default is 5.')">?</button>
-
-
-        <p><b>Text Language</b></p>
-        <input type="radio" name="language" value="German" checked="checked">German<br>
-        <!-- <input type="radio" name="language" value="English">English <br> -->
-        <!-- <input type="radio" name="language" value="Middle High German">Middle High German<br> -->
-
-
-       <p><b>Segments</b></p>
-        <input type="text" name="segments" value="10">
-        <button type="button" onclick="alert('Number of segments into which the book should be splitted to track the word field development of the story. Default is 10.')">?</button>
-
-
-        <p><b>Analyze with word fields</b></p>
-
-        <input type="radio" name="word_fields" value="N" checked="checked">No<br>
-        <input type="radio" name="word_fields" value="single">Single Category<br>
-        <div style="text-indent:30px;">
-           <!--  <i>Select single file:</i> -->
+            <p><b>Select text file:</b></p>
             <input type="file" name="file"/>
-            <button type="button" onclick="alert('Word fields allow you to filter the textual analysis to words from specific categories. If you have just one word list, use this option. Click Choose file and select a plain text file that contains your specific vocabulary (each item on a new line)')">?</button>
-            <br>
+            <button type="button" onclick="alert('Select the text file you want to analyze. The file should be a plain text file. ')">?</button>
+
+            <p><b>Select character file:</b></p>
+            <input type="file" name="file"/>
+            <button type="button" onclick="alert('Select a text file with the names of characters that appear in the text you uploaded in previous step. The file with character names should be formatted as follows: each line starts with a canonical name for a single character. Separated by tab are aliases of this character. Each character and list of his/her aliases should be entered on new lines.')">?</button>
+
+            <p><b>Specify relation distance</b></p>
+            <input type="text" name="distance" value="10"/>
+            <button type="button" onclick="alert('Here you select how many words (tokens) between mentions of two characters should be considered as proximity measure. Default is 10')">?</button>
+
+
+            <p><b>Specify words before</b></p>
+            <input type="text" name="before" value="8"/>
+            <button type="button" onclick="alert('How many words (tokens) BEFORE the mention of the first character to include in the contextual analysis. Default is 8')">?</button>
+
+            <p><b>Specify words after</b></p>
+            <input type="text" name="after" value="8"/>
+            <button type="button" onclick="alert('How many words (tokens) AFTER the mention of the first character to include in the contextual analysis. Default is 8')">?</button>
+            
+
+
+            <p><b>Remove stop words?</b></p>
+            <input type="radio" name="stopwords" value="y" checked="checked">yes<br>
+            <input type="radio" name="stopwords" value="n">no<br>
+            <button type="button" onclick="alert('Whether to remove stopwords or not')">?</button>
+
+            <p><b>Lemmatisation</b></p>
+            <input type="radio" name="lemmatisation" value="treetagger" checked="checked">yes<br>
+            <input type="radio" name="lemmatisation" value="n">no<br>
+            <button type="button" onclick="alert('If yes, the text will be lemmatized')">?</button>
+
         </div>
-        <input type="radio" name="word_fields" value="multi">Multi category<br>
-        <div style="text-indent:30px;">
-            <!-- <i>Select folder:</i> -->
-            <input type="file" name="file" multiple/>
-            <button type="button" onclick="alert('Word fields allow you to filter the textual analysis to words from specific categories. If you have more than one word list, use this option. Click Choose file and select multiple plain text files. Each file should contain vocabulary (each item on a new line) from one category. The name of the file should correspond to the name of the category. For example, file named Happiness will only contain words that belong to this category.')">?</button>
+
+
+        <div id="part2">
+
+            <p><b>Word clouds to show</b></p>
+            <input type="text" name="word_clouds" value="5">
+            <button type="button" onclick="alert('Show only n-top word clouds for each character and character pair. For the latter case, word clouds are sorted by edge weight. For the former case, by degree of a character. Default is 5.')">?</button>
+
+
+            <p><b>Text Language</b></p>
+            <input type="radio" name="language" value="German" checked="checked">German<br>
+            <!-- <input type="radio" name="language" value="English">English <br> -->
+            <!-- <input type="radio" name="language" value="Middle High German">Middle High German<br> -->
+
+
+           <p><b>Segments</b></p>
+            <input type="text" name="segments" value="10">
+            <button type="button" onclick="alert('Number of segments into which the book should be splitted to track the word field development of the story. Default is 10.')">?</button>
+
+
+            <p><b>Analyze with word fields</b></p>
+
+            <input type="radio" name="word_fields" value="N" checked="checked">No<br>
+            <input type="radio" name="word_fields" value="single">Single Category<br>
+            <div style="text-indent:30px;">
+               <!--  <i>Select single file:</i> -->
+                <input type="file" name="file"/>
+                <button type="button" onclick="alert('Word fields allow you to filter the textual analysis to words from specific categories. If you have just one word list, use this option. Click Choose file and select a plain text file that contains your specific vocabulary (each item on a new line)')">?</button>
+                <br>
+            </div>
+            <input type="radio" name="word_fields" value="multi">Multi category<br>
+            <div style="text-indent:30px;">
+                <!-- <i>Select folder:</i> -->
+                <input type="file" name="file" multiple/>
+                <button type="button" onclick="alert('Word fields allow you to filter the textual analysis to words from specific categories. If you have more than one word list, use this option. Click Choose file and select multiple plain text files. Each file should contain vocabulary (each item on a new line) from one category. The name of the file should correspond to the name of the category. For example, file named Happiness will only contain words that belong to this category.')">?</button>
+            </div>
+
+
+            <p><b>Filter word clouds by:</b></p>
+            <input type="radio" name="wc_context_selection" value="MFW" checked="checked">Most frequent context words<br>
+            <input type="radio" name="wc_context_selection" value="PMI">Pointwise mutual information<br>
+            <!--<input type="radio" name="wc_context_selection" value="Zeta" checked="checked">Zeta<br>-->
+
+
+            <p><b>Choose the amount of words in the wordclouds </b></p>
+            <input type="text" name="words_in_word_cloud" value="12">
+            <button type="button" onclick="alert('This is the maximum number of words, if the context is sparse, less terms will be depicted.')">?</button>
         </div>
 
+        <div id="Run">
+            <input type="submit" value="Run analysis">
+        </div>
+        </form>
 
-        <p><b>Filter word clouds by:</b></p>
-        <input type="radio" name="wc_context_selection" value="MFW" checked="checked">Most frequent context words<br>
-        <input type="radio" name="wc_context_selection" value="PMI">Pointwise mutual information<br>
-        <!--<input type="radio" name="wc_context_selection" value="Zeta" checked="checked">Zeta<br>-->
+    </section>
 
-
-        <p><b>Choose the amount of words in the wordclouds </b></p>
-        <input type="text" name="words_in_word_cloud" value="12">
-        <button type="button" onclick="alert('This is the maximum number of words, if the context is sparse, less terms will be depicted.')">?</button>
-    </div>
+        <!--
+        <p><b>Download a csv file for Gephi?</b></p>
+        <input type="radio" name="gephi_csv" value="y">yes<br>
+        <input type="radio" name="gephi_csv" value="n">no<br>
+        -->
 
 
 
-    <!--
-    <br>
-    <br>
-    <br>
-    <font color="red">***parameters below are not working yet*** !!!</font>
-
-    <br>
-    <br>
-
-    <p><b>Download a csv file for Gephi?</b></p>
-    <input type="radio" name="gephi_csv" value="y">yes<br>
-    <input type="radio" name="gephi_csv" value="n">no<br>
-    -->
-
-    <br>
-    <br>
-
-    <br>
-    <br>
-    <div id="Run">
-        <input type="submit" value="Run analysis">
-    </div>
-</form>
-
-</body>
+        <section>
+            <footer>
+                <p>Uni Stuttgart, 2018</p>
+            </footer>
+        </section>
+    </body>
 </html>

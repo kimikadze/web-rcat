@@ -26,9 +26,22 @@ div {
   width: 400px;
   float: left;
   margin: 10px;
-  padding-left: 50px;
+  padding: 10px;
   background-color: ##FFFFFF;
+}
+
+article {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+}
+
+footer {
+	font-family: Palatino;
+	text-align: center;
 }
 
 #LogoCreta { float: right; padding: 5px; }
 #LogoUni { float: left;  padding: 5px;}
+#mainForm { padding: auto; }
