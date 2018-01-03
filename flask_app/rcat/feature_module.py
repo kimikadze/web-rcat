@@ -9,7 +9,7 @@ class features:
 
 
 
-	def get_values_for_zeta(self, character_name, dta_holder, method="non_overlapping"):
+	def get_values_for_zeta(self, character_name, dta_holder, method="non_overlapping"):#, delete_stopwords_in_context="n", stop_words="./data/stopwords/stopwords_de_except_ich.txt"):
 		# idea: every slice of context arround a character is considered as "document"
 
 		#DOKUMENT FREQUENCIES (count_term_in_each_context_slice)
@@ -22,13 +22,14 @@ class features:
 			for unique_context_token in dic_for_current_character_name[0]["tf_sorted_list"]:
 				df_unique_context_token = 0
 				for context_slice in dic_for_current_character_name[0]["indices_before_after_pair_for_each_context_slice"]:
-					# print(unique_context_token[0])
-					# print([dta_holder["tokenized_text"][index] for index in context_slice])
+
+					#if delete_stopwords_in_context=="y":
+					#	if unique_context_token[0] in [dta_holder["tokenized_text"][index] for index in context_slice if dta_holder["tokenized_text"][index] not in dta_holder["stopwords"]]:
+					#		df_unique_context_token += 1
+					#if delete_stopwords_in_context == "n":
 					if unique_context_token[0] in [dta_holder["tokenized_text"][index] for index in context_slice]:
-						# print("yes")
 						df_unique_context_token += 1
-					# else:
-					#	print("no")
+
 				dokument_freqs[unique_context_token[0]] = df_unique_context_token
 
 
@@ -43,11 +44,14 @@ class features:
 
 		return values_for_zeta
 
-	def calculate_zeta(self, values_for_zeta_target, values_for_zeta_comparison):
+	def calculate_zeta(self, values_for_zeta_target, values_for_zeta_comparison, dta_holder, remove_stopwords_in_context="n"):
 
 		keys_target = list(values_for_zeta_target["dokument_freqs"].keys())
 		keys_comparison = list(values_for_zeta_comparison["dokument_freqs"].keys())
 		token_keys_from_both = keys_target + keys_comparison
+
+		if remove_stopwords_in_context=="y":
+			token_keys_from_both = [key_in_list for key_in_list in token_keys_from_both if key_in_list not in dta_holder["stopwords"]]
 
 		values_for_zeta_target["partition_value"] = {}
 		values_for_zeta_comparison["partition_value"] = {}
@@ -96,14 +100,14 @@ class features:
 
 
 
-	def zeta(self, dta_holder, number_of_word_clouds):#, mode="single_character_context"):#context_single_characters, context_pairs):
+	def zeta(self, dta_holder, number_of_word_clouds, remove_stopwords_in_context):#, mode="single_character_context"):#context_single_characters, context_pairs):
 
 		network_parameters = dta_holder["network_parameters"]
 		edge_weights = network_parameters[6]
 		edge_weights_sorted = sorted(edge_weights, key=operator.itemgetter(2), reverse=True)
 
 		for edge_pair_list in edge_weights_sorted[0:number_of_word_clouds]:
-			#print(edge_pair_list)
+			print(edge_pair_list)
 			name_a = edge_pair_list[0]
 			#print(name_a)
 			name_b = edge_pair_list[1]
@@ -112,7 +116,7 @@ class features:
 			#print("a", values_a)
 			#print("b", values_b)
 
-			features().calculate_zeta(values_for_zeta_target=values_a, values_for_zeta_comparison=values_b)
+			features().calculate_zeta(values_for_zeta_target=values_a, values_for_zeta_comparison=values_b, dta_holder=dta_holder)
 
 
 

@@ -85,6 +85,10 @@ class rcat(object):
                                                                                             #stop_words = "./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
 
+            if del_stopwords_in_context=="y":
+                with open("./data/stopwords/stopwords_de_except_ich.txt", "r", encoding="utf-8") as dt:
+                    stop_dt = dt.readlines()
+                    stop_dt = [i.strip() for i in stop_dt]
 
 
             holder = {"character_relations": character_relations,
@@ -92,7 +96,7 @@ class rcat(object):
                       "text_file": text__file, "character_file": character__file, "tokenized_text": txt_tokenized,
                       "characters": characters, "parameter": distance_parameter,
                       "network_parameters": 0, "single_character_context": single_character_context,
-                      "segments": segments, "lang": "./data/stopwords/stopwords_de_except_ich.txt", "number_of_wc": number_of_wc, "word_field": word_field,
+                      "segments": segments, "lang": "./data/stopwords/stopwords_de_except_ich.txt", "stopwords":stop_dt, "number_of_wc": number_of_wc, "word_field": word_field,
                       "wf_cat": wf_cat}
 
 
@@ -157,7 +161,7 @@ class rcat(object):
 
         #COLLECT FEATURES
 
-        print(features().zeta(d_holder, number_of_word_clouds=number_of_wc))
+        print(features().zeta(dta_holder=d_holder, number_of_word_clouds=number_of_wc, remove_stopwords_in_context=remove_stopwords_in_context))
 
 
 
