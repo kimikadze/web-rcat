@@ -2,6 +2,9 @@ import operator
 import os
 import re
 import shutil
+import numpy as np
+import matplotlib.pyplot as plt
+from operator import itemgetter
 
 from pylatex import Document, Section, Itemize, Subsection, Command, PageStyle, Head, MiniPage, Foot, LargeText, \
     MediumText, LineBreak, simple_page_number, Figure, NoEscape, Tabular, MultiColumn, MultiRow, Package
@@ -58,6 +61,71 @@ class pdf_latex:
                 #network_pic.add_image("network.pdf")
                 network_pic.add_caption('Network')
 
+    def visualize_zeta(self, doc, zeta_edge_pair_results, path, top_n_results=10):
+        # def visualize_zeta(self, edge_pair_result, top_n_results=10):
+
+        section = Section("Zeta Scores for Pairs with highest edge weights")
+
+        for index, edge_pair_result in enumerate(zeta_edge_pair_results):
+            #features().visualize_zeta(zeta_results[index], name_for_figure="zeta_pair_%s" %index, path=dirpath)
+
+            #subsection = Subsection("Zeta Scores for Pairs with highest edge weights", numbering=False)
+
+
+            subsection = Subsection("Edge Pair: %s -- %s" %(edge_pair_result["name_target"],edge_pair_result["name_comparison"]), numbering=False)
+
+            #Target (Character A)
+
+            # the following index [::-1] inverts the list for the figure
+            objects = [el[0] for el in edge_pair_result["zeta_scores_target_sorted"][0:top_n_results]][::-1]
+            y_pos = np.arange(len(objects))
+            performance = [el[1] for el in edge_pair_result["zeta_scores_target_sorted"][0:top_n_results]][::-1]
+
+            plt.barh(y_pos, performance, align='center', alpha=0.5)
+            plt.yticks(y_pos, objects)
+            plt.xlabel('Zeta Score')
+            plt.title('%s-context' % edge_pair_result["name_target"])
+            # plt.show()
+            # plt.savefig("zeta.pdf", bbox_inches='tight')
+
+
+            plt.savefig("%s/zeta_pair_%s_a_target_%s.pdf" % (path, index, edge_pair_result["name_target"]),bbox_inches='tight')
+
+            target_pic = Figure(position="H")
+            target_pic.add_image(os.path.join(path, "zeta_pair_%s_a_target_%s.pdf" % (index, edge_pair_result["name_target"])), width='240px')
+            target_pic.add_caption("Prefered terms in context of %s (compared to %s)" % (edge_pair_result["name_target"],edge_pair_result["name_comparison"]))
+            #wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (
+
+            subsection.append(target_pic)
+
+
+            ################ Comparison (Character B)
+
+            objects = [el[0] for el in edge_pair_result["zeta_scores_comparison_sorted"][0:top_n_results]][::-1]
+            y_pos = np.arange(len(objects))
+            performance = [el[1] for el in edge_pair_result["zeta_scores_comparison_sorted"][0:top_n_results]][::-1]
+
+            plt.barh(y_pos, performance, align='center', alpha=0.5)
+            plt.yticks(y_pos, objects)
+            plt.xlabel('Zeta Score')
+            plt.title('%s-context' % edge_pair_result["name_comparison"])
+            # plt.show()
+            # plt.savefig("zeta.pdf", bbox_inches='tight')
+            plt.savefig("%s/zeta_pair_%s_b_comparison_%s.pdf" % (path, index, edge_pair_result["name_comparison"]),bbox_inches='tight')
+
+            comparison_pic = Figure(position="H")
+            comparison_pic.add_image(os.path.join(path, "zeta_pair_%s_b_comparison_%s.pdf" % (index, edge_pair_result["name_comparison"])), width='240px')
+            comparison_pic.add_caption("Prefered terms in context of %s (compared to %s)" % (edge_pair_result["name_comparison"], edge_pair_result["name_target"]))
+
+
+            subsection.append(comparison_pic)
+
+            #subsection.append(subsubsection)
+
+            section.append(subsection)
+        doc.append(section)
+
+
     def word_field_curve(self,doc,wf_cat=str()):
         #print(wf_cat)
         if wf_cat == "None":
@@ -109,6 +177,9 @@ class pdf_latex:
             for weigthed_degree_tuple in dta_holder["network_parameters"][4]:
                 with doc.create(Subsection("%s" % weigthed_degree_tuple[0], numbering=False)):
                     doc.append(weigthed_degree_tuple[1])
+
+
+
 
     def write_word_cloud(self, doc, dta_holder, tpath, number_of_wc, head_of_file_name = "wordcloud", wc_context_selection="MFW", words_in_word_cloud = 12):
 

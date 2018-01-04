@@ -119,8 +119,12 @@ def upload():
 
 
 
-    #FEATURES (SELECTION FOR WORD CLOUD FILTER)
+    #FEATURES (PMI / SELECTION FOR WORD CLOUD FILTER)
     wc_context_parameter = request.form["wc_context_selection"]
+
+
+    #FEATURES ADDITIONALLY (ZETA)
+    zeta_parameter = request.form["zeta"]
 
 
     #WORDS IN WORD CLOUD
@@ -145,14 +149,20 @@ def upload():
     ##############
 
 
-    rcat().main_PDF(text_file=destination_first_file, character_file=destination_second_file,
+    rcat().main_PDF(text_file=destination_first_file,
+                    character_file=destination_second_file,
                   dist_parameter=[distance, words_before, words_after],
                   remove_stopwords_in_context=stopwords_parameter,
-                  segments=segments_parameter, txt_language=language_parameter, number_of_wc=wordcloud_parameter,
+                  segments=segments_parameter, txt_language=language_parameter,
+                    number_of_wc=wordcloud_parameter,
                   write_gephi_csv="n",
                   word_field = wordfield_parameter,
                   wf_cat=wf_cat_parameter,
-                  lemmatisation=lemmatisation_parameter, sess_id=session_id, word_cloud_context_selection = wc_context_parameter, words_in_wc =words_in_word_cloud_parameter)
+                  lemmatisation=lemmatisation_parameter,
+                    sess_id=session_id,
+                    word_cloud_context_selection = wc_context_parameter,
+                    words_in_wc =words_in_word_cloud_parameter,
+                    zeta_analysis=zeta_parameter)
 
 
     return render_template('rcat_done.html')

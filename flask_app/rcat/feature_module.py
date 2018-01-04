@@ -1,9 +1,7 @@
 import operator
 import math
 import matplotlib.pyplot as plt; plt.rcdefaults()
-import numpy as np
-import matplotlib.pyplot as plt
-from operator import itemgetter
+
 
 
 class features:
@@ -142,36 +140,8 @@ class features:
 
 			#print(edge_pair_list)
 
-	def visualize_zeta(self, edge_pair_result, name_for_figure, top_n_results = 10):
-	#def visualize_zeta(self, edge_pair_result, top_n_results=10):
 
 
-		# the following index [::-1] inverts the list for the figure
-		objects = [el[0] for el in edge_pair_result["zeta_scores_target_sorted"][0:top_n_results]][::-1]
-		y_pos = np.arange(len(objects))
-		performance = [el[1] for el in edge_pair_result["zeta_scores_target_sorted"][0:top_n_results]][::-1]
-
-		plt.barh(y_pos, performance, align='center', alpha=0.5)
-		plt.yticks(y_pos, objects)
-		plt.xlabel('Zeta Score')
-		plt.title('%s' %edge_pair_result["name_target"])
-		#plt.show()
-		#plt.savefig("zeta.pdf", bbox_inches='tight')
-		plt.savefig("%s_a_target_%s.pdf" %(name_for_figure,edge_pair_result["name_target"]), bbox_inches='tight')
-
-	##################
-
-		objects = [el[0] for el in edge_pair_result["zeta_scores_comparison_sorted"][0:top_n_results]][::-1]
-		y_pos = np.arange(len(objects))
-		performance = [el[1] for el in edge_pair_result["zeta_scores_comparison_sorted"][0:top_n_results]][::-1]
-
-		plt.barh(y_pos, performance, align='center', alpha=0.5)
-		plt.yticks(y_pos, objects)
-		plt.xlabel('Zeta Score')
-		plt.title('%s' % edge_pair_result["name_comparison"])
-		# plt.show()
-		# plt.savefig("zeta.pdf", bbox_inches='tight')
-		plt.savefig("%s_b_comparison_%s.pdf" % (name_for_figure, edge_pair_result["name_comparison"]), bbox_inches='tight')
 
 
 

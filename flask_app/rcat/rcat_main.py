@@ -131,7 +131,8 @@ class rcat(object):
                  choose_method="graphvis_col",
                  sess_id=False,
                  word_cloud_context_selection = "MFW",
-                 words_in_wc = 12):
+                 words_in_wc = 12,
+                 zeta_analysis="n"):
 
         #SET DIR PATH
 
@@ -163,10 +164,10 @@ class rcat(object):
         #COLLECT FEATURES
         #(PMI calculation could be moved from inside from inside word cloud calculation to here)
 
-        zeta_results = features().zeta(dta_holder=d_holder, number_of_word_clouds=number_of_wc, remove_stopwords_in_context=remove_stopwords_in_context)
+        if zeta_analysis == "y":
+            zeta_edge_pair_results = features().zeta(dta_holder=d_holder, number_of_word_clouds=number_of_wc, remove_stopwords_in_context=remove_stopwords_in_context)
 
-        for index, pair in enumerate(zeta_results):
-            features().visualize_zeta(zeta_results[index], name_for_figure="zeta_pair_%s" %index)
+
 
 
         #WRITE PDF
@@ -179,6 +180,8 @@ class rcat(object):
         pdf_latex().write_netork_parameters(pdf, d_holder)
         pdf_latex().write_word_cloud_single_character(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath, wc_context_selection=word_cloud_context_selection, words_in_word_cloud = words_in_wc)
         pdf_latex().write_word_cloud(pdf, d_holder, number_of_wc=number_of_wc, tpath=dirpath, wc_context_selection=word_cloud_context_selection, words_in_word_cloud = words_in_wc)
+        if zeta_analysis == "y":
+            pdf_latex().visualize_zeta(doc=pdf, zeta_edge_pair_results=zeta_edge_pair_results, path=dirpath, top_n_results=number_of_wc)
         pdf_latex().write_wordfield_curve(pdf, d_holder, wf_cat)
         pdf_latex().word_field_curve(pdf, wf_cat)
         pdf_latex().write_prgramm_statments(pdf)
