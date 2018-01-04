@@ -32,11 +32,9 @@ class pdf_latex:
     def write_prgramm_statments(self, doc):
         section1 = Section("rCat, v.0.1", numbering=False)
         section1.append(
-            "This program is developed by Dr. Roman Klinger, Sandra Murr, Evgeny Kim and Florian Barth. It is part of the Center for Reflected Text Analytics (CRETA) at the Universtiy of Stuttgart.\n\nFeel free to contact us:")
+            "This program is developed by Florian Barth and Evgeny Kim with the help of Dr. Roman Klinger and Sandra Murr. It is part of the Center for Reflected Text Analytics (CRETA) at the Universtiy of Stuttgart.\n\nFeel free to contact us:")
 
         list = Itemize()
-        list.add_item("roman.klinger@ims.uni-stuttgart.de")
-        list.add_item("sandra.murr@ilw.uni-stuttgart.de")
         list.add_item("evgeny.kim@ims.uni-stuttgart.de")
         list.add_item("florianbarth@ilw.uni-stuttgart.de")
 
