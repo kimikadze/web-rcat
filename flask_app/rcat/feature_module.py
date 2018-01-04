@@ -127,7 +127,7 @@ class features:
 
 			#print(features().calculate_zeta(values_for_zeta_target=values_target, values_for_zeta_comparison=values_comparison, dta_holder=dta_holder))
 
-			edge_pair_result = features().calculate_zeta(values_for_zeta_target=values_target, values_for_zeta_comparison=values_comparison, dta_holder=dta_holder)
+			edge_pair_result = features().calculate_zeta(values_for_zeta_target=values_target, values_for_zeta_comparison=values_comparison, dta_holder=dta_holder, remove_stopwords_in_context=remove_stopwords_in_context)
 			edge_pair_result["name_target"] = name_target
 			edge_pair_result["name_comparison"] = name_comparison
 			#edge_pair_results.append(features().calculate_zeta(values_for_zeta_target=values_target, values_for_zeta_comparison=values_comparison, dta_holder=dta_holder))

@@ -88,11 +88,11 @@ class pdf_latex:
             # plt.show()
             # plt.savefig("zeta.pdf", bbox_inches='tight')
 
-
-            plt.savefig("%s/zeta_pair_%s_a_target_%s.pdf" % (path, index, edge_pair_result["name_target"]),bbox_inches='tight')
+            #print(path)
+            plt.savefig("%s/zeta_pair_%s_a_target.pdf" % (path, index),bbox_inches='tight')
 
             target_pic = Figure(position="H")
-            target_pic.add_image(os.path.join(path, "zeta_pair_%s_a_target_%s.pdf" % (index, edge_pair_result["name_target"])), width='240px')
+            target_pic.add_image(os.path.join(path, "zeta_pair_%s_a_target.pdf" % index), width='240px')
             target_pic.add_caption("Prefered terms in context of %s (compared to %s)" % (edge_pair_result["name_target"],edge_pair_result["name_comparison"]))
             #wordcloud_pic.add_caption('word cloud of "%s -- %s"' % (
 
@@ -111,10 +111,10 @@ class pdf_latex:
             plt.title('%s-context' % edge_pair_result["name_comparison"])
             # plt.show()
             # plt.savefig("zeta.pdf", bbox_inches='tight')
-            plt.savefig("%s/zeta_pair_%s_b_comparison_%s.pdf" % (path, index, edge_pair_result["name_comparison"]),bbox_inches='tight')
+            plt.savefig("%s/zeta_pair_%s_b_comparison.pdf" % (path, index),bbox_inches='tight')
 
             comparison_pic = Figure(position="H")
-            comparison_pic.add_image(os.path.join(path, "zeta_pair_%s_b_comparison_%s.pdf" % (index, edge_pair_result["name_comparison"])), width='240px')
+            comparison_pic.add_image(os.path.join(path, "zeta_pair_%s_b_comparison.pdf" % index), width='240px')
             comparison_pic.add_caption("Prefered terms in context of %s (compared to %s)" % (edge_pair_result["name_comparison"], edge_pair_result["name_target"]))
 
 
@@ -321,7 +321,7 @@ class pdf_latex:
 
 
 
-    def write_word_cloud_single_character(self, doc, dta_holder, tpath, number_of_wc,head_of_file_name = "wordcloud_for_single_character", wc_context_selection="MFW", words_in_word_cloud = 12):
+    def write_word_cloud_single_character(self, doc, dta_holder, tpath, number_of_wc, head_of_file_name = "wordcloud_for_single_character", wc_context_selection="MFW", words_in_word_cloud = 12):
 
 
         doc.packages.append(Package('float'))
