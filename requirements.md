@@ -5,8 +5,6 @@ sudo apt install python3-pip
 pip3 install --upgrade pip
 
 
-
-
 *pip commands / dependencies:*
 sudo pip3 install setuptools
 sudo pip3 install flask
@@ -28,11 +26,11 @@ sudo pip3 install wordcloud
 
 pip3 install flask
 pip3 install tkinter
-sudo pip3 install nltk
-sudo pip3 install matplotlib
-sudo pip3 install treetaggerwrapper
-sudo pip3 install pylatex
-sudo pip3 install wordcloud
+pip3 install nltk
+pip3 install matplotlib
+pip3 install treetaggerwrapper
+pip3 install pylatex
+pip3 install wordcloud
 
 
 *other programms*
