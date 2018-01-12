@@ -19,6 +19,11 @@ sudo pip3 install wordcloud
 
 *other programms*
 - please install treetagger from here: http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
+- please install punkt tokenizer in nltk:
+    - open python3 in terminal, type: python3
+    - type: import nltk
+    - and type: nltk.download('punkt')
+    - to leave python3 type: quit()
 
 
 **macOS:**
@@ -35,4 +40,8 @@ pip3 install wordcloud
 
 *other programms*
 - please install treetagger from here: http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
-
+- please install punkt tokenizer in nltk:
+    - open python3 in terminal, type: python3
+    - type: import nltk
+    - and type: nltk.download('punkt')
+    - to leave python3 type: quit()
