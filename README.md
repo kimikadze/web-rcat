@@ -5,6 +5,7 @@ This page describes the tool for the relational character analysis tool. The pur
 
 # Installation
 There are some major dependencies the tool needs. Follow the installation instructions from the relevant pages: 
+  - Python v.3.6 and higher. It is better if you get Anaconda distribution (https://www.anaconda.com/download) 
   -Graphviz, a vizualization package (http://www.graphviz.org/Download.php). 
  - LaTex (https://www.latex-project.org/get/). 
  - Flask Web framework (http://flask.pocoo.org/).
@@ -45,3 +46,6 @@ You will see the following status:
  * Running on http://0.0.0.0:50029/ (Press CTRL+C to quit)
  ```
  Open the url in your browser. This will lead you to the main page of the tool. Now you can start working with it!
+ 
+ # Working with rCAT
+ TBD
