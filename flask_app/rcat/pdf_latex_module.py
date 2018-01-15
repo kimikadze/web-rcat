@@ -3,6 +3,8 @@ import os
 import re
 import shutil
 import numpy as np
+import time
+import datetime
 import matplotlib.pyplot as plt
 from operator import itemgetter
 
@@ -32,11 +34,10 @@ class pdf_latex:
     def write_prgramm_statments(self, doc):
         section1 = Section("rCat, v.0.1", numbering=False)
         section1.append(
-            "This program is developed by Florian Barth and Evgeny Kim with the help of Dr. Roman Klinger and Sandra Murr. It is part of the Center for Reflected Text Analytics (CRETA) at the Universtiy of Stuttgart.\n\nFeel free to contact us:")
+            "This program is developed by Florian Barth and Evgeny Kim with the help of Roman Klinger and Sandra Murr. It is part of the Center for Reflected Text Analytics (CRETA) at the Universtiy of Stuttgart.\n\nFeel free to contact us:")
 
         list = Itemize()
-        list.add_item("evgeny.kim@ims.uni-stuttgart.de")
-        list.add_item("florianbarth@ilw.uni-stuttgart.de")
+        list.add_item("rcat@ims.uni-stuttgart.de")
 
         section1.append(list)
         doc.append(section1)
@@ -63,6 +64,7 @@ class pdf_latex:
         # def visualize_zeta(self, edge_pair_result, top_n_results=10):
 
         section = Section("Zeta Scores for Pairs with highest edge weights")
+        section.append("Zeta score is a stylometry measure that measures preferred and avoided terms in the context of character pairs.")
 
         for index, edge_pair_result in enumerate(zeta_edge_pair_results):
             #features().visualize_zeta(zeta_results[index], name_for_figure="zeta_pair_%s" %index, path=dirpath)
@@ -138,27 +140,31 @@ class pdf_latex:
         if wf_cat == "None":
             pass
         else:
-            with doc.create(Section("Word field development", numbering=True)):
-                with doc.create(Itemize()) as itmize:
-                    itmize.add_item('Word field development in the current book.')
+            with doc.create(Section("Word field development", numbering=True)) as wordField:
+                wordField.append("Word field development in the current book. The plot(s) below show how the presence of certain terms\
+                    change with the narrative, from beginning to end.")
 
     def write_data_input(self, doc, dta_holder):
+        ts = time.time()
+        st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
         with doc.create(Section("Data Input", numbering=True)):
-            with doc.create(Itemize()) as itmize:
-                itmize.add_item('analyzed text: "%s"' % dta_holder["text_file"].split('/')[-1])
-                itmize.add_item("length of text: %s tokens" % len(dta_holder["tokenized_text"]))
-                # itmize.add_item("number of characters: %s" % len(dta_holder["characters"]))
-
-                characters_with_at_least_one_degree = 0
-                for degree_list in dta_holder["network_parameters"][3]:
-                    if degree_list[1] != 0:
-                        characters_with_at_least_one_degree += 1
-                itmize.add_item(
-                    "number of characters (with at least one degree): %s" % str(characters_with_at_least_one_degree))
-
-                itmize.add_item("distance measure: %s" % dta_holder["parameter"][0])
-                itmize.add_item("context measure 1 (words before Character 1): %s" % dta_holder["parameter"][1])
-                itmize.add_item("context measure 2 (words after Character 2): %s" % dta_holder["parameter"][2])
+            with doc.create(Subsection("Statistics", numbering=False)):
+                with doc.create(Itemize()) as itmize:
+                    itmize.add_item("timestamp: %s" %st )
+                    itmize.add_item('analyzed text: "%s"' % dta_holder["text_file"].split('/')[-1])
+                    itmize.add_item("length of text: %s tokens" % len(dta_holder["tokenized_text"]))
+                    # itmize.add_item("number of characters: %s" % len(dta_holder["characters"]))
+                    characters_with_at_least_one_degree = 0
+                    for degree_list in dta_holder["network_parameters"][3]:
+                        if degree_list[1] != 0:
+                            characters_with_at_least_one_degree += 1
+                    itmize.add_item(
+                        "number of characters (with at least one degree): %s" % str(characters_with_at_least_one_degree))
+            with doc.create(Subsection("Input rarameters",numbering=False)):
+                with doc.create(Itemize()) as itmize:
+                    itmize.add_item("distance measure: %s" % dta_holder["parameter"][0])
+                    itmize.add_item("context measure 1 (words before Character 1): %s" % dta_holder["parameter"][1])
+                    itmize.add_item("context measure 2 (words after Character 2): %s" % dta_holder["parameter"][2])
 
                 # doc.append(\newline)
                 # text_file = re.search(".*/(.*)", dta_holder["text_file"])
@@ -188,8 +194,11 @@ class pdf_latex:
 
         if wc_context_selection=="PMI":
             section = Section("Word Cloud for character pairs (method: pointwise mutual information", numbering=True)
+            section.append("These word clouds were constructed based on pointwise mutual information (PMI). PMI is a measure of how strongly each term is associated with the character pair. ")
         if wc_context_selection=="MFW":
             section = Section("Word Cloud for character pairs (method: most frequent contexts words", numbering=True)
+            section.append("These word clouds were constructed based on most frequent words. They show the most frequent words that appear in the context of the character pair. ")
+
 
         network_parameters = dta_holder["network_parameters"]
         edge_weights = network_parameters[6]
@@ -325,8 +334,11 @@ class pdf_latex:
         doc.packages.append(Package('float'))
         if wc_context_selection=="PMI":
             section = Section("Word Cloud for single characters (method: pointwise mutual information", numbering=True)
+            section.append("These word clouds were constructed based on pointwise mutual information (PMI). PMI is a measure of how strongly each term is associated with each character mention. ")
         if wc_context_selection=="MFW":
             section = Section("Word Cloud for single characters (method: most frequent contexts words", numbering=True)
+            section.append("These word clouds were constructed based on most frequent words. They show the most frequent words that appear around character mention. ")
+
 
         network_parameters = dta_holder["network_parameters"]
         weighted_degrees = network_parameters[5]
@@ -430,17 +442,34 @@ class pdf_latex:
 
 
 
+        # section1 = Section("rCat, v.0.1", numbering=False)
+        # section1.append(
+        #     "This program is developed by Florian Barth and Evgeny Kim with the help of Roman Klinger and Sandra Murr. It is part of the Center for Reflected Text Analytics (CRETA) at the Universtiy of Stuttgart.\n\nFeel free to contact us:")
 
+        # list = Itemize()
+        # list.add_item("rcat@ims.uni-stuttgart.de")
+
+        # section1.append(list)
+        # doc.append(section1)
 
 
 
 
     def write_netork_parameters(self, doc, dta_holder):
         with doc.create(Section("Network Parameters", numbering=True)) as section1:
-            with doc.create(Itemize()) as itmize:
-                itmize.add_item("average degree: %s" % dta_holder["network_parameters"][0])
-                itmize.add_item("sd degree: %s" % dta_holder["network_parameters"][1])
-                itmize.add_item("density: %s" % dta_holder["network_parameters"][2])
+            section1.append("Here you can get information about the network parameters.")
+            with doc.create(Subsection("Definitions",numbering=False)):
+                with doc.create(Itemize()) as definitions:
+                    definitions.add_item("Average degree: The degree of a node is the number of edges connected to it. It measures the number of connections to other characters. Average degree is calculated\
+                        on a probability of two nodes being connected.")
+                    definitions.add_item("SD degree: Standard deviation of all degrees.")
+                    definitions.add_item("Density: Graph density is the ratio of the number of edges to the number of possible edges.")
+                    definitions.add_item("Weighted degree: Sum of weights of incident edges. Measures the number of interactions of a character.")
+            with doc.create(Subsection("Current network parameters",numbering=False)):
+                with doc.create(Itemize()) as itmize:
+                    itmize.add_item("average degree: %s" % dta_holder["network_parameters"][0])
+                    itmize.add_item("sd degree: %s" % dta_holder["network_parameters"][1])
+                    itmize.add_item("density: %s" % dta_holder["network_parameters"][2])
                 # itmize.add_item("degrees for single characters: %s" %dta_holder["network_parameters"][3])
 
         # pdf_latex().write_table_degrees(doc, dta_holder)
@@ -508,9 +537,9 @@ class pdf_latex:
 
         # Add Heading
         with doc.create(MiniPage(align='c')):
-            doc.append(LargeText(bold("rCat v0.1")))
+            doc.append(LargeText(bold("rCAT v0.1")))
             doc.append(LineBreak())
-            doc.append(MediumText(bold("Program for Relational Semantics")))
+            doc.append(MediumText(bold("Relational Character Analysis Tool")))
 
         return doc
 
