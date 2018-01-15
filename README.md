@@ -1,5 +1,5 @@
 # rCAT
-This page describes the tool for the relational character analysis tool. The purpose of rCAT is to extract relations of entities in a text and generate a pdf report. Relational information about entities can be helpful to get an insight into the text structure in terms of relations of entities. For more details about the implementation see the abstract: Barth, Florian and Kim, Evgeny and Murr, Sandra and Klinger, Roman (2018). "A Reporting Tool for Relational Visualization and Analysis of Character Mentions in Literature" (DHd 2018 Köln).
+This page describes the tool for the relational character analysis tool. The purpose of rCAT is to extract relations of entities in a text and generate a pdf report. Relational information about entities can be helpful to get an insight into the text structure in terms of relations of entities. For more details about the implementation and citation see the abstract: Barth, Florian and Kim, Evgeny and Murr, Sandra and Klinger, Roman (2018). "A Reporting Tool for Relational Visualization and Analysis of Character Mentions in Literature". Abstract presented at DHd 2018 Conference. Köln, Germany.
 
 ### Installation
 There are some major dependencies the tool needs. Follow the installation instructions from the relevant pages: 
