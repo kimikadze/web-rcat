@@ -42,6 +42,17 @@ footer {
 	text-align: center;
 }
 
+fieldset {
+    margin: 8px;
+    border: 1px solid silver;
+    padding: 8px;    
+    border-radius: 4px;
+}
+
+legend {
+    padding: 2px;    
+}
+
 #LogoCreta { float: right; padding: 5px; }
 #LogoUni { float: left;  padding: 5px;}
 #mainForm { padding: auto; }
