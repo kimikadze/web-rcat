@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import os
 from tkinter import *
 from tkinter import filedialog, messagebox

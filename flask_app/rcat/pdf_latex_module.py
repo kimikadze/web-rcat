@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import operator
 import os
 import re
@@ -160,7 +162,7 @@ class pdf_latex:
                             characters_with_at_least_one_degree += 1
                     itmize.add_item(
                         "number of characters (with at least one degree): %s" % str(characters_with_at_least_one_degree))
-            with doc.create(Subsection("Input rarameters",numbering=False)):
+            with doc.create(Subsection("Input parameters",numbering=False)):
                 with doc.create(Itemize()) as itmize:
                     itmize.add_item("distance measure: %s" % dta_holder["parameter"][0])
                     itmize.add_item("context measure 1 (words before Character 1): %s" % dta_holder["parameter"][1])

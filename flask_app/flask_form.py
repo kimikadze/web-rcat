@@ -4,6 +4,8 @@
 # pythonspot.com
 # import sys
 # import time
+import matplotlib
+matplotlib.use('Agg')
 import os
 import uuid
 
@@ -16,6 +18,7 @@ from rcat.rcat_main import rcat
 
 
 app = Flask(__name__)
+app.secret_key = 'super secret key'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -193,6 +196,9 @@ def return_file():
     
 
 if __name__ == "__main__":
-    app.secret_key = 'super secret key'
-    app.run(host='0.0.0.0',port=50029)
+   # app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
+    sess.init_app(app)
+    app.debug = True
+    app.run(host='54.37.75.43')
 

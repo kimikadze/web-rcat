@@ -1,7 +1,7 @@
 # import networkx as nx
 
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 import math
