@@ -55,7 +55,7 @@ class rcat(object):
         if del_stopwords_in_context=="n":
             stopwords= False
 
-        else:
+        if del_stopwords_in_context!="n" and del_stopwords_in_context!="y":
             with open(del_stopwords_in_context, "r", encoding="utf-8") as dt:
                 stopwords = dt.readlines()
                 stopwords = [i.strip() for i in stopwords]
