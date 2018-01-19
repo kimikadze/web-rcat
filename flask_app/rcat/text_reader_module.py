@@ -22,17 +22,59 @@ class text_reader:
         # by coreference resolution
 
 
-        if lemmatize == "n":
+        # TOKENISATION WITH NLTK.WORD_TOKENIZE
 
-            text_tokenized = word_tokenize(txt, language=text_language)
-            text_tokenized_stripped = list()
-            #remove all punctation from false tokenized words
-            for word in text_tokenized:
-                #print(word)
-                if (word != "." and word != "!" and word != "?" and word != "," and word != ":" and word != "–" and word != "'" and word != "»" and word != "«" and word != "’"):
-                    text_tokenized_stripped += [word.strip(".")]
+        # if lemmatize == "n":
+		#
+        #     text_tokenized = word_tokenize(txt, language=text_language)
+        #     text_tokenized_stripped = list()
+        #     #remove all punctation from false tokenized words
+        #     for word in text_tokenized:
+        #         #print(word)
+        #         if (word != "." and word != "!" and word != "?" and word != "," and word != ":" and word != "–" and word != "'" and word != "»" and word != "«" and word != "’"):
+        #             text_tokenized_stripped += [word.strip(".")]
+		#
+        #     return text_tokenized_stripped
 
-            return text_tokenized_stripped
+
+        # TOKENIZATION AND LEMMATIZATION WITH TREETAGGER
+
+        exlude_from_text = [".", "!", "?", ",", ":", "-", "'", "»", "«", "’"]
+
+
+        if lemmatize == "n" and text_language=="German":
+            tt = treetaggerwrapper.TreeTagger(TAGLANG='de')
+            txt_pos = tt.tag_text(txt)
+
+            txt_word_pos_lemma = list()
+            for word_pos_lemma in txt_pos:
+                txt_word_pos_lemma_split = re.split("\t", word_pos_lemma)
+                txt_word_pos_lemma += [txt_word_pos_lemma_split]
+
+            text_lemmatized = list()
+            for i in txt_word_pos_lemma:
+                if i[0] not in exlude_from_text:
+                    text_lemmatized += [i[0]]
+            return text_lemmatized
+
+
+
+        if lemmatize == "n" and text_language=="English":
+            tt = treetaggerwrapper.TreeTagger(TAGLANG='en')
+            txt_pos = tt.tag_text(txt)
+
+            txt_word_pos_lemma = list()
+            for word_pos_lemma in txt_pos:
+                txt_word_pos_lemma_split = re.split("\t", word_pos_lemma)
+                txt_word_pos_lemma += [txt_word_pos_lemma_split]
+
+            text_lemmatized = list()
+            for i in txt_word_pos_lemma:
+                if i[0] not in exlude_from_text:
+                    text_lemmatized += [i[0]]
+            return text_lemmatized
+
+
 
         if lemmatize == "treetagger" and text_language== "German":
             tt = treetaggerwrapper.TreeTagger(TAGLANG='de')

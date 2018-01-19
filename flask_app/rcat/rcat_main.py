@@ -82,8 +82,8 @@ class rcat(object):
                                                                       words_after=distance_parameter[2],
                                                                       delete_stopwords_in_context=del_stopwords_in_context,
                                                                       word_field=word_field, wf_cat=wf_cat,
-                                                                      stop_words=stopwords)
-                                                                        #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
+                                                                      #stop_words=stopwords)
+                                                                        stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
                                                                       #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
         single_character_context = relations().count_context_words_for_single_characters(character_positions,
@@ -91,8 +91,8 @@ class rcat(object):
                                                                                          txt_tokenized, delete_stopwords_in_context=del_stopwords_in_context,
                                                                                          word_field=word_field,
                                                                                          wf_cat=wf_cat,
-                                                                                         stop_words=stopwords)
-                                                                                         #stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
+                                                                                         #stop_words=stopwords)
+                                                                                         stop_words="./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_ONEWORD.txt")
                                                                                         #stop_words = "./data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_with_character_names_underscore.txt")
 
         # FILL DATA HOLDER
