@@ -92,7 +92,7 @@ class text_reader:
                 if (i[2]) == "Sie|sie":
                     text_lemmatized += ["sie"]
                 else:
-                    if (i[2] != "." and i[2] != "!" and i[2] != "?" and i[2] != "," and i[2] != ":" and i[2] != "–" and i[2] != "'" and i[2] != "»" and i[2] != "«" and i[2] != "’"):
+                    if i[2] not in exlude_from_text:
                         text_lemmatized += [i[2]]
 
             #print(text_lemmatized)
@@ -113,7 +113,7 @@ class text_reader:
                 if (i[2] == '<unknown>' or i[2] == '@card@'):
                     text_lemmatized += [i[0]]
                 else:
-                    if (i[2] != "." and i[2] != "!" and i[2] != "?" and i[2] != "," and i[2] != ":" and i[2] != "–" and i[2] != "'" and i[2] != "»" and i[2] != "«" and i[2] != "’"):
+                    if i[2] not in exlude_from_text:
                         text_lemmatized += [i[2]]
 
             #print(text_lemmatized)
