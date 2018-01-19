@@ -212,7 +212,7 @@ class pdf_latex:
 
 
         if wc_context_selection == "PMI":
-
+            print(dta_holder["character_relations_context"])
             PMI_all_pairs = features().PMI(context_words=dta_holder["character_relations_context"])
             #print(PMI_all_pairs[0:3])
             # for i in PMI_all_pairs[0:3]:

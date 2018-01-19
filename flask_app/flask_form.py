@@ -211,7 +211,7 @@ if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
 #    sess.init_app(app)
     app.debug = True
-    #app.run(host='54.37.75.43')
-    app.run(host='0.0.0.0')
+    app.run(host='54.37.75.43')
+    #app.run(host='0.0.0.0')
 
 

@@ -233,8 +233,11 @@ class features:
 
 		PMIs_for_each_pair = list()
 		for pair in range(len(context_words)):
+			#print(pair)
+			#print(context_words[pair]["character_names"])
 			PMIs_for_each_word_with_pair = dict()
 			for word in context_words[pair]["tf_dic"]:
+				#print(word)
 				P_pair_word = context_words[pair]["tf_dic"][word] / wortsumme
 				word_in_pair = context_words[pair]["tf_dic"][word]
 				P_pair = sum([context_words[pair]["tf_dic"][j] for j in context_words[pair]["tf_dic"]]) / wortsumme
@@ -245,26 +248,22 @@ class features:
 				P_word = counts_word / wortsumme
 				PMI_pair_word = math.log2(P_pair_word / (P_pair * P_word))
 				PMIs_for_each_word_with_pair.update({word: PMI_pair_word})
-				# PMIs_for_each_word_with_pair.update({word: [PMI_pair_word,  P_pair_word, P_pair, P_word]})
-				# PMIs_for_each_word_with_pair.update({word: [PMI_pair_word, word_in_pair, counts_word, wortsumme]})
 
-				# i)
-				# PMIs_for_each_word_with_pair_ranked = sorted(PMIs_for_each_word_with_pair.items(), key=operator.itemgetter(1), reverse=True)
-				# ii)
-				# PMIs_for_each_word_with_pair_ranked = sorted(PMIs_for_each_word_with_pair.items(), key=lambda x: x[1], reverse=True)
-				# iii)
-				dictlist = list()
-				for key, value in PMIs_for_each_word_with_pair.items():
-					temp = [key, value]
-					dictlist.append(temp)
-				PMIs_for_each_word_with_pair_ranked = sorted(dictlist, key=operator.itemgetter(1), reverse=True)
+			# BUILD RANKED PMI LIST
+			dictlist = list()
+			for key, value in PMIs_for_each_word_with_pair.items():
+				temp = [key, value]
+				dictlist.append(temp)
+			PMIs_for_each_word_with_pair_ranked = sorted(dictlist, key=operator.itemgetter(1), reverse=True)
 
-			#PMIs_for_each_pair += [[context_words[pair]["character_names"], PMIs_for_each_word_with_pair_ranked]]
 			PMIs_for_each_pair += [{"character_names": context_words[pair]["character_names"], "PMI": PMIs_for_each_word_with_pair_ranked}]
+		# for i,j in enumerate(PMIs_for_each_pair):
+		# 	print(i)
+		# 	print(j)
 		return PMIs_for_each_pair
 
 
-	#
+
 
 
 	# OLD STRUCTURE (LIST)
