@@ -73,9 +73,20 @@ def upload():
     words_before = int(request.form["before"])
     words_after = int(request.form["after"])
 
-    #GET OTHER PARAMETERS
-
+    #STOPWORDS PARAMETER AND FILE
     stopwords_parameter = request.form["stopwords"]
+    if stopwords_parameter=="own_stopwords":
+        third_file = request.files.getlist("file")[2]
+        filename = third_file.filename
+        filename = str("3__" + filename)
+        destination_third_file = "".join(([target, filename]))
+        third_file.save(destination_third_file)
+        #exception: if a file is uploaded, the path is given instead of the parameter from html
+        stopwords_parameter=destination_third_file
+
+
+
+    #GET OTHER PARAMETERS
     lemmatisation_parameter = request.form["lemmatisation"]
     #print(lemmatisation_parameter)
     wordcloud_parameter = int(request.form["word_clouds"])
@@ -91,11 +102,11 @@ def upload():
         wf_cat_parameter= "None"
         # pass
     if wordfield_parameter=="single":
-        third_file = request.files.getlist("file")[2]
-        filename = third_file.filename
-        filename = str("3__"+filename)
-        destination_third_file = "".join(([target, filename]))
-        third_file.save(destination_third_file)
+        fourth_file = request.files.getlist("file")[3]
+        filename = fourth_file.filename
+        filename = str("4__"+filename)
+        destination_fourth_file = "".join(([target, filename]))
+        fourth_file.save(destination_fourth_file)
         #print(destination_third_file)
 
         wf_cat_parameter = destination_third_file
@@ -103,7 +114,7 @@ def upload():
 
     #GET WORD FIELD PARAMETER (MULTI)
     if wordfield_parameter=="multi":
-        multi_wordfield_list = request.files.getlist("file")[2:]
+        multi_wordfield_list = request.files.getlist("file")[3:]
         #print(request.files.getlist("file"))
         #print(multi_wordfield_list[1:])
         multi_file_list = []
@@ -200,5 +211,7 @@ if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
 #    sess.init_app(app)
     app.debug = True
-    app.run(host='54.37.75.43')
+    #app.run(host='54.37.75.43')
+    app.run(host='0.0.0.0')
+
 

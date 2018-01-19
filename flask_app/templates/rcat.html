@@ -66,9 +66,14 @@
             <!-- <input type="radio" name="language" value="Middle High German">Middle High German<br> -->
 
             <p><b>Remove stop words?</b></p>
-            <input type="radio" name="stopwords" value="y" checked="checked">yes<br>
+            <input type="radio" name="stopwords" value="y" checked="checked">yes (corresponds with selected language)<br>
             <input type="radio" name="stopwords" value="n">no<br>
+            <input type="radio" name="stopwords" value="own_stopwords">use own stop word list<br>
+                <input type="file" name="file"/>
+                <br>
             <button type="button" onclick="alert('Whether to remove stopwords or not')">?</button>
+
+
 
             <p><b>Lemmatisation</b></p>
             <input type="radio" name="lemmatisation" value="treetagger" checked="checked">yes<br>
