@@ -109,7 +109,7 @@ def upload():
         fourth_file.save(destination_fourth_file)
         #print(destination_third_file)
 
-        wf_cat_parameter = destination_third_file
+        wf_cat_parameter = destination_fourth_file
 
 
     #GET WORD FIELD PARAMETER (MULTI)
