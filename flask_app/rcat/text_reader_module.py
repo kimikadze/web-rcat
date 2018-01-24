@@ -108,7 +108,7 @@ class text_reader:
                 txt_word_pos_lemma_split = re.split("\t", word_pos_lemma)
                 txt_word_pos_lemma += [txt_word_pos_lemma_split]
 
-            print(txt_word_pos_lemma)
+           # print(txt_word_pos_lemma)
             text_lemmatized = list()
             for i in txt_word_pos_lemma:
                 if (i[2] == '<unknown>' or i[2] == '@card@'):

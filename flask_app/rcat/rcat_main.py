@@ -43,12 +43,12 @@ class rcat(object):
 
         if del_stopwords_in_context=="y":
             if language=="German":
-                with open("./data/stopwords/stopwords_de.txt", "r", encoding="utf-8") as dt:
+                with open("data/stopwords/stopwords_de.txt", "r", encoding="utf-8") as dt:
                     stopwords = dt.readlines()
                     stopwords = [i.strip() for i in stopwords]
 
             if language=="English":
-                with open("./data/stopwords/stopwords_en.txt", "r", encoding="utf-8") as en:
+                with open("data/stopwords/stopwords_en.txt", "r", encoding="utf-8") as en:
                     stopwords = en.readlines()
                     stopwords = [i.strip() for i in stopwords]
 
