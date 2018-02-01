@@ -45,9 +45,11 @@ class text_reader:
 
         if lemmatize == "n" and text_language=="MHG":
             print(os.getcwd())
+            #output = os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
             output = os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
-            output.read()
-            output.close()
+            #os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
+            #output.read()
+            #output.close()
             with open("output.txt") as f:
                 for i in f:
                     print(i)
