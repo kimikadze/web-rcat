@@ -2,6 +2,7 @@ from nltk import word_tokenize
 #import treetaggerwrapper
 import re
 import treetaggerwrapper
+import os
 
 class text_reader:
 
@@ -40,6 +41,19 @@ class text_reader:
         # TOKENIZATION AND LEMMATIZATION WITH TREETAGGER
 
         exlude_from_text = [".", "!", "?", ",", ":", "-", "'", "»", "«", "’"]
+
+
+        if lemmatize == "n" and text_language=="MHG":
+            print(os.getcwd())
+            output = os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
+            output.read()
+            output.close()
+            with open("output.txt") as f:
+                for i in f:
+                    print(i)
+
+
+
 
 
         if lemmatize == "n" and text_language=="German":
