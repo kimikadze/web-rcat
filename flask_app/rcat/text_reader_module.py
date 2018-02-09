@@ -46,7 +46,7 @@ class text_reader:
         if lemmatize == "n" and text_language=="MHG":
             print(os.getcwd())
             #output = os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
-            output = os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
+            output = os.popen("Users/evgenykim/treetagger/cmd/tree-tagger-german > output.txt")
             #os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
             #output.read()
             #output.close()
@@ -127,11 +127,15 @@ class text_reader:
            # print(txt_word_pos_lemma)
             text_lemmatized = list()
             for i in txt_word_pos_lemma:
-                if (i[2] == '<unknown>' or i[2] == '@card@'):
-                    text_lemmatized += [i[0]]
-                else:
-                    if i[2] not in exlude_from_text:
-                        text_lemmatized += [i[2]]
+                try:
+                    if (i[2] == '<unknown>' or i[2] == '@card@'):
+                        text_lemmatized += [i[0]]
+                    else:
+                        if i[2] not in exlude_from_text:
+                            text_lemmatized += [i[2]]
+                except ValueError:
+                    pass
+                continue
 
             #print(text_lemmatized)
             return text_lemmatized
