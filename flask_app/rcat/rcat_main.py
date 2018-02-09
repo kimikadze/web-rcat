@@ -52,6 +52,11 @@ class rcat(object):
                     stopwords = en.readlines()
                     stopwords = [i.strip() for i in stopwords]
 
+            if language=="MHG":
+                with open("data/stopwords/Stoppwortliste_mittelhochdeutsch_erweitert_orig.txt", "r", encoding="utf-8") as mhg:
+                    stopwords = mhg.readlines()
+                    stopwords = [i.strip() for i in stopwords]
+
         if del_stopwords_in_context=="n":
             stopwords= False
 
