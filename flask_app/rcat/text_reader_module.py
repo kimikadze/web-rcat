@@ -31,16 +31,45 @@ class text_reader:
 
 
         if lemmatize == "n" and text_language=="MHG":
-            print(os.getcwd())
-            #output = os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
-            #output = os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
-            os.popen("../../treetagger/cmd/tree-tagger-middle-high-german > output.txt")
-            #output.read()
-            #output.close()
-            with open("output.txt") as f:
-                for i in f:
-                    print(i)
+            #print(os.getcwd())
+            output = os.popen("echo '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt)
 
+            output.read()
+            output.close()
+
+            with open("output.txt") as f:
+                #lines = f.readlines()
+                token_pos_lemma_complete_text = list()
+                for line in f:
+                    token_pos_lemma = line.strip().split("\t")
+                    if token_pos_lemma[0] not in exlude_from_text:
+                        token_pos_lemma_complete_text.append(token_pos_lemma[0])
+
+
+                print(token_pos_lemma_complete_text)
+                return token_pos_lemma_complete_text
+
+
+        if lemmatize == "treetagger" and text_language=="MHG":
+            #print(os.getcwd())
+            output = os.popen("echo '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt)
+            output.read()
+            output.close()
+
+            with open("output.txt") as f:
+                #lines = f.readlines()
+                token_pos_lemma_complete_text = list()
+                for line in f:
+                    token_pos_lemma = line.strip().split("\t")
+                    if (token_pos_lemma[2] == '<unknown>' or token_pos_lemma[2] ==  '@card@'):
+                        token_pos_lemma_complete_text.append(token_pos_lemma[0])
+
+                    else:
+                        if token_pos_lemma[2] not in exlude_from_text:
+                            token_pos_lemma_complete_text.append(token_pos_lemma[2])
+
+                print(token_pos_lemma_complete_text)
+                return token_pos_lemma_complete_text
 
 
 
@@ -58,6 +87,7 @@ class text_reader:
             for i in txt_word_pos_lemma:
                 if i[0] not in exlude_from_text:
                     text_lemmatized += [i[0]]
+            print(text_lemmatized)
             return text_lemmatized
 
 
