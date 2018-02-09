@@ -37,6 +37,7 @@ class text_reader:
             output.read()
             output.close()
 
+
             with open("output.txt") as f:
                 #lines = f.readlines()
                 token_pos_lemma_complete_text = list()
@@ -46,7 +47,7 @@ class text_reader:
                         token_pos_lemma_complete_text.append(token_pos_lemma[0])
 
 
-                print(token_pos_lemma_complete_text)
+                #print(token_pos_lemma_complete_text)
                 return token_pos_lemma_complete_text
 
 
@@ -68,7 +69,7 @@ class text_reader:
                         if token_pos_lemma[2] not in exlude_from_text:
                             token_pos_lemma_complete_text.append(token_pos_lemma[2])
 
-                print(token_pos_lemma_complete_text)
+                #print(token_pos_lemma_complete_text)
                 return token_pos_lemma_complete_text
 
 
@@ -144,11 +145,15 @@ class text_reader:
            # print(txt_word_pos_lemma)
             text_lemmatized = list()
             for i in txt_word_pos_lemma:
-                if (i[2] == '<unknown>' or i[2] == '@card@'):
-                    text_lemmatized += [i[0]]
-                else:
-                    if i[2] not in exlude_from_text:
-                        text_lemmatized += [i[2]]
+                try:
+                    if (i[2] == '<unknown>' or i[2] == '@card@'):
+                        text_lemmatized += [i[0]]
+                    else:
+                        if i[2] not in exlude_from_text:
+                            text_lemmatized += [i[2]]
+                except ValueError:
+                    pass
+                continue
 
             #print(text_lemmatized)
             return text_lemmatized
