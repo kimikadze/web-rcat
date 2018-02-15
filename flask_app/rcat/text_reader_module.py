@@ -15,7 +15,7 @@ class text_reader:
         return txt
 
 
-    def tokenize_lemmatize_text(self, txt, lemmatize="n", text_language= "German"):#,remove_stopwords == "n"):
+    def tokenize_lemmatize_text(self, txt, txt_file, lemmatize="n", text_language= "German"):#,remove_stopwords == "n"):
         # tokenizes text
 
         # so far: don't use stop word removal here since this cuts out all personal pronouns of the text that we
@@ -33,7 +33,7 @@ class text_reader:
         if lemmatize == "n" and text_language=="MHG":
             #print(os.getcwd())
             #output = os.popen("echo '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt)
-            output = os.popen("cat '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt)
+            output = os.popen("cat '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt_file)
 
 
             output.read()
@@ -56,7 +56,7 @@ class text_reader:
         if lemmatize == "treetagger" and text_language=="MHG":
             #print(os.getcwd())
             #output = os.popen("echo '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt)
-            output = os.popen("cat '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt)
+            output = os.popen("cat '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt_file)
 
 
 

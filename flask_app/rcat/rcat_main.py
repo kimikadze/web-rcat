@@ -80,7 +80,7 @@ class rcat(object):
         #RUN TEXT ANALYSIS FUNCTIONS
 
         txt = text_reader().read_text_file(txt_file=text__file)
-        txt_tokenized = text_reader().tokenize_lemmatize_text(txt, lemmatize=lemmatisation, text_language=language)
+        txt_tokenized = text_reader().tokenize_lemmatize_text(txt, txt_file=text__file, lemmatize=lemmatisation, text_language=language)
 
         characters = characters_reader().read_characters(char_file=character__file)
         characters_tokenized = characters_reader().tokenize_characters(characters)
