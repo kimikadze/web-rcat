@@ -192,10 +192,10 @@ def return_file():
     #print("2")
     #print(session_id)
 
-    if session_id==False:
-        pdf_path = "/".join(([os.getcwd(), "data_user/relations.pdf"]))
-    else:
-        pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id]))
+#    if session_id==False:
+#        pdf_path = "/".join(([os.getcwd(), "data_user/relations.pdf"]))
+#    else:
+    pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id]))
     #print("2")
     #print(os.getcwd())
 
