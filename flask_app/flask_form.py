@@ -189,22 +189,8 @@ def return_file():
     #print(os.getcwd())
 
     session_id = session['session_id']
-    #print("2")
-    #print(session_id)
-
-#    if session_id==False:
-#        pdf_path = "/".join(([os.getcwd(), "data_user/relations.pdf"]))
-#    else:
-    pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id]))
-    #print("2")
-    #print(os.getcwd())
-
-    #os.chdir("../")
-
-    #print("3")
-    #print(os.getcwd())
+    pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id])) 
     return send_file(pdf_path)
-    
 
 if __name__ == "__main__":
    # app.secret_key = 'super secret key'
