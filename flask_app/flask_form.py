@@ -14,8 +14,7 @@ import uuid
 from flask import Flask, Blueprint, render_template, redirect, request, flash, url_for, send_file, session
 
 from rcat.rcat_main import rcat
-
-
+from nocache import nocache
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -183,6 +182,7 @@ def upload():
 
 
 @app.route("/return-file/")
+@nocache
 def return_file():
     #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
     #print(os.path.basename(os.getcwd()))
