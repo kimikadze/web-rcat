@@ -127,13 +127,18 @@ class text_reader:
 
             text_lemmatized = list()
             for i in txt_word_pos_lemma:
-                if (i[2] == '<unknown>' or i[2] == '@card@'):
-                    text_lemmatized += [i[0]]
-                if (i[2]) == "Sie|sie":
-                    text_lemmatized += ["sie"]
-                else:
-                    if i[2] not in exlude_from_text:
-                        text_lemmatized += [i[2]]
+                try:
+                    if (i[2] == '<unknown>' or i[2] == '@card@'):
+                        text_lemmatized += [i[0]]
+                    if (i[2]) == "Sie|sie":
+                        text_lemmatized += ["sie"]
+                    else:
+                        if i[2] not in exlude_from_text:
+                            text_lemmatized += [i[2]]
+                except IndexError:
+                    pass
+
+
 
             #print(text_lemmatized)
             return text_lemmatized
@@ -157,7 +162,7 @@ class text_reader:
                     else:
                         if i[2] not in exlude_from_text:
                             text_lemmatized += [i[2]]
-                except ValueError:
+                except IndexError:
                     pass
                 continue
 
