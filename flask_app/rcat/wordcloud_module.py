@@ -11,7 +11,7 @@ class word_cloud:
 
     #def generate_wordcloud_simple(text, ending_number=None):
     def generate_wordcloud_simple(text, ending_number, temppath, file_name_head):
-
+        #print(text)
         #text = 'all your base are belong to us all of your base base base'
         wordcloud = WordCloud(background_color="white",
                               relative_scaling=1.0, collocations=False, height=800, width=1600

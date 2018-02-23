@@ -27,7 +27,7 @@ class text_reader:
 
         # TOKENIZATION AND LEMMATIZATION WITH TREETAGGER
 
-        exlude_from_text = [".", "!", "?", ",", ":", "-", "'", "»", "«", "’"]
+        exlude_from_text = [".", "!", "?", ",", ":", "-", "'", "»", "«", "’", "“", '"']
 
 
         if lemmatize == "n" and text_language=="MHG":
