@@ -174,8 +174,8 @@ def upload():
                   lemmatisation=lemmatisation_parameter,
                     sess_id=session_id,
                     word_cloud_context_selection = wc_context_parameter,
-                    words_in_wc =words_in_word_cloud_parameter,
-                    zeta_analysis=zeta_parameter)
+                    words_in_wc =words_in_word_cloud_parameter)#,
+                    #zeta_analysis=zeta_parameter)
 
 
     return render_template('rcat_done.html')
