@@ -34,7 +34,7 @@ from rcat.rcat_main import rcat
 # 				zeta_analysis="y")
 
 #rcat().main_PDF(text_file="/Users/Florian 1/Applications/Source_Tree/web-rcat/flask_app/data/CRETA_internal/Werther/1 Goethe_Die_Leiden_des_jungen_Werthers_1774.txt", character_file="/Users/Florian 1/Applications/Source_Tree/web-rcat/flask_app/data/CRETA_internal/Werther/2 Goethe_Werther_74_characters.txt",
-rcat().main_PDF(text_file="./data/CRETA_internal/Got/clash of kings.txt", character_file="./data/CRETA_internal/got/got_characters.txt",
+rcat().main_PDF(text_file="./data/CRETA_internal/Got/clash of kings.txt", character_file="./data/CRETA_internal/Got/got_characters.txt",
 #rcat().main_PDF(text_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Got/000001.txt", character_file="/Users/Florian/Applications/SourceTree/web-rcat/flask_app/data/CRETA_internal/Got/got_characters.txt",
 				dist_parameter=[8, 5, 5],
 				remove_stopwords_in_context="y",
