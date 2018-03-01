@@ -55,6 +55,7 @@ class text_reader:
 
         if lemmatize == "treetagger" and text_language=="MHG":
             #print(os.getcwd())
+
             #output = os.popen("echo '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt)
             output = os.popen("cat '%s' | ../../treetagger/cmd/tree-tagger-middle-high-german > output.txt" %txt_file)
 
