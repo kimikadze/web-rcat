@@ -208,7 +208,7 @@ class relations:
                 words_before_between_after_pair = list()
                 for index_number in words_before_between_after_pair_indices_sort:
                     if index_number in range(0, len(tokenized_text)):
-                        if tokenized_text[index_number].lower() not in stop_words:
+                        if (tokenized_text[index_number].lower() not in stop_words) and (tokenized_text[index_number] not in stop_words):
                             words_before_between_after_pair += [tokenized_text[index_number]]
                 #print(words_before_between_after_pair)
 
