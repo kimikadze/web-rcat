@@ -11,8 +11,8 @@ class text_reader:
         pass
 
     def read_text_file(self, txt_file):
-        #with open(txt_file, encoding='utf-8') as txt_data:
-        with codecs.open(txt_file, "r", encoding='utf-8') as txt_data:
+        with open(txt_file, encoding='utf-8') as txt_data:
+        #with codecs.open(txt_file, "r", encoding='utf-8') as txt_data:
             txt = txt_data.read()
         return txt
 
@@ -42,7 +42,7 @@ class text_reader:
             output.close()
 
 
-            with open("output.txt") as f:
+            with open("output.txt", encoding='utf-8') as f:
                 #lines = f.readlines()
                 token_pos_lemma_complete_text = list()
                 for line in f:
@@ -66,7 +66,7 @@ class text_reader:
             output.read()
             output.close()
 
-            with open("output.txt") as f:
+            with open("output.txt", encoding='utf-8') as f:
                 #lines = f.readlines()
                 token_pos_lemma_complete_text = list()
                 for line in f:
