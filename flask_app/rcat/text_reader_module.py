@@ -3,6 +3,7 @@ from nltk import word_tokenize
 import re
 import treetaggerwrapper
 import os
+import codecs
 
 class text_reader:
 
@@ -10,7 +11,8 @@ class text_reader:
         pass
 
     def read_text_file(self, txt_file):
-        with open(txt_file, encoding='utf-8') as txt_data:
+        #with open(txt_file, encoding='utf-8') as txt_data:
+        with codecs.open(txt_file, "r", encoding='utf-8') as txt_data:
             txt = txt_data.read()
         return txt
 
