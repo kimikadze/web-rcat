@@ -137,7 +137,8 @@ class relations:
                 words_before_after_pair = list()
                 for index_number in words_before_after_character_positions_for_character_sorted:
                     if index_number in range(0, len(tokenized_text)):
-                        if tokenized_text[index_number].lower() not in stop_words:
+                        #if tokenized_text[index_number].lower() not in stop_words:
+                        if (tokenized_text[index_number].lower() not in stop_words) and (tokenized_text[index_number] not in stop_words):
                             words_before_after_pair += [tokenized_text[index_number]]
 
             if not word_field == "N":
