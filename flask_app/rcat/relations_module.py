@@ -84,7 +84,7 @@ class relations:
                                     index_b_list[0] + distance_for_relation + 1)])):
                             index_matches_where_char_a_is_in_window_of_b += [[index_a_list, index_b_list]]
             entity_potitions_with_relations += zip([i], [char_pairs[0][i]], [char_pairs[1][i]],
-                                                   [index_matches_where_char_a_is_in_window_of_b])
+                                                   [index_matches_where_char_a_is_in_window_of_b], [len(index_matches_where_char_a_is_in_window_of_b)])
             # entity_potitions_with_relations += [index_matches_where_char_a_is_in_window_of_b]
 
         return entity_potitions_with_relations

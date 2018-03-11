@@ -500,8 +500,12 @@ class pdf_latex:
         table2.add_hline()
         table2.add_row("Character Pair (Edge)", "Weight")
         table2.add_hline()
-        for relation in dta_holder["character_relations"]:
-            if len(relation[3]) != 0:
+        #print(dta_holder["character_relations"])
+        sorted_relations = sorted(dta_holder["character_relations"], key=operator.itemgetter(4), reverse=True)
+        #print(sorted_relations)
+        #for relation in dta_holder["character_relations"]:
+        for relation in sorted_relations:
+            if sorted_relations[4] != 0:
                 table2.add_row("%s -- %s" % (relation[2][0], relation[2][1]), len(relation[3]))
                 table2.add_hline()
 
