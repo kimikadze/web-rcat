@@ -507,7 +507,7 @@ class pdf_latex:
         sorted_relations = sorted(dta_holder["character_relations"], key=operator.itemgetter(4), reverse=True)
         #print(sorted_relations)
         #for relation in dta_holder["character_relations"]:
-        for relation in sorted_relations:
+        for relation in sorted_relations[0:50]:
             if sorted_relations[4] != 0:
                 table2.add_row("%s -- %s" % (relation[2][0], relation[2][1]), len(relation[3]))
                 table2.add_hline()
