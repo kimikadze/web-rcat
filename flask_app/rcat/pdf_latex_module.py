@@ -484,8 +484,11 @@ class pdf_latex:
         table1.add_hline()
         table1.add_row(("Character (Node)", "degree", "weighted degree"))
         table1.add_hline()
-        for degree_list, weigthed_degree_tuple in zip(dta_holder["network_parameters"][3],
-                                                      dta_holder["network_parameters"][4]):
+        degree_list_weigthed_degree_tuple = zip(dta_holder["network_parameters"][3],dta_holder["network_parameters"][4])
+        sorted_degree_list_weigthed_degree_tuple = sorted(degree_list_weigthed_degree_tuple, key=lambda x: x[1][1], reverse=True)
+        #for degree_list, weigthed_degree_tuple in zip(dta_holder["network_parameters"][3],
+        #                                              dta_holder["network_parameters"][4]):
+        for degree_list, weigthed_degree_tuple in sorted_degree_list_weigthed_degree_tuple:
             if degree_list[0] == weigthed_degree_tuple[0]:
                 table1.add_row(degree_list[0], degree_list[1], weigthed_degree_tuple[1])
                 table1.add_hline()
