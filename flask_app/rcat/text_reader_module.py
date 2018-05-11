@@ -97,7 +97,7 @@ class text_reader:
             for i in txt_word_pos_lemma:
                 if i[0] not in exlude_from_text:
                     text_lemmatized += [i[0]]
-            print(text_lemmatized)
+            #print(text_lemmatized)
             return text_lemmatized
 
 
