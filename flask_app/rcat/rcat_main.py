@@ -127,6 +127,8 @@ class rcat(object):
 
         # WRITE NETWORK GRAPHIC TO TEMPORARY FILE
         network_generator.build_and_plot_graph_vis_col(holder["character_relations"], netw_parameters,number_of_wc,temppath=temporary_path)
+        csv_lines = network_generator.build_csv_lines_for_gephi(holder["character_relations"])
+        network_generator.write_gephi_data_to_csv(csv_lines,temppath=temporary_path)
         # print("build network...")
 
 

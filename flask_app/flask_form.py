@@ -189,7 +189,7 @@ def return_file():
     #print(os.getcwd())
 
     session_id = session['session_id']
-    pdf_path = "/".join(([os.getcwd(), "data_user/%s_relations.pdf" %session_id])) 
+    pdf_path = "/".join(([os.getcwd(), "data_user/%s_temp_folder/relations.pdf" %session_id]))
     return send_file(pdf_path)
 
 if __name__ == "__main__":

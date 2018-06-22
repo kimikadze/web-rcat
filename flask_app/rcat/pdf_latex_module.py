@@ -556,7 +556,7 @@ class pdf_latex:
        # if s_id==False:
        #     doc.generate_pdf("data_user/relations", clean_tex=True)
        # else:
-        doc.generate_pdf("data_user/%s_relations" %s_id, clean_tex=True)
+        doc.generate_pdf("data_user/%s_temp_folder/relations" %s_id, clean_tex=True)
 
     ## OLD FUNCTIONS
 

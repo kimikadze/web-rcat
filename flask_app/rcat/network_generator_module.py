@@ -201,7 +201,7 @@ class network_generator:
 
 ############# write gephi data to file
 
-    def build_csv_lines_for_gephi(relations, weight="log"):
+    def build_csv_lines_for_gephi(relations, weight="counts"):
         csv_lines = ["source;Target;Weight;Type"]
         for i in range(len(relations)):
             if len(relations[i][3]) > 0:
@@ -215,8 +215,9 @@ class network_generator:
 
         return csv_lines
 
-    def write_gephi_data_to_csv(csv_lines):
-        with open("network_data_for_gephi.csv", mode="w", encoding="utf-8") as file:
+    def write_gephi_data_to_csv(csv_lines, temppath=False):
+        with open("%s/network_data_for_gephi.csv" %temppath, mode="w", encoding="utf-8") as file:
+            print(temppath)
             for line in csv_lines:
                 file.write(line + "\n")
 
