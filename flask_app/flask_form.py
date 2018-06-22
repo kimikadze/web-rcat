@@ -8,6 +8,9 @@ import matplotlib
 matplotlib.use('Agg')
 import os
 import uuid
+import zipfile
+import shutil
+
 
 
 # sys.path.append('.')
@@ -177,11 +180,19 @@ def upload():
                     words_in_wc =words_in_word_cloud_parameter)#,
                     #zeta_analysis=zeta_parameter)
 
+    if request.form["output"] == "PDF":
+        return render_template('rcat_done_pdf.html')
 
-    return render_template('rcat_done.html')
+    if request.form["output"] == "zip":
+        path = os.path.join(APP_ROOT, "data_user/%s_temp_folder/" %session_id)
+        os.chdir(os.path.join(APP_ROOT, "data_user/%s_temp_folder_zip/" %session_id))
+        shutil.make_archive("rCat", "zip", path)
+
+        return render_template('rcat_done_zip.html')
 
 
-@app.route("/return-file/")
+
+@app.route("/return-file-pdf/")
 @nocache
 def return_file():
     #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
@@ -191,6 +202,18 @@ def return_file():
     session_id = session['session_id']
     pdf_path = "/".join(([os.getcwd(), "data_user/%s_temp_folder/relations.pdf" %session_id]))
     return send_file(pdf_path)
+
+
+# @app.route("/return-file-zip/")
+# @nocache
+# def return_file():
+#     #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
+#     #print(os.path.basename(os.getcwd()))
+#     #print(os.getcwd())
+#
+#     session_id = session['session_id']
+#     zip_path = os.path.join(APP_ROOT, "data_user/%s_temp_folder_zip/rCat.zip" %session_id)
+#     return send_file(zip_path)
 
 if __name__ == "__main__":
    # app.secret_key = 'super secret key'
