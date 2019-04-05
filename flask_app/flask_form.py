@@ -51,23 +51,37 @@ def upload():
 
     #PROCESS FIRST FILE (TEXT)
 
-    first_file = request.files.getlist("file")[0]
+    if_demo_txt = request.form["if_demo_txt"]
 
-    filename = first_file.filename
-    filename = str("1__"+filename)
-    destination_first_file = "".join(([target, filename]))
 
-    first_file.save(destination_first_file)
+    if if_demo_txt == "werther":
+        destination_first_file = "werther.txt"
+
+    if if_demo_txt == "own_txt_file":
+        first_file = request.files.getlist("file")[0]
+
+        filename = first_file.filename
+        filename = str("1__"+filename)
+        destination_first_file = "".join(([target, filename]))
+
+        first_file.save(destination_first_file)
 
     #PROCESS SECOND FILE (CHARACTERS)
 
-    second_file = request.files.getlist("file")[1]
+    if_demo_characters = request.form["if_demo_characters"]
 
-    filename = second_file.filename
-    filename = str("2__"+filename)
-    destination_second_file = "".join(([target, filename]))
+    if if_demo_characters == "werther_characters":
+        destination_second_file = "werther_characters.txt"
 
-    second_file.save(destination_second_file)
+    if if_demo_characters == "own_character_file":
+
+        second_file = request.files.getlist("file")[1]
+
+        filename = second_file.filename
+        filename = str("2__"+filename)
+        destination_second_file = "".join(([target, filename]))
+
+        second_file.save(destination_second_file)
 
     #GET DISTANCE PARAMETERS
 
@@ -97,12 +111,21 @@ def upload():
     segments_parameter = int(request.form["segments"])
 
 
-    #GET WORD FIELD PARAMETER (SINGLE)
+    #GET WORD FIELD PARAMETER
     wordfield_parameter = request.form["word_fields"]
     wf_cat_parameter = 0
+
+    # GET WORD FIELD PARAMETER (WERTHER / NONE)
+    if wordfield_parameter=="werther_emotions":
+        fourth_file = "werther_emotions.txt"
+
+
     if wordfield_parameter=="N":
         wf_cat_parameter= "None"
         # pass
+
+    #GET WORD FIELD PARAMETER (SINGLE)
+
     if wordfield_parameter=="single":
         fourth_file = request.files.getlist("file")[3]
         filename = fourth_file.filename
@@ -146,8 +169,9 @@ def upload():
     #WORDS IN WORD CLOUD
     words_in_word_cloud_parameter = int(request.form["words_in_word_cloud"])
 
-
-
+    #GET DEMO PARAMETERS
+    if_demo_txt = request.form["if_demo_txt"]
+    if_demo_characters = request.form["if_demo_characters"]
 
     # RUN RCAT
 
@@ -164,6 +188,23 @@ def upload():
     #     print("multiple session path error")
     ##############
 
+
+    # if if_demo_txt == "werther.txt" and if_demo_characters == "werther_characters.txt":
+    #     rcat().main_PDF(text_file=destination_first_file,
+    #                     character_file=destination_second_file,
+    #                     dist_parameter=[distance, words_before, words_after],
+    #                     remove_stopwords_in_context=stopwords_parameter,
+    #                     segments=segments_parameter, txt_language=language_parameter,
+    #                     number_of_wc=wordcloud_parameter,
+    #                     write_gephi_csv="n",
+    #                     word_field=wordfield_parameter,
+    #                     wf_cat=wf_cat_parameter,
+    #                     lemmatisation=lemmatisation_parameter,
+    #                     sess_id=session_id,
+    #                     word_cloud_context_selection=wc_context_parameter,
+    #                     words_in_wc=words_in_word_cloud_parameter)  # ,
+    #     # zeta_analysis=zeta_parameter)
+	#
 
     rcat().main_PDF(text_file=destination_first_file,
                     character_file=destination_second_file,
