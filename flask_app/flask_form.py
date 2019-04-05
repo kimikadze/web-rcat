@@ -66,6 +66,8 @@ def upload():
 
         first_file.save(destination_first_file)
 
+    print(destination_first_file)
+
     #PROCESS SECOND FILE (CHARACTERS)
 
     if_demo_characters = request.form["if_demo_characters"]
@@ -82,6 +84,8 @@ def upload():
         destination_second_file = "".join(([target, filename]))
 
         second_file.save(destination_second_file)
+
+    print(destination_second_file)
 
     #GET DISTANCE PARAMETERS
 
@@ -117,7 +121,8 @@ def upload():
 
     # GET WORD FIELD PARAMETER (WERTHER / NONE)
     if wordfield_parameter=="werther_emotions":
-        fourth_file = "werther_emotions.txt"
+        destination_fourth_file = "werther_emotions.txt"
+        wf_cat_parameter = destination_fourth_file
 
 
     if wordfield_parameter=="N":
@@ -261,7 +266,7 @@ if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
 #    sess.init_app(app)
     #app.debug = True
-    #app.run(host='54.37.75.43', debug=True) #HOST FOR SERVER
-    app.run(host='0.0.0.0',port=50022)
+    app.run(host='54.37.75.43', debug=True) #HOST FOR SERVER
+    #app.run(host='0.0.0.0',port=50022)
 
 

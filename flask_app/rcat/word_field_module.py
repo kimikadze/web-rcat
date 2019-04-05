@@ -27,7 +27,7 @@ class WordField:
     def score(self, chunks):
         FieldDict = {}
         Sequence = {}
-        if self.word_field == "single":
+        if self.word_field == "single" or self.word_field == "werther_emotions":
             for line in open(self.wf_cat, 'r', encoding="utf-8"):
                 line = line.strip()
                 FieldDict[line] = 1
