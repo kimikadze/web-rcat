@@ -49,26 +49,38 @@ source rcatenv/bin/activate
 
 ----------------------------------------------
 
-# python packages in environment
+# git 
+sudo apt-get install git-core
+sudo git clone https://github.com/kimikadze/web-rcat.git
 
-sudo -H pip install wheel
-sudo -H pip install uwsgi flask
-
-#
-
-
+----------------------------------------------
 
 
 # python packages (not in environment)
+
+## in environment rcatenv from barthfn
+
+sudo -H pip install wheel
+sudo -H pip install uwsgi flask
 
 ## as user barthfn
 pip3 install --upgrade pip
 pip3 install nltk
 
+pip3 install wheel
+
+python3 flask_test.py 
+
 
 ##as user root (since barthfn had permission errors also with sudo)
 pip3 install --upgrade pip
 pip3 install treetaggerwrapper
+
+
+
+
+
+
 
 
 
