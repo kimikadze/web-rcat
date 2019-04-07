@@ -58,24 +58,33 @@ sudo git clone https://github.com/kimikadze/web-rcat.git
 
 # python packages (not in environment)
 
-## in environment rcatenv from barthfn
-
-sudo -H pip install wheel
-sudo -H pip install uwsgi flask
-
 ## as user barthfn
 pip3 install --upgrade pip
+
 pip3 install nltk
-
 pip3 install wheel
+sudo pip3 install matplotlib
+sudo apt-get install python3-tk
+(=tkinter)
+sudo pip3 install pylatex
+sudo pip3 install wordcloud
 
-python3 flask_test.py 
-
+## in environment rcatenv from barthfn
+sudo -H pip install wheel
+sudo -H pip install uwsgi flask
 
 ##as user root (since barthfn had permission errors also with sudo)
 pip3 install --upgrade pip
 pip3 install treetaggerwrapper
 
+
+### RUN PAGE
+python3 flask_form.py 
+
+Runs so far at:
+http://185.248.140.172:5000
+
+But file upload doesn't work.
 
 
 
