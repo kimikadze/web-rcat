@@ -87,6 +87,7 @@ sudo apt-get install python3-tk
 sudo pip3 install pylatex
 sudo pip3 install wordcloud
 sudo -H pip install treetaggerwrapper
+sudo apt install python-pydot python-pydot-ng graphviz
 
 ## in environment rcatenv from barthfn
 sudo -H pip install wheel
