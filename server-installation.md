@@ -1,5 +1,11 @@
 # host-unlimited-server
 
+#account dates
+Mail adresse: florianbarth@me.com
+User name: florianbarth
+password: rcatims2019rcatims2019
+
+
 # links
 https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
 
