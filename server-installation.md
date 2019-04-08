@@ -55,27 +55,47 @@ sudo git clone https://github.com/kimikadze/web-rcat.git
 
 ----------------------------------------------
 
+#treetagger
+- load files from page
+- install via sh
+- define path variables:
+	- export PATH=/rcat/treetagger_installation/cmd:$PATH
+	- export PATH=/rcat/treetagger_installation/bin:$PATH
+
+	- export PATH=/home/barthfn/treetagger_installation_2/cmd:$PATH
+	- export PATH=/home/barthfn/treetagger_installation_2/bin:$PATH
+
+#WSGI Entry Point
+uwsgi --socket 185.248.140.172:5000 --protocol=http -w wsgi:app
 
 # python packages (not in environment)
 
-## in environment rcatenv from barthfn
+## as user barthfn
+pip3 install --upgrade pip
 
+pip3 install nltk
+pip3 install wheel
+sudo pip3 install matplotlib
+sudo apt-get install python3-tk
+(=tkinter)
+sudo pip3 install pylatex
+sudo pip3 install wordcloud
+sudo -H pip install treetaggerwrapper
+
+## in environment rcatenv from barthfn
 sudo -H pip install wheel
 sudo -H pip install uwsgi flask
 
-## as user barthfn
-pip3 install --upgrade pip
-pip3 install nltk
-
-pip3 install wheel
-
-python3 flask_test.py 
-
-
 ##as user root (since barthfn had permission errors also with sudo)
 pip3 install --upgrade pip
-pip3 install treetaggerwrapper
 
+### RUN PAGE
+python3 flask_form.py 
+
+Runs so far at:
+http://185.248.140.172:5000
+
+But file upload doesn't work.
 
 
 
