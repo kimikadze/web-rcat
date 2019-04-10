@@ -1,5 +1,11 @@
 # host-unlimited-server
 
+#account dates
+Mail adresse: florianbarth@me.com
+User name: florianbarth
+password: rcatims2019rcatims2019
+
+
 # links
 https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
 
@@ -81,6 +87,7 @@ sudo apt-get install python3-tk
 sudo pip3 install pylatex
 sudo pip3 install wordcloud
 sudo -H pip install treetaggerwrapper
+sudo apt install python-pydot python-pydot-ng graphviz
 
 ## in environment rcatenv from barthfn
 sudo -H pip install wheel
