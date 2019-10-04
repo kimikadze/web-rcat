@@ -354,35 +354,38 @@ class pdf_latex:
 
 
             for index, context_dic in enumerate(dta_holder["single_character_context"]):
-                if len(context_dic["tf_sorted_list"][0:words_in_word_cloud]) == 0:
-                    text_string = "<<empty_word_cloud>>"
-                if len(context_dic["tf_sorted_list"][0:words_in_word_cloud]) > 0:
-                    #print(context_dic)
-                    text_string = str()
-                    # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
-                    for word_freq_tuple in context_dic["tf_sorted_list"][0:words_in_word_cloud]:
 
-                        if word_freq_tuple[1] < 10:
-                            for i in range(word_freq_tuple[1]):
-                                text_string += "%s " % word_freq_tuple[0]
+                if dta_holder["single_character_context"][index]["character_names"] in character_names_with_highest_degree:
 
-                        if word_freq_tuple[1] >= 10:
-                            for i in range(9):
-                                # print(i)
-                                text_string += "%s " % word_freq_tuple[0]
-                                # print(text_string)
+                    if len(context_dic["tf_sorted_list"][0:words_in_word_cloud]) == 0:
+                        text_string = "<<empty_word_cloud>>"
+                    if len(context_dic["tf_sorted_list"][0:words_in_word_cloud]) > 0:
+                        #print(context_dic)
+                        text_string = str()
+                        # for word_freq_tuple in relation["tf_sorted_list"][0:10]:
+                        for word_freq_tuple in context_dic["tf_sorted_list"][0:words_in_word_cloud]:
 
-                word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath,
-                                                     file_name_head=head_of_file_name)
-                #wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
+                            if word_freq_tuple[1] < 10:
+                                for i in range(word_freq_tuple[1]):
+                                    text_string += "%s " % word_freq_tuple[0]
 
-                wordcloud_pic = Figure(position="H")
-                wordcloud_pic.add_image(os.path.join(tpath, "wordcloud_for_single_character%s.png" % index),
-                                        width='240px')  # , placement="center")
+                            if word_freq_tuple[1] >= 10:
+                                for i in range(9):
+                                    # print(i)
+                                    text_string += "%s " % word_freq_tuple[0]
+                                    # print(text_string)
 
-                wordcloud_pic.add_caption('word cloud of "%s"' % (dta_holder["single_character_context"][index]["character_names"]))
+                    word_cloud.generate_wordcloud_simple(text=text_string, ending_number=index, temppath=tpath,
+                                                         file_name_head=head_of_file_name)
+                    #wc = word_cloud.generate_wordcloud_simple(text=str(text_string))
 
-                section.append(wordcloud_pic)
+                    wordcloud_pic = Figure(position="H")
+                    wordcloud_pic.add_image(os.path.join(tpath, "wordcloud_for_single_character%s.png" % index),
+                                            width='240px')  # , placement="center")
+
+                    wordcloud_pic.add_caption('word cloud of "%s"' % (dta_holder["single_character_context"][index]["character_names"]))
+
+                    section.append(wordcloud_pic)
 
             doc.append(section)
 
