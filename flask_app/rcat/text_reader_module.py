@@ -1,7 +1,6 @@
 from nltk import word_tokenize
-#import treetaggerwrapper
-import re
 import treetaggerwrapper
+import re
 import os
 import codecs
 

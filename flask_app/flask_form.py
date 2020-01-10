@@ -1,21 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
-
-# pythonspot.com
-# import sys
-# import time
 import matplotlib
 matplotlib.use('Agg')
 import os
 import uuid
 import zipfile
 import shutil
-
-
-
-# sys.path.append('.')
 from flask import Flask, Blueprint, render_template, redirect, request, flash, url_for, send_file, session
-
 from rcat.rcat_main import rcat
 from nocache import nocache
 
@@ -23,16 +14,12 @@ app = Flask(__name__)
 app.secret_key = 'super secret key'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-###
-
 @app.route("/")
 
 def index():
     #return "hello"
 
     return render_template('rcat.html')
-
-
 
 @app.route("/upload", methods=["POST"])
 def upload():
@@ -47,15 +34,9 @@ def upload():
     if not os.path.isdir(target):
         os.mkdir(target)
 
-
-
     #PROCESS FIRST FILE (TEXT)
 
     if_demo_txt = request.form["if_demo_txt"]
-
-
-    if if_demo_txt == "werther":
-        destination_first_file = "werther.txt"
 
     if if_demo_txt == "own_txt_file":
         first_file = request.files.getlist("file")[0]
@@ -71,9 +52,6 @@ def upload():
     #PROCESS SECOND FILE (CHARACTERS)
 
     if_demo_characters = request.form["if_demo_characters"]
-
-    if if_demo_characters == "werther_characters":
-        destination_second_file = "werther_characters.txt"
 
     if if_demo_characters == "own_character_file":
 
@@ -101,9 +79,7 @@ def upload():
         filename = str("3__" + filename)
         destination_third_file = "".join(([target, filename]))
         third_file.save(destination_third_file)
-        #exception: if a file is uploaded, the path is given instead of the parameter from html
         stopwords_parameter=destination_third_file
-
 
 
     #GET OTHER PARAMETERS
@@ -120,10 +96,6 @@ def upload():
     wf_cat_parameter = 0
 
     # GET WORD FIELD PARAMETER (WERTHER / NONE)
-    if wordfield_parameter=="werther_emotions":
-        destination_fourth_file = "werther_emotions.txt"
-        wf_cat_parameter = destination_fourth_file
-
 
     if wordfield_parameter=="N":
         wf_cat_parameter= "None"
@@ -178,38 +150,6 @@ def upload():
     if_demo_txt = request.form["if_demo_txt"]
     if_demo_characters = request.form["if_demo_characters"]
 
-    # RUN RCAT
-
-    #print(os.path.basename(os.getcwd()))
-    #print("1")
-    #print(os.getcwd())
-
-    ############
-    # if os.getcwd().endswith("/flask_app") == True:
-    #     os.chdir("rcat/")
-    # if os.getcwd().endswith("/rcat") == True:
-    #     pass
-    # else:
-    #     print("multiple session path error")
-    ##############
-
-
-    # if if_demo_txt == "werther.txt" and if_demo_characters == "werther_characters.txt":
-    #     rcat().main_PDF(text_file=destination_first_file,
-    #                     character_file=destination_second_file,
-    #                     dist_parameter=[distance, words_before, words_after],
-    #                     remove_stopwords_in_context=stopwords_parameter,
-    #                     segments=segments_parameter, txt_language=language_parameter,
-    #                     number_of_wc=wordcloud_parameter,
-    #                     write_gephi_csv="n",
-    #                     word_field=wordfield_parameter,
-    #                     wf_cat=wf_cat_parameter,
-    #                     lemmatisation=lemmatisation_parameter,
-    #                     sess_id=session_id,
-    #                     word_cloud_context_selection=wc_context_parameter,
-    #                     words_in_wc=words_in_word_cloud_parameter)  # ,
-    #     # zeta_analysis=zeta_parameter)
-	#
 
     rcat().main_PDF(text_file=destination_first_file,
                     character_file=destination_second_file,
@@ -241,33 +181,17 @@ def upload():
 @app.route("/return-file-pdf/")
 @nocache
 def return_file():
-    #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
-    #print(os.path.basename(os.getcwd()))
-    #print(os.getcwd())
-
     session_id = session['session_id']
     pdf_path = "/".join(([os.getcwd(), "data_user/%s_temp_folder/relations.pdf" %session_id]))
     return send_file(pdf_path)
 
 
-# @app.route("/return-file-zip/")
-# @nocache
-# def return_file():
-#     #return send_file("/Users/Florian/Desktop/Flask/Webservice/rcat_app/relations.pdf")
-#     #print(os.path.basename(os.getcwd()))
-#     #print(os.getcwd())
-#
-#     session_id = session['session_id']
-#     zip_path = os.path.join(APP_ROOT, "data_user/%s_temp_folder_zip/rCat.zip" %session_id)
-#     return send_file(zip_path)
-
 if __name__ == "__main__":
    # app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
 #    sess.init_app(app)
-    #app.debug = True
+    app.debug = True
     #app.run(host='54.37.75.43', debug=True) #HOST FOR SERVER
-    #app.run(host='0.0.0.0',port=50022)
     app.run(host='0.0.0.0')
 
 
